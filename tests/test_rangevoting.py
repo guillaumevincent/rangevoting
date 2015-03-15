@@ -1,6 +1,6 @@
 import unittest
 
-from rangevoting import Vote, RangeVoting
+from domain.rangevoting import Vote, RangeVoting
 
 
 class VoteTestCase(unittest.TestCase):
