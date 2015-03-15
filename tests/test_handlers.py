@@ -1,18 +1,9 @@
 import unittest
 from unittest.mock import Mock
 
+from handlers import RangeVotingHandler
 
-class RangeVotingHandler():
-    def __init__(self, member_repository):
-        self.repository = member_repository
-
-    def handle(self, command):
-        self.repository.save()
-
-
-class RangeVotingRepository():
-    def save(self, rangevoting):
-        pass
+from repository import RangeVotingRepository
 
 
 class RangeVotingHandlerTestCase(unittest.TestCase):
