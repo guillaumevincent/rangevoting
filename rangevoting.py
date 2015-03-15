@@ -3,6 +3,7 @@ import collections
 
 class RangeVoting():
     def __init__(self, question, choices):
+        self.id = None
         self.question = question
         self.choices = choices
         self.votes = []

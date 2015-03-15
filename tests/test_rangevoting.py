@@ -16,16 +16,20 @@ class VoteTestCase(unittest.TestCase):
 
 
 class RangeVotingTestCase(unittest.TestCase):
-    def test_has_choices(self):
-        choices = ['first choice', 'second choice']
-        rangevoting = RangeVoting('', choices)
-        self.assertEqual(choices, rangevoting.choices)
+    def test_has_id(self):
+        rangevoting = RangeVoting('', [])
+        self.assertIsNone(rangevoting.id)
 
     def test_has_a_question(self):
         question = "What am I going to cook tonight?"
         rangevoting = RangeVoting(question, [])
         self.assertEqual(question, rangevoting.question)
-        
+
+    def test_has_choices(self):
+        choices = ['first choice', 'second choice']
+        rangevoting = RangeVoting('', choices)
+        self.assertEqual(choices, rangevoting.choices)
+
     def test_has_votes(self):
         rangevoting = RangeVoting('', [])
         self.assertEqual([], rangevoting.votes)
