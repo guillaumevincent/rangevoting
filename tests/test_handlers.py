@@ -1,25 +1,23 @@
 import unittest
-from unittest.mock import Mock
 
-from handlers import RangeVotingHandler
-
-from repository import RangeVotingRepository
+from handlers import CreateRangeVotingHandler
+from tests.test_commands import CreateRangeVotingCommand
 
 
-class RangeVotingHandlerTestCase(unittest.TestCase):
-    def test_creation(self):
-        member_mock_repository = RangeVotingRepository()
-        rangevoting_handler = RangeVotingHandler(member_mock_repository)
-        self.assertEqual(member_mock_repository, rangevoting_handler.repository)
+class MockRepository():
+    def __init__(self):
+        self.saved_called = False
 
-    def test_handle_calls_save_method_from_repository(self):
-        member_mock_repository = RangeVotingRepository()
-        member_mock_repository.save = Mock()
+    def save(self, aggregate):
+        self.saved_called = True
 
-        rangevoting_handler = RangeVotingHandler(member_mock_repository)
-        rangevoting_handler.handle({})
 
-        self.assertTrue(member_mock_repository.save.called)
+class CreateRangeVotingHandlerTestCase(unittest.TestCase):
+    def test_rangevoting_handler_call_save_method(self):
+        mock_repository = MockRepository()
+        rangevoting_handler = CreateRangeVotingHandler(mock_repository)
+        rangevoting_handler.handle(CreateRangeVotingCommand('Q?', ['a', 'b']))
+        self.assertTrue(mock_repository.saved_called)
 
 
 if __name__ == '__main__':
