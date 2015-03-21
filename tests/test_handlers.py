@@ -18,7 +18,3 @@ class CreateRangeVotingHandlerTestCase(unittest.TestCase):
         rangevoting_handler = CreateRangeVotingHandler(mock_repository)
         rangevoting_handler.handle(CreateRangeVotingCommand('Q?', ['a', 'b']))
         self.assertTrue(mock_repository.saved_called)
-
-
-if __name__ == '__main__':
-    unittest.main()

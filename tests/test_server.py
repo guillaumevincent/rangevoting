@@ -9,7 +9,3 @@ class ServerTestCase(unittest.TestCase):
         serveur.app.config['TESTING'] = True
         self.app = serveur.app.test_client()
         self.assertEqual(200, self.app.get('/').status_code)
-
-
-if __name__ == '__main__':
-    unittest.main()

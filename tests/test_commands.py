@@ -10,7 +10,3 @@ class CreateRangeVotingCommandTestCase(unittest.TestCase):
         create_rangevoting_command = CreateRangeVotingCommand(question, choices)
         self.assertEqual(question, create_rangevoting_command.question)
         self.assertEqual(choices, create_rangevoting_command.choices)
-
-
-if __name__ == '__main__':
-    unittest.main()
