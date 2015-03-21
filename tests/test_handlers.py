@@ -1,7 +1,7 @@
 import unittest
 
 from handlers import CreateRangeVotingHandler
-from tests.test_commands import CreateRangeVotingCommand
+from commands import CreateRangeVotingCommand
 
 
 class MockRepository():
