@@ -3,7 +3,7 @@ class Bus():
         self.handlers = {}
 
     def register(self, command, handler):
-        self.handlers[type(command)] = handler
+        self.handlers[command] = handler
 
     def send(self, command):
         command_type = type(command)
