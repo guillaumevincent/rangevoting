@@ -93,14 +93,14 @@
 <div class="container">
     <div class="row">
         <div id="logo">
-            <img src="img/logo.png" alt="logo"/>
+            <img src="static/img/logo.png" alt="logo"/>
         </div>
     </div>
     <div class="row">
         <form id="vote-form">
             <input type="text" id="question" name="question" data-ng-model="question" placeholder="Quel type de cuisine préférez-vous ?">
             <input type="text" id="choices" name="choices" data-ng-model="choices" placeholder="Chinoise, Italienne, Française...">
-            <input type="button" class="button" value="créer un vote"/>
+            <input id="createVote" type="button" class="button" value="créer un vote"/>
         </form>
     </div>
     <div class="row help center">
@@ -108,6 +108,36 @@
     </div>
 </div>
 <script src="static/js/rangevoting.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var questionInput = $('#question');
+        questionInput.focus();
+        questionInput.select();
 
+        $('#createVote').click(function () {
+            createRangeVoting();
+        });
+
+        function createRangeVoting() {
+            var rangevote = {
+                'question': $("#question").text(),
+                'choices': $('#choices').val()
+            };
+            console.log(rangevote);
+            $.ajax({
+                type: "POST",
+                url: "/rangevotes/",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(rangevote),
+                success: function (data, status) {
+                    console.info('rangevoting created', data, status);
+                },
+                error: function (error) {
+                    console.error('could not create rangevoting ', error);
+                }
+            });
+        }
+    });
+</script>
 </body>
 </html>

@@ -9,8 +9,13 @@ var bower = {
     js: 'bower_components/jquery/dist/jquery.js'
 };
 
-var destination = 'static';
+var destination = '../static';
 var application_name = 'rangevoting';
+
+gulp.task('images', function () {
+    return gulp.src('img/**/*')
+        .pipe(gulp.dest(destination+'/img'));
+});
 
 gulp.task('scripts', function () {
     return gulp.src(bower.js)
@@ -25,7 +30,7 @@ gulp.task('clean', function (callback) {
 });
 
 gulp.task('build', ['clean'], function () {
-    gulp.start('scripts');
+    gulp.start('scripts', 'images');
 });
 
 

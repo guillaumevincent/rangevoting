@@ -1,7 +1,8 @@
+import os
 import sys
 import logging
 
-from flask import Flask
+from flask import Flask, render_template
 
 from bus import Bus
 from repository import MockRepository
@@ -21,12 +22,19 @@ def configure_logging():
 
 class Server():
     def __init__(self, repository):
-        self.app = Flask(__name__)
-
+        root_dir = os.path.dirname(__file__)
+        self.app = Flask(__name__,
+                         static_folder=os.path.join(root_dir, 'client', 'static'),
+                         template_folder=os.path.join(root_dir, 'client'))
+        self.app.add_url_rule('/', view_func=self.index)
         configure_logging()
 
         self.bus = Bus()
         self.bus.register(CreateRangeVotingCommand, CreateRangeVotingHandler(repository))
+
+    @staticmethod
+    def index():
+        return render_template('index.html')
 
 
 if __name__ == '__main__':
