@@ -52,6 +52,12 @@ class RangeVotingTestCase(unittest.TestCase):
         results = rangevoting.get_results(counting)
         self.assertEqual(['a'], results)
 
+    def test_get_results_with_two_winners(self):
+        rangevoting = RangeVoting('', [])
+        counting = {'a': 2, 'b': 1, 'c': 2}
+        results = rangevoting.get_results(counting)
+        self.assertEqual(sorted(['a', 'c']), sorted(results))
+
     def test_get_results_with_equality(self):
         rangevoting = RangeVoting('', [])
         equality = {'a': 1, 'b': 1}
