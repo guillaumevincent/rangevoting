@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head lang="fr">
+    <meta charset="UTF-8">
+    <title>Vote de valeur</title>
+    <style type="text/css">
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            font-family: sans-serif;
+            color: #666666;
+            background-color: #E8E8E8;
+            margin: 0;
+        }
+
+        input {
+            margin: 0 10px 10px;
+            padding: 7px 8px;
+            color: #333;
+            background: #FAFAFA no-repeat right center;
+            border: 1px solid #CCC;
+            border-radius: 3px;
+            outline: medium none;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.075) inset;
+            font-size: 13px;
+            vertical-align: middle;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .button {
+            font-weight: bold;
+            color: #FAFAFA;
+            background-color: #83B348;
+            border: 1px solid #70993E;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+        }
+
+        .row {
+            width: auto;
+        }
+
+        #logo {
+            text-align: center;
+        }
+
+        #logo img {
+            margin-bottom: 10px;
+            width: 300px;
+        }
+
+        #vote-form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+
+        @media screen and (min-width: 780px) {
+            .container {
+                height: 100%;
+                align-items: center;
+                justify-content: center;
+            }
+
+            input {
+                min-width: 240px;
+            }
+
+            #vote-form {
+                flex-direction: row;
+            }
+        }
+
+        .center {
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div id="logo">
+            <img src="img/logo.png" alt="logo"/>
+        </div>
+    </div>
+    <div class="row">
+        <form id="vote-form">
+            <input type="text" id="question" name="question" data-ng-model="question" placeholder="Quel type de cuisine préférez-vous ?">
+            <input type="text" id="choices" name="choices" data-ng-model="choices" placeholder="Chinoise, Italienne, Française...">
+            <input type="button" class="button" value="créer un vote"/>
+        </form>
+    </div>
+    <div class="row help center">
+        <p>vote de valeur vous aide à trouver la réponse qui convient le mieux</p>
+    </div>
+</div>
+</body>
+</html>
