@@ -2,14 +2,7 @@ import unittest
 
 from handlers import CreateRangeVotingHandler
 from commands import CreateRangeVotingCommand
-
-
-class MockRepository():
-    def __init__(self):
-        self.saved_called = False
-
-    def save(self, aggregate):
-        self.saved_called = True
+from repository import MockRepository
 
 
 class HandlersTestCase(unittest.TestCase):
