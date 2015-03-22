@@ -1,0 +1,8 @@
+{
+    "name": "rangevoting",
+    "author": "Guillaume Vincent <gvincent@oslab.fr>",
+    "private": true,
+    "dependencies": {
+        "jquery": "2.1.x"
+    }
+}

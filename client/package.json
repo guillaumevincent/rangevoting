@@ -1,0 +1,12 @@
+{
+    "name": "rangevoting",
+    "author": "Guillaume Vincent <gvincent@oslab.fr>",
+    "private": true,
+    "devDependencies": {
+        "bower": "1.3.x",
+        "gulp": "3.8.x"
+    },
+    "scripts": {
+        "postinstall": "bower install"
+    }
+}
