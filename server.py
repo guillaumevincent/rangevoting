@@ -1,6 +1,7 @@
 from flask import Flask
 
 from bus import Bus
+from repository import MockRepository
 from commands import CreateRangeVotingCommand
 from handlers import CreateRangeVotingHandler
 
@@ -16,3 +17,9 @@ class Server():
     @staticmethod
     def index():
         return "Hello World!"
+
+
+if __name__ == '__main__':
+    repository = MockRepository()
+    server = Server(repository)
+    server.app.run()
