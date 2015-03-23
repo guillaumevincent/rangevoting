@@ -2,7 +2,7 @@ import os
 import sys
 import logging
 
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 
 from bus import Bus
 from repository import MockRepository
@@ -27,6 +27,7 @@ class Server():
                          static_folder=os.path.join(root_dir, 'client', 'static'),
                          template_folder=os.path.join(root_dir, 'client'))
         self.app.add_url_rule('/', view_func=self.index)
+        self.app.add_url_rule('/rangevotes/', view_func=self.handle_rangevotes, methods=['POST'])
         configure_logging()
 
         self.bus = Bus()
@@ -35,6 +36,11 @@ class Server():
     @staticmethod
     def index():
         return render_template('index.html')
+
+    @staticmethod
+    def handle_rangevotes():
+
+        return jsonify({'rangevotes': 0}), 201
 
 
 if __name__ == '__main__':

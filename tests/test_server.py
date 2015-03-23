@@ -16,3 +16,12 @@ class ServerTestCase(unittest.TestCase):
         server = Server(self.repository)
         handler = next(iter(server.bus.handlers.values()))
         self.assertIsNotNone(handler.repository)
+
+    def test_create_command_respond_201_created(self):
+        server = Server(self.repository)
+        server.app.config['TESTING'] = True
+        self.app = server.app.test_client()
+        response = self.app.post('/rangevotes/',
+                                 data={'question': 'question test', 'choices': 'c1, c2, c3'},
+                                 headers={'content-type': 'application/json'})
+        self.assertEqual(201, response.status_code)
