@@ -33,6 +33,5 @@ class BusTestCase(unittest.TestCase):
 
     def test_raise_error_if_no_handlers_availables(self):
         bus = Bus()
-        handler = FakeHandler()
-        with self.assertRaises(Exception) as e:
+        with self.assertRaises(Exception):
             bus.send(object())
