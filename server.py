@@ -6,7 +6,7 @@ from flask import Flask, render_template, jsonify, request
 
 from bus import Bus
 from repository import MockRepository
-from commands import CreateRangeVotingCommand
+from commands import CreateRangeVotingCommand, CreateRangeVotingCommandValidator
 from handlers import CreateRangeVotingHandler
 
 
@@ -38,8 +38,9 @@ class Server():
         return render_template('index.html')
 
     def handle_rangevotes(self):
-        command = CreateRangeVotingCommand(request.json['question'], request.json['choices'])
-        self.bus.send(command)
+        if CreateRangeVotingCommandValidator(request.json).is_valid():
+            command = CreateRangeVotingCommand(request.json['question'], request.json['choices'])
+            self.bus.send(command)
         return jsonify({'rangevotes': 0}), 201
 
 
