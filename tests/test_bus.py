@@ -1,3 +1,4 @@
+import uuid
 import logging
 import unittest
 
@@ -12,6 +13,7 @@ class FakeHandler():
     def handle(self, command):
         self.handle_called = True
         self.command = command
+        return uuid.uuid4().hex
 
 
 class RaiseExceptionHandler():
@@ -43,18 +45,18 @@ class BusTestCase(unittest.TestCase):
         bus.register(object, handler)
         command = object()
 
-        bus.send(command)
-
+        result = bus.send(command)
+        self.assertIsNotNone(result.id)
         self.assertTrue(handler.handle_called)
         self.assertEqual(command, handler.command)
 
-    def test_send_method_return_status_object(self):
+    def test_handler_raise_exception_in_send_method(self):
         bus = Bus()
         bus.register(object, RaiseExceptionHandler())
         command = object()
 
-        status = bus.send(command)
-        self.assertEqual(400, status.code)
+        result = bus.send(command)
+        self.assertFalse(result.ok)
 
     def test_raise_error_if_no_handlers_availables(self):
         bus = Bus()

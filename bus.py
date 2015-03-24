@@ -3,9 +3,19 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class Status():
-    def __init__(self, status_code):
-        self.code = status_code
+class Result():
+    def __init__(self, id=None):
+        self.id = id
+        self.ok = True
+
+    def ok(self):
+        return self.ok
+
+
+class BadResult(Result):
+    def __init__(self):
+        super().__init__()
+        self.ok = False
 
 
 class Bus():
@@ -19,8 +29,10 @@ class Bus():
         command_type = type(command)
         if command_type not in self.handlers:
             raise (Exception('No handler for command ' + str(command_type) + ' found'))
+
         try:
-            self.handlers[command_type].handle(command)
+            id = self.handlers[command_type].handle(command)
+            return Result(id)
         except Exception as e:
             logger.exception(e)
-            return Status(400)
+            return BadResult()
