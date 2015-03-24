@@ -18,7 +18,9 @@ class BusTestCase(unittest.TestCase):
         bus = Bus()
         command = object
         handler = object()
+
         bus.register(command, handler)
+
         self.assertTrue(command in bus.handlers)
         self.assertEqual(handler, bus.handlers[command])
 
@@ -27,7 +29,9 @@ class BusTestCase(unittest.TestCase):
         handler = FakeHandler()
         bus.register(object, handler)
         command = object()
+
         bus.send(command)
+
         self.assertTrue(handler.handle_called)
         self.assertEqual(command, handler.command)
 
