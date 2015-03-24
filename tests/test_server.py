@@ -1,7 +1,16 @@
+import json
 import unittest
 
 from repository import MockRepository
 from server import Server
+
+
+class SpyBus():
+    def __init__(self):
+        self.last_command = None
+
+    def send(self, command):
+        self.last_command = command
 
 
 class ServerTestCase(unittest.TestCase):
@@ -22,6 +31,18 @@ class ServerTestCase(unittest.TestCase):
         server.app.config['TESTING'] = True
         self.app = server.app.test_client()
         response = self.app.post('/rangevotes/',
-                                 data={'question': 'question test', 'choices': 'c1, c2, c3'},
-                                 headers={'content-type': 'application/json'})
+                                 data=json.dumps({'question': 'test question ?', 'choices': ['c1', 'c2', 'c3']}),
+                                 content_type='application/json')
         self.assertEqual(201, response.status_code)
+
+    def test_command_is_properly_created(self):
+        server = Server(self.repository)
+        server.app.config['TESTING'] = True
+        self.app = server.app.test_client()
+        server.bus = SpyBus()
+        self.app.post('/rangevotes/',
+                      data=json.dumps({'question': 'test question ?', 'choices': ['c1', 'c2', 'c3']}),
+                      content_type='application/json')
+
+        self.assertEqual('test question ?', server.bus.last_command.question)
+        self.assertEqual(['c1', 'c2', 'c3'], server.bus.last_command.choices)

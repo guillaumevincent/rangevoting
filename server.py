@@ -2,7 +2,7 @@ import os
 import sys
 import logging
 
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request
 
 from bus import Bus
 from repository import MockRepository
@@ -37,9 +37,9 @@ class Server():
     def index():
         return render_template('index.html')
 
-    @staticmethod
-    def handle_rangevotes():
-
+    def handle_rangevotes(self):
+        command = CreateRangeVotingCommand(request.json['question'], request.json['choices'])
+        self.bus.send(command)
         return jsonify({'rangevotes': 0}), 201
 
 
