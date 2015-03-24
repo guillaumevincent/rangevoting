@@ -1,3 +1,4 @@
+import logging
 import unittest
 
 from bus import Bus
@@ -13,7 +14,19 @@ class FakeHandler():
         self.command = command
 
 
+class RaiseExceptionHandler():
+    def __init__(self):
+        pass
+
+    def handle(self, command):
+        raise Exception
+
+
 class BusTestCase(unittest.TestCase):
+    def setUp(self):
+        root = logging.getLogger()
+        root.setLevel(logging.CRITICAL)
+
     def test_bus_can_register_handler(self):
         bus = Bus()
         command = object
@@ -34,6 +47,14 @@ class BusTestCase(unittest.TestCase):
 
         self.assertTrue(handler.handle_called)
         self.assertEqual(command, handler.command)
+
+    def test_send_method_return_status_object(self):
+        bus = Bus()
+        bus.register(object, RaiseExceptionHandler())
+        command = object()
+
+        status = bus.send(command)
+        self.assertEqual(400, status.code)
 
     def test_raise_error_if_no_handlers_availables(self):
         bus = Bus()
