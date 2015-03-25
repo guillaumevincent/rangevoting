@@ -1,7 +1,7 @@
 import collections
 
 
-class RangeVoting():
+class RangeVote():
     def __init__(self, uid, question, choices):
         self.uid = uid
         self.question = question

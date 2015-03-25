@@ -1,6 +1,6 @@
 import unittest
 
-from commands import CreateRangeVotingCommand, CreateRangeVotingCommandValidator
+from commands import CreateRangeVoteCommand, CreateRangeVoteCommandValidator
 
 
 class SpyValidator():
@@ -12,23 +12,23 @@ class SpyValidator():
 
 
 class CommandsTestCase(unittest.TestCase):
-    def test_create_rangevoting_command(self):
+    def test_create_rangevote_command(self):
         uid = 1
         question = 'Question ?'
         choices = ['a', 'b']
 
-        create_rangevoting_command = CreateRangeVotingCommand(uid, question, choices)
+        create_rangevote_command = CreateRangeVoteCommand(uid, question, choices)
 
-        self.assertEqual(uid, create_rangevoting_command.uuid)
-        self.assertEqual(question, create_rangevoting_command.question)
-        self.assertEqual(choices, create_rangevoting_command.choices)
+        self.assertEqual(uid, create_rangevote_command.uuid)
+        self.assertEqual(question, create_rangevote_command.question)
+        self.assertEqual(choices, create_rangevote_command.choices)
 
-    def test_rangevoting_validator(self):
-        command_validator = CreateRangeVotingCommandValidator({'question': 'Question', 'choices': ['c1', 'c2']})
+    def test_rangevote_validator(self):
+        command_validator = CreateRangeVoteCommandValidator({'question': 'Question', 'choices': ['c1', 'c2']})
         self.assertTrue(command_validator.is_valid())
 
-        command_validator = CreateRangeVotingCommandValidator({})
+        command_validator = CreateRangeVoteCommandValidator({})
         self.assertFalse(command_validator.is_valid())
 
-        command_validator = CreateRangeVotingCommandValidator({'question': 'Question', 'choices': ['c1']})
+        command_validator = CreateRangeVoteCommandValidator({'question': 'Question', 'choices': ['c1']})
         self.assertFalse(command_validator.is_valid())

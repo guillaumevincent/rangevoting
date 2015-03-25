@@ -113,10 +113,10 @@
         questionInput.select();
 
         $('#createVote').click(function () {
-            createRangeVoting();
+            createRangeVote();
         });
 
-        function createRangeVoting() {
+        function createRangeVote() {
             var rangevote = {
                 'question': $("#question").text(),
                 'choices': $('#choices').val()
@@ -128,10 +128,10 @@
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(rangevote),
                 success: function (data, status) {
-                    console.info('rangevoting created', data, status);
+                    console.info('rangevote created', data, status);
                 },
                 error: function (error) {
-                    console.error('could not create rangevoting ', error);
+                    console.error('could not create rangevote', error);
                 }
             });
         }

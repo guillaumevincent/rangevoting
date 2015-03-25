@@ -7,8 +7,8 @@ from flask import Flask, render_template, jsonify, request
 
 from bus import Bus
 from repository import MockRepository
-from commands import CreateRangeVotingCommand, CreateRangeVotingCommandValidator
-from handlers import CreateRangeVotingHandler
+from commands import CreateRangeVoteCommand, CreateRangeVoteCommandValidator
+from handlers import CreateRangeVoteHandler
 
 
 def configure_logging():
@@ -32,20 +32,20 @@ class Server():
         configure_logging()
 
         self.bus = Bus()
-        self.bus.register(CreateRangeVotingCommand, CreateRangeVotingHandler(repository))
+        self.bus.register(CreateRangeVoteCommand, CreateRangeVoteHandler(repository))
 
     @staticmethod
     def index():
         return render_template('index.html')
 
     def handle_rangevotes(self):
-        if CreateRangeVotingCommandValidator(request.json).is_valid():
-            command = CreateRangeVotingCommand(uuid.uuid4(), request.json['question'], request.json['choices'])
+        if CreateRangeVoteCommandValidator(request.json).is_valid():
+            command = CreateRangeVoteCommand(uuid.uuid4(), request.json['question'], request.json['choices'])
             result = self.bus.send(command)
 
             if result.ok:
-                rangevoting_id = str(command.uuid)
-                return jsonify({'rangevotes': rangevoting_id}), 201, {'Location': '/rangevotes/{0}'.format(rangevoting_id)}
+                rangevote_id = str(command.uuid)
+                return jsonify({'rangevotes': rangevote_id}), 201, {'Location': '/rangevotes/{0}'.format(rangevote_id)}
 
         return jsonify(), 400
 

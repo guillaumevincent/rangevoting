@@ -1,10 +1,10 @@
-from rangevoting import RangeVoting
+from rangevoting import RangeVote
 
 
-class CreateRangeVotingHandler():
-    def __init__(self, rangevoting_repository):
-        self.repository = rangevoting_repository
+class CreateRangeVoteHandler():
+    def __init__(self, rangevote_repository):
+        self.repository = rangevote_repository
 
     def handle(self, command):
-        rangevoting = RangeVoting(command.uuid, command.question, command.choices)
-        self.repository.save(rangevoting)
+        rangevote = RangeVote(command.uuid, command.question, command.choices)
+        self.repository.save(rangevote)

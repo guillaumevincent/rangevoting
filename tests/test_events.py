@@ -1,14 +1,14 @@
 import unittest
 
-from events import RangeVotingCreated
+from events import RangeVoteCreated
 
 
 class EventsTestCase(unittest.TestCase):
-    def test_rangevoting_created_event(self):
+    def test_rangevote_created_event(self):
         question = 'Question ?'
         choices = ['a', 'b']
 
-        rangevoting_created_event = RangeVotingCreated(question, choices)
+        rangevote_created_event = RangeVoteCreated(question, choices)
 
-        self.assertEqual(question, rangevoting_created_event.question)
-        self.assertEqual(choices, rangevoting_created_event.choices)
+        self.assertEqual(question, rangevote_created_event.question)
+        self.assertEqual(choices, rangevote_created_event.choices)

@@ -57,7 +57,7 @@ class ServerTestCase(unittest.TestCase):
         self.assertEqual('test question ?', self.server.bus.last_command.question)
         self.assertEqual(['c1', 'c2', 'c3'], self.server.bus.last_command.choices)
 
-    def test_return_uuid_of_rangevoting(self):
+    def test_return_uuid_of_rangevote(self):
         self.server.bus = SpyBus()
 
         response = self.app.post('/rangevotes/',

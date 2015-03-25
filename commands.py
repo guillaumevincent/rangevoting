@@ -1,11 +1,11 @@
-class CreateRangeVotingCommand():
+class CreateRangeVoteCommand():
     def __init__(self, uuid, question, choices):
         self.uuid = uuid
         self.question = question
         self.choices = choices
 
 
-class CreateRangeVotingCommandValidator():
+class CreateRangeVoteCommandValidator():
     def __init__(self, data):
         self.data = data
 
