@@ -31,8 +31,8 @@ class Bus():
             raise (Exception('No handler for command ' + str(command_type) + ' found'))
 
         try:
-            uid = self.handlers[command_type].handle(command)
-            return Result(uid)
+            self.handlers[command_type].handle(command)
+            return Result(command.uuid)
         except Exception as e:
             logger.exception(e)
             return BadResult()

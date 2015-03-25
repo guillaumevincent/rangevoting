@@ -10,6 +10,6 @@ class HandlersTestCase(unittest.TestCase):
         mock_repository = MockRepository()
         rangevoting_handler = CreateRangeVotingHandler(mock_repository)
 
-        rangevoting_handler.handle(CreateRangeVotingCommand('Q?', ['a', 'b']))
+        rangevoting_handler.handle(CreateRangeVotingCommand(1, 'Q?', ['a', 'b']))
 
         self.assertTrue(mock_repository.saved_called)

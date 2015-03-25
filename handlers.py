@@ -6,5 +6,5 @@ class CreateRangeVotingHandler():
         self.repository = rangevoting_repository
 
     def handle(self, command):
-        rangevoting = RangeVoting(command.question, command.choices)
+        rangevoting = RangeVoting(command.uuid, command.question, command.choices)
         self.repository.save(rangevoting)

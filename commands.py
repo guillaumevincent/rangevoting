@@ -1,5 +1,6 @@
 class CreateRangeVotingCommand():
-    def __init__(self, question, choices):
+    def __init__(self, uuid, question, choices):
+        self.uuid = uuid
         self.question = question
         self.choices = choices
 

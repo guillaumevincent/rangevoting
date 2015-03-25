@@ -1,6 +1,7 @@
 import os
 import sys
 import logging
+import uuid
 
 from flask import Flask, render_template, jsonify, request
 
@@ -39,7 +40,7 @@ class Server():
 
     def handle_rangevotes(self):
         if CreateRangeVotingCommandValidator(request.json).is_valid():
-            command = CreateRangeVotingCommand(request.json['question'], request.json['choices'])
+            command = CreateRangeVotingCommand(uuid.uuid4(), request.json['question'], request.json['choices'])
             self.bus.send(command)
         return jsonify({'rangevotes': 0}), 201
 
