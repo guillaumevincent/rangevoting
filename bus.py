@@ -4,8 +4,8 @@ logger = logging.getLogger(__name__)
 
 
 class Result():
-    def __init__(self, id=None):
-        self.id = id
+    def __init__(self, uid=None):
+        self.id = uid
         self.ok = True
 
     def ok(self):
@@ -31,8 +31,8 @@ class Bus():
             raise (Exception('No handler for command ' + str(command_type) + ' found'))
 
         try:
-            id = self.handlers[command_type].handle(command)
-            return Result(id)
+            uid = self.handlers[command_type].handle(command)
+            return Result(uid)
         except Exception as e:
             logger.exception(e)
             return BadResult()
