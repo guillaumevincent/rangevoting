@@ -41,8 +41,13 @@ class Server():
     def handle_rangevotes(self):
         if CreateRangeVotingCommandValidator(request.json).is_valid():
             command = CreateRangeVotingCommand(uuid.uuid4(), request.json['question'], request.json['choices'])
-            self.bus.send(command)
-        return jsonify({'rangevotes': 0}), 201
+            result = self.bus.send(command)
+
+            if result.ok:
+                rangevoting_id = str(command.uuid)
+                return jsonify({'rangevotes': rangevoting_id}), 201, {'Location': '/rangevotes/{0}'.format(rangevoting_id)}
+
+        return jsonify(), 400
 
 
 if __name__ == '__main__':

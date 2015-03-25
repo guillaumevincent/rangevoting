@@ -4,8 +4,7 @@ logger = logging.getLogger(__name__)
 
 
 class Result():
-    def __init__(self, uid=None):
-        self.id = uid
+    def __init__(self):
         self.ok = True
 
     def ok(self):
@@ -32,7 +31,7 @@ class Bus():
 
         try:
             self.handlers[command_type].handle(command)
-            return Result(command.uuid)
+            return Result()
         except Exception as e:
             logger.exception(e)
             return BadResult()

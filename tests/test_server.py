@@ -1,8 +1,11 @@
+import uuid
 import json
 import unittest
 
-from repository import MockRepository
+from bus import Result
+
 from server import Server
+from repository import MockRepository
 
 
 class SpyBus():
@@ -11,6 +14,7 @@ class SpyBus():
 
     def send(self, command):
         self.last_command = command
+        return Result()
 
 
 class ServerTestCase(unittest.TestCase):
@@ -28,12 +32,19 @@ class ServerTestCase(unittest.TestCase):
 
         self.assertIsNotNone(handler.repository)
 
-    def test_create_command_respond_201_created(self):
+    def test_create_rangevotes_respond_201_created(self):
         response = self.app.post('/rangevotes/',
                                  data=json.dumps({'question': 'test question ?', 'choices': ['c1', 'c2', 'c3']}),
                                  content_type='application/json')
 
         self.assertEqual(201, response.status_code)
+
+    def test_create_bad_rangevotes_respond_400_bad_request(self):
+        response = self.app.post('/rangevotes/',
+                                 data=json.dumps({'question': '', 'choices': []}),
+                                 content_type='application/json')
+
+        self.assertEqual(400, response.status_code)
 
     def test_command_is_properly_created(self):
         self.server.bus = SpyBus()
@@ -42,5 +53,16 @@ class ServerTestCase(unittest.TestCase):
                       data=json.dumps({'question': 'test question ?', 'choices': ['c1', 'c2', 'c3']}),
                       content_type='application/json')
 
+        self.assertEqual(type(uuid.uuid4()), type(self.server.bus.last_command.uuid))
         self.assertEqual('test question ?', self.server.bus.last_command.question)
         self.assertEqual(['c1', 'c2', 'c3'], self.server.bus.last_command.choices)
+
+    def test_return_uuid_of_rangevoting(self):
+        self.server.bus = SpyBus()
+
+        response = self.app.post('/rangevotes/',
+                                 data=json.dumps({'question': 'test question ?', 'choices': ['c1', 'c2', 'c3']}),
+                                 content_type='application/json')
+        location = '/rangevotes/' + str(self.server.bus.last_command.uuid)
+
+        self.assertTrue(location in response.headers['Location'])
