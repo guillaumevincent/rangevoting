@@ -118,8 +118,8 @@
 
         function createRangeVote() {
             var rangevote = {
-                'question': $("#question").text(),
-                'choices': $('#choices').val()
+                'question': $("#question").val(),
+                'choices': $.map($('#choices').val().split(","), $.trim)
             };
             console.log(rangevote);
             $.ajax({
