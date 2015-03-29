@@ -1,2 +1,4 @@
 flask==0.10.1
+pymongo==2.8
+smartconfigparser==0.0.4
 mongomock==2.0.0

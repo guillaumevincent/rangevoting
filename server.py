@@ -4,11 +4,16 @@ import logging
 import uuid
 
 from flask import Flask, render_template, jsonify, request
+from pymongo import MongoClient
+from smartconfigparser import Config
 
 from bus import Bus
-from repository import MockRepository
+from repository import MongoRepository
 from handlers import CreateRangeVoteHandler
 from commands import CreateRangeVoteCommand, CreateRangeVoteCommandValidator
+
+
+logger = logging.getLogger(__name__)
 
 
 def configure_logging():
@@ -50,7 +55,20 @@ class Server():
         return jsonify(), 400
 
 
+def get_mongo_repository():
+    config = Config()
+    config.read('config.ini')
+    host = config.get('DATABASE', 'host', 'localhost')
+    port = config.getint('DATABASE', 'port', 27017)
+    try:
+        db = MongoClient(host, port)['rangevoting']
+        return MongoRepository(db)
+    except Exception as e:
+        logger.exception('mongo db is not started on mongodb://{0}:{1}/'.format(host, port))
+        sys.exit()
+
+
 if __name__ == '__main__':
-    repository = MockRepository()
+    repository = get_mongo_repository()
     server = Server(repository)
     server.app.run()
