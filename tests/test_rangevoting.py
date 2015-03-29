@@ -93,5 +93,5 @@ class RangeVoteTestCase(unittest.TestCase):
     def test_has_to_json_method(self):
         id = uuid.uuid4()
         rangevote = RangeVote(id, 'Q?', ['a', 'b'])
-        expected_json = {'id': str(id), 'question': rangevote.question, 'choices': ['a', 'b']}
+        expected_json = {'id': str(id), 'question': rangevote.question, 'choices': ['a', 'b'], 'votes': []}
         self.assertEqual(expected_json, rangevote.serialize())

@@ -29,7 +29,7 @@ class RangeVote():
         return c
 
     def serialize(self):
-        return {'id': str(self.uuid), 'question': self.question, 'choices': self.choices}
+        return {'id': str(self.uuid), 'question': self.question, 'choices': self.choices, 'votes': self.votes}
 
 
 class Vote():
