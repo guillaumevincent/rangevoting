@@ -7,8 +7,8 @@ from flask import Flask, render_template, jsonify, request
 
 from bus import Bus
 from repository import MockRepository
-from commands import CreateRangeVoteCommand, CreateRangeVoteCommandValidator
 from handlers import CreateRangeVoteHandler
+from commands import CreateRangeVoteCommand, CreateRangeVoteCommandValidator
 
 
 def configure_logging():

@@ -1,4 +1,5 @@
 import unittest
+import uuid
 
 from rangevoting import Vote, RangeVote
 
@@ -23,7 +24,7 @@ class RangeVoteTestCase(unittest.TestCase):
     def test_has_id(self):
         rangevote = RangeVote(1, '', [])
 
-        self.assertEqual(1, rangevote.uid)
+        self.assertEqual(1, rangevote.uuid)
 
     def test_has_a_question(self):
         question = "What am I going to cook tonight?"
@@ -88,3 +89,9 @@ class RangeVoteTestCase(unittest.TestCase):
         counting = rangevote.counting([{'a': 0, 'b': 1, 'c': -1}, {'a': 1, 'b': 0, 'c': 2}])
 
         self.assertEqual({'a': 1, 'b': 1, 'c': 1}, counting)
+
+    def test_has_to_json_method(self):
+        id = uuid.uuid4()
+        rangevote = RangeVote(id, 'Q?', ['a', 'b'])
+        expected_json = {'id': str(id), 'question': rangevote.question, 'choices': ['a', 'b']}
+        self.assertEqual(expected_json, rangevote.serialize())

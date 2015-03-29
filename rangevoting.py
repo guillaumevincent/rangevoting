@@ -2,8 +2,8 @@ import collections
 
 
 class RangeVote():
-    def __init__(self, uid, question, choices):
-        self.uid = uid
+    def __init__(self, uuid, question, choices):
+        self.uuid = uuid
         self.question = question
         self.choices = choices
         self.votes = []
@@ -27,6 +27,9 @@ class RangeVote():
         for vote in votes:
             c.update(vote)
         return c
+
+    def serialize(self):
+        return {'id': str(self.uuid), 'question': self.question, 'choices': self.choices}
 
 
 class Vote():
