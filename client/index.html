@@ -35,10 +35,10 @@
         }
 
         .button {
-            font-weight: bold;
+            text-transform: uppercase;
             color: #FAFAFA;
             background-color: #83B348;
-            border: 1px solid #70993E;
+            border: 1px solid #ADD978;
         }
 
         .container {
@@ -85,6 +85,15 @@
             text-align: center;
         }
 
+        .error-block {
+            display: none;
+            color: #ff4040;
+        }
+
+        .input-error {
+            border: 1px solid #ff4040;
+            color: #ff4040;
+        }
     </style>
 </head>
 <body>
@@ -101,9 +110,10 @@
             <input id="createVote" type="button" class="button" value="créer un vote"/>
         </form>
     </div>
-    <div class="row help center">
-        <p>trouver la réponse qui convient le mieux à tout le monde</p>
+    <div class="row slogan center">
+        <p>trouver la réponse qui convient le mieux</p>
     </div>
+    <div class="row error-block center"></div>
 </div>
 <script src="static/js/rangevoting.min.js"></script>
 <script type="text/javascript">
@@ -112,26 +122,59 @@
         questionInput.focus();
         questionInput.select();
 
-        $('#createVote').click(function () {
-            createRangeVote();
-        });
+        function rangeVoteIsValid(rangevote) {
+            var isValid = true;
+            var errors = [];
 
-        function createRangeVote() {
+            var question = $("#question");
+            question.removeClass('input-error');
+            if (!rangevote.question) {
+                question.addClass('input-error');
+                errors.push('poser une question');
+                isValid = false;
+            }
+
+            var choices = $("#choices");
+            choices.removeClass('input-error');
+            if (rangevote.choices.length < 2) {
+                choices.addClass('input-error');
+                errors.push('rajoutez des choix séparés par une virgule');
+                isValid = false;
+            }
+
+            if (!isValid) {
+                var errorBlock = $(".error-block");
+                errorBlock.empty();
+                errorBlock.append('<p>' + errors.join(" et ") + '</p>');
+                errorBlock.show();
+                $(".slogan").hide();
+                return false;
+            }
+            return true;
+        }
+
+        $('#createVote').click(function () {
             var rangevote = {
                 'question': $("#question").val(),
                 'choices': $.map($('#choices').val().split(","), $.trim)
             };
-            console.log(rangevote);
+            if (rangeVoteIsValid(rangevote)) {
+                createRangeVote(rangevote);
+            }
+        });
+
+
+        function createRangeVote(rangevote) {
             $.ajax({
                 type: "POST",
                 url: "/rangevotes/",
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(rangevote),
                 success: function (data, status) {
-                    console.info('rangevote created', data, status);
+                    window.location.href = '/rangevotes/' + data.id + '/admin/'
                 },
                 error: function (error) {
-                    console.error('could not create rangevote', error);
+                    alert("Le serveur n'est pas disponible pour le moment, veuillez retentez plus tard")
                 }
             });
         }

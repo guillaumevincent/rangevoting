@@ -50,7 +50,7 @@ class Server():
 
             if result.ok:
                 rangevote_id = str(command.uuid)
-                return jsonify({'rangevotes': rangevote_id}), 201, {'Location': '/rangevotes/{0}'.format(rangevote_id)}
+                return jsonify({'id': rangevote_id}), 201, {'Location': '/rangevotes/{0}'.format(rangevote_id)}
 
         return jsonify(), 400
 
