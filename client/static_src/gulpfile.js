@@ -6,7 +6,10 @@ var del = require('del');
 var concat = require('gulp-concat');
 
 var bower = {
-    js: 'bower_components/jquery/dist/jquery.js'
+    js: [
+        'bower_components/jquery/dist/jquery.js',
+        'bower_components/html5sortable/jquery.sortable.js'
+    ]
 };
 
 var destination = '../static';
@@ -14,7 +17,7 @@ var application_name = 'rangevoting';
 
 gulp.task('images', function () {
     return gulp.src('img/**/*')
-        .pipe(gulp.dest(destination+'/img'));
+        .pipe(gulp.dest(destination + '/img'));
 });
 
 gulp.task('scripts', function () {

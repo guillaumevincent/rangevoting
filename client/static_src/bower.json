@@ -3,6 +3,7 @@
     "author": "Guillaume Vincent <gvincent@oslab.fr>",
     "private": true,
     "dependencies": {
-        "jquery": "2.1.x"
+        "jquery": "2.1.x",
+        "html5sortable": "0.0.1"
     }
 }
