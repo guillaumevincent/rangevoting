@@ -1,0 +1,143 @@
+* {
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    color: #666666;
+    background-color: #E8E8E8;
+    font-size: 100%;
+    font-family: sans-serif;
+    font-weight: 300;
+    margin: 0;
+}
+
+[contenteditable]:focus {
+    outline: 0 solid transparent;
+}
+
+.hide {
+    display: none;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* ERROR */
+
+.error-block {
+    color: #ff4040;
+}
+
+.input-error {
+    border: 1px solid #ff4040;
+    color: #ff4040;
+}
+
+/* INDEX */
+
+#logo {
+    text-align: center;
+}
+
+#logo img {
+    width: 300px;
+}
+
+#vote-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+#vote-form input {
+    margin: 0 10px 10px;
+    padding: 7px 8px;
+    border-radius: 3px;
+    outline: medium none;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.075) inset;
+    font-size: 13px;
+    vertical-align: middle;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+
+
+@media screen and (min-width: 780px) {
+
+    #vote-form input {
+        min-width: 240px;
+    }
+
+    #vote-form {
+        flex-direction: row;
+    }
+}
+
+/* ADMIN */
+.question {
+    font-size: 1.4em;
+    color: #83B348;
+}
+
+.choices {
+    list-style: none;
+    padding: 0;
+
+}
+
+.choices .choice {
+    margin: .5em 0;
+    display: block;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.78);
+    color: #fefefe;
+    border-radius: 0.15em;
+    transition: background .3s ease;
+    padding: .75em 3em .75em .75em;
+    position: relative;
+}
+
+.choices .choice input {
+    border: none;
+    outline: none;
+    background-color: inherit;
+    color: inherit;
+    font-size: inherit;
+    width: 100%;
+}
+
+.choices .choice img {
+    height: 24px;
+    width: 24px;
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    margin-top: -12px;
+    display: inline-block;
+}
+
+.choices .choice:hover {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.choices .sortable-placeholder, .choices .new-choice {
+    border: 1px dashed #CCC;
+    background: none !important;
+    color: rgba(0, 0, 0, 0.78) !important;
+    height: 46px;
+}

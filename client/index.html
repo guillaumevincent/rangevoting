@@ -3,98 +3,7 @@
 <head lang="fr">
     <meta charset="UTF-8">
     <title>Vote de valeur</title>
-    <style type="text/css">
-        * {
-            box-sizing: border-box;
-        }
-
-        html, body {
-            height: 100%;
-        }
-
-        body {
-            font-family: sans-serif;
-            color: #666666;
-            background-color: #E8E8E8;
-            margin: 0;
-        }
-
-        input {
-            margin: 0 10px 10px;
-            padding: 7px 8px;
-            color: #333;
-            background: #FAFAFA no-repeat right center;
-            border: 1px solid #CCC;
-            border-radius: 3px;
-            outline: medium none;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.075) inset;
-            font-size: 13px;
-            vertical-align: middle;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-
-        .button {
-            text-transform: uppercase;
-            color: #FAFAFA;
-            background-color: #83B348;
-            border: 1px solid #ADD978;
-        }
-
-        .container {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .row {
-            width: auto;
-        }
-
-        #logo {
-            text-align: center;
-        }
-
-        #logo img {
-            width: 300px;
-        }
-
-        #vote-form {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            text-align: center;
-        }
-
-        @media screen and (min-width: 780px) {
-            .container {
-                height: 100%;
-                align-items: center;
-                justify-content: center;
-            }
-
-            input {
-                min-width: 240px;
-            }
-
-            #vote-form {
-                flex-direction: row;
-            }
-        }
-
-        .center {
-            text-align: center;
-        }
-
-        .error-block {
-            display: none;
-            color: #ff4040;
-        }
-
-        .input-error {
-            border: 1px solid #ff4040;
-            color: #ff4040;
-        }
-    </style>
+    <link rel="stylesheet" href="static/css/rangevoting.min.css"/>
 </head>
 <body>
 <div class="container">
@@ -105,15 +14,15 @@
     </div>
     <div class="row">
         <form id="vote-form">
-            <input type="text" id="question" name="question" data-ng-model="question" placeholder="Quel type de cuisine préférez-vous ?">
-            <input type="text" id="choices" name="choices" data-ng-model="choices" placeholder="Chinoise, Italienne, Française...">
-            <input id="createVote" type="button" class="button" value="créer un vote"/>
+            <input type="text" id="question" class="input-white" name="question" placeholder="Quel type de cuisine préférez-vous ?">
+            <input type="text" id="choices" class="input-white" name="choices" placeholder="Chinoise, Italienne, Française...">
+            <input id="createVote" type="button" class="btn btn-green" value="créer un vote"/>
         </form>
     </div>
-    <div class="row slogan center">
+    <div class="row slogan text-center">
         <p>trouver la réponse qui convient le mieux</p>
     </div>
-    <div class="row error-block center"></div>
+    <div class="row error-block hide text-center"></div>
 </div>
 <script src="static/js/rangevoting.min.js"></script>
 <script type="text/javascript">

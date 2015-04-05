@@ -4,6 +4,6 @@
     "private": true,
     "dependencies": {
         "jquery": "2.1.x",
-        "html5sortable": "0.0.1"
+        "html5sortable": "latest"
     }
 }
