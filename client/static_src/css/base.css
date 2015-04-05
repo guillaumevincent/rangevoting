@@ -42,8 +42,8 @@ body {
 }
 
 .input-error {
-    border: 1px solid #ff4040;
-    color: #ff4040;
+    border: 1px solid #ff4040 !important;
+    color: #ff4040 !important;
 }
 
 /* INDEX */
@@ -53,18 +53,12 @@ body {
 }
 
 #logo img {
-    width: 300px;
-}
-
-#vote-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
+    width: 100%;
+    max-width: 300px;
 }
 
 #vote-form input {
-    margin: 0 10px 10px;
+    margin: 5px 0;
     padding: 7px 8px;
     border-radius: 3px;
     outline: medium none;
@@ -73,19 +67,18 @@ body {
     vertical-align: middle;
     cursor: pointer;
     white-space: nowrap;
+    width: 100%;
 }
 
-
-
-@media screen and (min-width: 780px) {
+@media screen and (min-width: 768px) {
+    #vote-form {
+        text-align: center;
+    }
 
     #vote-form input {
-        min-width: 240px;
+        max-width: 240px;
     }
 
-    #vote-form {
-        flex-direction: row;
-    }
 }
 
 /* ADMIN */
