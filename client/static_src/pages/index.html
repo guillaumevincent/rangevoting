@@ -5,18 +5,20 @@
         </div>
     </div>
     <div class="row">
-        <form id="voteForm" name="voteForm" ng-submit="createRangevote(rangevote)" novalidate>
-            <input type="text" id="question" class="input-white" name="question" ng-model="rangevote.question"
-                   placeholder="Quel type de cuisine préférez-vous ?" required>
-            <input type="text" id="choices" class="input-white" name="choices" ng-model="rangevote.choices"
-                   placeholder="Chinoise, Italienne, Française..." required>
-            <input id="createVote" type="button" class="btn btn-green" value="créer un vote"/>
+        <form id="voteForm" name="voteForm" ng-submit="createRangevote(form)" novalidate>
+            <input type="text" class="input-white" name="question" ng-model="form.question"
+                   placeholder="Quel type de cuisine préférez-vous ?" required ng-class="{ 'input-error': voteForm.$submitted && voteForm.question.$invalid}">
+            <input type="text" id="choices" class="input-white" name="choices" ng-model="form.choices"
+                   placeholder="Chinoise, Italienne, Française..." haschoices ng-class="{ 'input-error': voteForm.$submitted && voteForm.choices.$invalid}">
+            <input id="createVote" type="submit" class="btn btn-green" value="créer un vote"/>
         </form>
     </div>
-    <div class="row slogan text-center">
+    <div class="row text-center">
         <p>trouver la réponse qui convient le mieux</p>
     </div>
-    <div class="row error-block text-center" ng-show="voteForm.$invalid">
-        rajoutez des choix séparés par une virgule
+    <div class="row text-center" ng-show="voteForm.$submitted || voteForm.question.$touched || voteForm.choices.$touched">
+        <div class="error-block" ng-show="voteForm.question.$invalid || voteForm.choices.$invalid">
+            Entrez une question et des choix séparés par une virgule
+        </div>
     </div>
 </div>

@@ -14,6 +14,7 @@ var sources = {
         'bower_components/angular/angular.js',
         'bower_components/angular-route/angular-route.js',
         'js/rangevoting.js',
+        'js/directives.js',
         'js/controllers.js'
     ],
     css: [

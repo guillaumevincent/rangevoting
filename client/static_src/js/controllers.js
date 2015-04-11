@@ -1,9 +1,23 @@
 angular.module('rangevoting').controller('createRangeVoteController', ['$scope', function ($scope) {
     $scope.rangevote = {
-        question : '',
-        choices : []
+        question: '',
+        choices: []
     };
-    $scope.createRangevote = function (rangevote) {
-        console.log(rangevote);
+
+    $scope.isValid = true;
+
+    $scope.rangevoteIsValid = function (form) {
+        if(form){
+            var choices = form.choices.split(',');
+            return !!(form.question && choices.length > 1);
+        }
+        return false;
+    };
+
+    $scope.createRangevote = function (form) {
+
+        if ($scope.rangevoteIsValid(form)) {
+        }
+
     }
 }]);
