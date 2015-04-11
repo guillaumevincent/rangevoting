@@ -12,6 +12,10 @@
 
 .btn-green {
     color: #FAFAFA;
-    background: #83B348 no-repeat right center;
+    background-color: #83B348;
     border: 1px solid #ADD978;
+}
+
+.btn-green[disabled=disabled], .btn-green:disabled {
+    background-color: #ADD978;
 }

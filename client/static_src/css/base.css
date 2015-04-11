@@ -57,7 +57,7 @@ body {
     max-width: 300px;
 }
 
-#vote-form input {
+#voteForm input {
     margin: 5px 0;
     padding: 10px 12px;
     border-radius: 3px;
@@ -71,11 +71,11 @@ body {
 }
 
 @media screen and (min-width: 768px) {
-    #vote-form {
+    #voteForm {
         text-align: center;
     }
 
-    #vote-form input {
+    #voteForm input {
         max-width: 290px;
     }
 }
