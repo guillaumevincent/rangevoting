@@ -33,7 +33,7 @@ class Server():
                          static_folder=os.path.join(root_dir, 'client', 'static'),
                          template_folder=os.path.join(root_dir, 'client'))
         self.app.add_url_rule('/', view_func=self.index)
-        self.app.add_url_rule('/rangevotes/', view_func=self.handle_rangevotes, methods=['POST'])
+        self.app.add_url_rule('/rangevotes/', view_func=self.create_rangevotes, methods=['POST'])
         configure_logging()
 
         self.bus = Bus()
@@ -43,7 +43,7 @@ class Server():
     def index():
         return render_template('index.html')
 
-    def handle_rangevotes(self):
+    def create_rangevotes(self):
         if CreateRangeVoteCommandValidator(request.json).is_valid():
             command = CreateRangeVoteCommand(uuid.uuid4(), request.json['question'], request.json['choices'])
             result = self.bus.send(command)
