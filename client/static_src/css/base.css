@@ -78,7 +78,6 @@ body {
     #vote-form input {
         max-width: 240px;
     }
-
 }
 
 /* ADMIN */
@@ -128,7 +127,7 @@ body {
     background: rgba(0, 0, 0, 0.9);
 }
 
-.choices .sortable-placeholder, .choices .new-choice {
+.choices .new-choice {
     border: 1px dashed #CCC;
     background: none !important;
     color: rgba(0, 0, 0, 0.78) !important;

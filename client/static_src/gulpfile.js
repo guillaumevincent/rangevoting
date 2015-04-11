@@ -10,8 +10,7 @@ var minifycss = require('gulp-minify-css');
 var sources = {
     img: 'img/**/*',
     js: [
-        'bower_components/jquery/dist/jquery.js',
-        'bower_components/html5sortable/jquery.sortable.js'
+        'bower_components/jquery/dist/jquery.js'
     ],
     css: [
         'css/base.css',
