@@ -8,9 +8,13 @@ var autoprefixer = require('gulp-autoprefixer');
 var minifycss = require('gulp-minify-css');
 
 var sources = {
+    pages: 'pages/**/*',
     img: 'img/**/*',
     js: [
-        'bower_components/jquery/dist/jquery.js'
+        'bower_components/angular/angular.js',
+        'bower_components/angular-route/angular-route.js',
+        'js/rangevoting.js',
+        'js/controllers.js'
     ],
     css: [
         'css/base.css',
@@ -23,6 +27,7 @@ var sources = {
 var build_path = '../static';
 var destination = {
     all: build_path + '/**',
+    pages: build_path + '/pages',
     img: build_path + '/img',
     css: build_path + '/css',
     js: build_path + '/js'
@@ -30,12 +35,17 @@ var destination = {
 
 var application_name = 'rangevoting';
 
+gulp.task('pages', function () {
+    return gulp.src(sources.pages)
+        .pipe(gulp.dest(destination.pages));
+});
+
 gulp.task('images', function () {
     return gulp.src(sources.img)
         .pipe(gulp.dest(destination.img));
 });
 
-gulp.task('scripts', function () {
+gulp.task('js', function () {
     return gulp.src(sources.js)
         .pipe(uglify())
         .pipe(concat(application_name + '.min.js'))
@@ -55,13 +65,14 @@ gulp.task('clean', function (callback) {
 });
 
 gulp.task('build', ['clean'], function () {
-    gulp.start('scripts', 'css', 'images');
+    gulp.start('js', 'css', 'images', 'pages');
 });
 
 gulp.task('watch', ['build'], function () {
     gulp.watch(sources.css, ['css']);
-    gulp.watch(sources.js, ['scripts']);
+    gulp.watch(sources.js, ['js']);
     gulp.watch(sources.img, ['images']);
+    gulp.watch(sources.pages, ['pages']);
 });
 
 
