@@ -30,3 +30,4 @@ class MongoRepositoryTestCase(unittest.TestCase):
 
         self.assertEqual(rangevote.question, element['question'])
         self.assertEqual(rangevote.choices, element['choices'])
+        self.assertTrue('_id' not in element)

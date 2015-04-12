@@ -8,7 +8,9 @@ class MongoRepository():
 
     def get(self, id):
         rangevotes = self.db['rangevote']
-        return rangevotes.find_one({"id": str(id)})
+        element = rangevotes.find_one({"id": str(id)})
+        del element['_id']
+        return element
 
 
 class MockRepository():
