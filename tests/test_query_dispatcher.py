@@ -58,7 +58,7 @@ class QueryDispatcherTestCase(unittest.TestCase):
 
         result = query_dispatcher.execute(query)
 
-        self.assertFalse(result.ok)
+        self.assertIsNone(result)
 
     def test_raise_error_if_no_handlers_availables(self):
         query_dispatcher = QueryDispatcher()

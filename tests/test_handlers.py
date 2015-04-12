@@ -20,6 +20,6 @@ class HandlersTestCase(unittest.TestCase):
     def test_get_rangevote_handler_call_get_method(self):
         get_rangevote_handler = GetRangeVoteHandler(self.mock_repository)
 
-        get_rangevote_handler.execute(GetRangeVoteQuery(1))
+        get_rangevote_handler.handle(GetRangeVoteQuery(1))
 
         self.assertTrue(self.mock_repository.get_called)

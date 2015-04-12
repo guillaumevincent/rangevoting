@@ -14,5 +14,5 @@ class GetRangeVoteHandler:
     def __init__(self, repository):
         self.repository = repository
 
-    def execute(self, query):
+    def handle(self, query):
         return self.repository.get(query.uuid)

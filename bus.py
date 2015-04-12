@@ -54,4 +54,3 @@ class QueryDispatcher:
             return self.handlers[query_type].handle(query)
         except Exception as e:
             logger.exception(e)
-            return BadResult()
