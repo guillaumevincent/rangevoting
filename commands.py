@@ -1,3 +1,8 @@
+import logging
+
+logger = logging.getLogger(__name__)
+
+
 class CreateRangeVoteCommand():
     def __init__(self, uuid, question, choices):
         self.uuid = uuid
@@ -11,7 +16,9 @@ class CreateRangeVoteCommandValidator():
 
     def is_valid(self):
         if 'question' not in self.data or 'choices' not in self.data:
+            logger.debug('CreateRangeVoteCommandValidator : question or choices not in rangevote')
             return False
         if len(self.data['choices']) < 2:
+            logger.debug('CreateRangeVoteCommandValidator : should have at least two choices in rangevote')
             return False
         return True
