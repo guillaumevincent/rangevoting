@@ -27,6 +27,6 @@ angular.module('rangevoting').controller('createRangeVoteController', ['$scope',
     }
 }]);
 
-angular.module('rangevoting').controller('adminRangeVoteController', ['$scope', 'Restangular', function ($scope, Restangular) {
-
+angular.module('rangevoting').controller('adminRangeVoteController', ['$scope', '$routeParams', function ($scope, $routeParams) {
+    $scope.id = $routeParams.id;
 }]);

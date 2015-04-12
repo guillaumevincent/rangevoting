@@ -42,4 +42,23 @@ describe("create RangeVote Controller", function () {
             choices: ['first choice', 'second choice']
         }));
     });
+
+});
+
+
+describe("admin RangeVote Controller", function () {
+
+    beforeEach(module('rangevoting'));
+
+    var scope, controller;
+
+    beforeEach(inject(function ($rootScope, $controller) {
+        scope = $rootScope.$new();
+        controller = $controller('adminRangeVoteController', {$scope: scope, $routeParams: {id: '375ce742-495f-4b0c-b831-3fb0dcc61b17'}});
+    }));
+
+    it('should init id with routeParams id', function () {
+        assert.equal('375ce742-495f-4b0c-b831-3fb0dcc61b17', scope.id);
+    });
+
 });

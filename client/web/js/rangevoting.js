@@ -8,7 +8,7 @@ rangevotingModule.config(['$routeProvider', '$locationProvider', function ($rout
             templateUrl: 'static/pages/index.html',
             controller: 'createRangeVoteController'
         }).
-        when('/rangevotes/:rangevoteId/admin/', {
+        when('/rangevotes/:id/admin/', {
             templateUrl: 'static/pages/admin.html',
             controller: 'adminRangeVoteController'
         }).
