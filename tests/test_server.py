@@ -33,14 +33,14 @@ class ServerTestCase(unittest.TestCase):
         self.assertIsNotNone(handler.repository)
 
     def test_create_rangevotes_respond_201_created(self):
-        response = self.app.post('/rangevotes/',
+        response = self.app.post('/rangevotes',
                                  data=json.dumps({'question': 'test question ?', 'choices': ['c1', 'c2', 'c3']}),
                                  content_type='application/json')
 
         self.assertEqual(201, response.status_code)
 
     def test_create_bad_rangevotes_respond_400_bad_request(self):
-        response = self.app.post('/rangevotes/',
+        response = self.app.post('/rangevotes',
                                  data=json.dumps({'question': '', 'choices': []}),
                                  content_type='application/json')
 
@@ -49,7 +49,7 @@ class ServerTestCase(unittest.TestCase):
     def test_command_is_properly_created(self):
         self.server.bus = SpyBus()
 
-        self.app.post('/rangevotes/',
+        self.app.post('/rangevotes',
                       data=json.dumps({'question': 'test question ?', 'choices': ['c1', 'c2', 'c3']}),
                       content_type='application/json')
 
@@ -60,7 +60,7 @@ class ServerTestCase(unittest.TestCase):
     def test_return_uuid_of_rangevote(self):
         self.server.bus = SpyBus()
 
-        response = self.app.post('/rangevotes/',
+        response = self.app.post('/rangevotes',
                                  data=json.dumps({'question': 'test question ?', 'choices': ['c1', 'c2', 'c3']}),
                                  content_type='application/json')
         location = '/rangevotes/' + str(self.server.bus.last_command.uuid)
