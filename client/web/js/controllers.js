@@ -27,6 +27,18 @@ angular.module('rangevoting').controller('createRangeVoteController', ['$scope',
     }
 }]);
 
-angular.module('rangevoting').controller('adminRangeVoteController', ['$scope', '$routeParams', function ($scope, $routeParams) {
-    $scope.id = $routeParams.id;
+angular.module('rangevoting').controller('adminRangeVoteController', ['$scope', '$routeParams', 'Restangular', function ($scope, $routeParams, Restangular) {
+
+    $scope.rangevote = Restangular.one("rangevotes", $routeParams.id).get().then(function (rangevote) {
+        $scope.rangevote = rangevote;
+    });
+
+    $scope.addNewChoice = function (newChoice) {
+        $scope.rangevote.choices.push(newChoice);
+    };
+
+    $scope.deleteChoice = function (choices, index) {
+        choices.splice(index, 1);
+    };
+
 }]);
