@@ -6,6 +6,10 @@ class MongoRepository():
         rangevotes = self.db[type(rangevote).__name__.lower()]
         rangevotes.insert(rangevote.serialize())
 
+    def get(self, type, id):
+        rangevotes = self.db[type]
+        return rangevotes.find_one({"id": str(id)})
+
 
 class MockRepository():
     def __init__(self):
