@@ -1,9 +1,9 @@
 import uuid
 import json
+import logging
 import unittest
 
 from bus import Result
-
 from server import Server
 from repository import MockRepository
 
@@ -17,12 +17,23 @@ class SpyBus():
         return Result()
 
 
+class SpyQueryDispatcher():
+    def __init__(self):
+        self.last_query = None
+
+    def execute(self, query):
+        self.last_query = query
+        return {'id': '1', 'question': 'q?', 'choices': ['c1', 'c2']}
+
+
 class ServerTestCase(unittest.TestCase):
     def setUp(self):
         self.repository = MockRepository()
         self.server = Server(self.repository)
         self.server.app.config['TESTING'] = True
         self.app = self.server.app.test_client()
+        root = logging.getLogger()
+        root.setLevel(logging.CRITICAL)
 
     def test_server_register_handlers(self):
         self.assertGreater(len(self.server.bus.handlers), 0)
@@ -66,3 +77,15 @@ class ServerTestCase(unittest.TestCase):
         location = '/rangevotes/' + str(self.server.bus.last_command.uuid)
 
         self.assertTrue(location in response.headers['Location'])
+
+    def test_get_rangevote(self):
+        self.server.query_dispatcher = SpyQueryDispatcher()
+
+        response = self.app.get('/rangevotes/375ce742-495f-4b0c-b831-3fb0dcc61b17', content_type='application/json')
+
+        self.assertEqual(200, response.status_code)
+
+    def test_get_rangevote_404(self):
+        response = self.app.get('/rangevotes/375ce742-495f-4b0c-b831-3fb0dcc61b17', content_type='application/json')
+
+        self.assertEqual(404, response.status_code)

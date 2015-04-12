@@ -7,9 +7,10 @@ from flask import Flask, render_template, jsonify, request
 from pymongo import MongoClient
 from smartconfigparser import Config
 
-from bus import Bus
+from bus import Bus, QueryDispatcher
+from queries import GetRangeVoteQuery
 from repository import MongoRepository
-from handlers import CreateRangeVoteHandler
+from handlers import CreateRangeVoteHandler, GetRangeVoteHandler
 from commands import CreateRangeVoteCommand, CreateRangeVoteCommandValidator
 
 
@@ -34,10 +35,15 @@ class Server():
                          template_folder=os.path.join(root_dir, 'client'))
         self.app.add_url_rule('/', view_func=self.index)
         self.app.add_url_rule('/rangevotes', view_func=self.create_rangevotes, methods=['POST'])
+        self.app.add_url_rule('/rangevotes/<path:rangevote_id>', view_func=self.get_rangevote, methods=['GET'])
+
         configure_logging()
 
         self.bus = Bus()
         self.bus.register(CreateRangeVoteCommand, CreateRangeVoteHandler(repository))
+
+        self.query_dispatcher = QueryDispatcher()
+        self.query_dispatcher.register(GetRangeVoteQuery, GetRangeVoteHandler(repository))
 
     @staticmethod
     def index():
@@ -53,6 +59,13 @@ class Server():
                 return jsonify({'id': rangevote_id}), 201, {'Location': '/rangevotes/{0}'.format(rangevote_id)}
 
         return jsonify(), 400
+
+    def get_rangevote(self, rangevote_id):
+        query = GetRangeVoteQuery(rangevote_id)
+        result = self.query_dispatcher.execute(query)
+        if result:
+            return jsonify(result), 200
+        return jsonify(), 404
 
 
 def get_mongo_repository():
