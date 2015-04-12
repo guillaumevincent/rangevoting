@@ -35,3 +35,23 @@ class Bus():
         except Exception as e:
             logger.exception(e)
             return BadResult()
+
+
+class QueryDispatcher:
+    def __init__(self):
+        self.handlers = {}
+
+    def register(self, query, handler):
+        self.handlers[query] = handler
+
+    def execute(self, query):
+        query_type = type(query)
+
+        if query_type not in self.handlers:
+            raise (Exception('No handler for query ' + str(query_type) + ' found'))
+
+        try:
+            return self.handlers[query_type].handle(query)
+        except Exception as e:
+            logger.exception(e)
+            return BadResult()
