@@ -13,6 +13,8 @@ var sources = {
     js: [
         'bower_components/angular/angular.js',
         'bower_components/angular-route/angular-route.js',
+        'bower_components/lodash/lodash.js',
+        'bower_components/restangular/dist/restangular.js',
         'js/rangevoting.js',
         'js/directives.js',
         'js/controllers.js'

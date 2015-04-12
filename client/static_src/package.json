@@ -19,7 +19,7 @@
         "phantomjs": "1.9.x"
     },
     "scripts": {
-        "test": "./node_modules/karma/bin/karma start",
-        "postinstall": "bower install"
+        "postinstall": "bower install",
+        "test": "./node_modules/karma/bin/karma start"
     }
 }

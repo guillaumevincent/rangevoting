@@ -33,7 +33,7 @@ class Server():
                          static_folder=os.path.join(root_dir, 'client', 'static'),
                          template_folder=os.path.join(root_dir, 'client'))
         self.app.add_url_rule('/', view_func=self.index)
-        self.app.add_url_rule('/rangevotes/', view_func=self.create_rangevotes, methods=['POST'])
+        self.app.add_url_rule('/rangevotes', view_func=self.create_rangevotes, methods=['POST'])
         configure_logging()
 
         self.bus = Bus()
