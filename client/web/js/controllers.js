@@ -1,4 +1,4 @@
-angular.module('rangevoting').controller('createRangeVoteController', ['$scope', 'Restangular', function ($scope, Restangular) {
+angular.module('rangevoting').controller('createRangeVoteController', ['$scope', '$location', 'Restangular', function ($scope, $location, Restangular) {
     $scope.isValid = true;
 
     $scope.rangevoteIsValid = function (rangevote) {
@@ -21,8 +21,12 @@ angular.module('rangevoting').controller('createRangeVoteController', ['$scope',
         var rangevote = $scope.convertRangeVote(form);
         if ($scope.rangevoteIsValid(rangevote)) {
             rangevotes.post(rangevote).then(function (newRangevote) {
-                window.location.href = '/rangevotes/' + newRangevote.id + '/admin/'
+                $location.path('/rangevotes/' + newRangevote.id + '/admin/');
             });
         }
     }
+}]);
+
+angular.module('rangevoting').controller('adminRangeVoteController', ['$scope', 'Restangular', function ($scope, Restangular) {
+
 }]);
