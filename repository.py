@@ -6,14 +6,18 @@ class MongoRepository():
         rangevotes = self.db[type(rangevote).__name__.lower()]
         rangevotes.insert(rangevote.serialize())
 
-    def get(self, type, id):
-        rangevotes = self.db[type]
+    def get(self, id):
+        rangevotes = self.db['rangevote']
         return rangevotes.find_one({"id": str(id)})
 
 
 class MockRepository():
     def __init__(self):
         self.saved_called = False
+        self.get_called = False
 
     def save(self, aggregate):
         self.saved_called = True
+
+    def get(self, id):
+        self.get_called = True

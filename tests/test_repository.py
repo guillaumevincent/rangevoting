@@ -26,7 +26,7 @@ class MongoRepositoryTestCase(unittest.TestCase):
         rangevote = RangeVote(rangevote_id, '?', ['c1', 'c2'])
         self.repository.save(rangevote)
 
-        element = self.repository.get('rangevote', rangevote_id)
+        element = self.repository.get(rangevote_id)
 
         self.assertEqual(rangevote.question, element['question'])
         self.assertEqual(rangevote.choices, element['choices'])
