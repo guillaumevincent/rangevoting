@@ -1,5 +1,5 @@
-import unittest
 import uuid
+import unittest
 
 import mongomock
 
@@ -31,3 +31,14 @@ class MongoRepositoryTestCase(unittest.TestCase):
         self.assertEqual(rangevote.question, element['question'])
         self.assertEqual(rangevote.choices, element['choices'])
         self.assertTrue('_id' not in element)
+
+    def test_repository_update(self):
+        rangevote_id = uuid.uuid4()
+        rangevote = RangeVote(rangevote_id, 'Q', ['c1', 'c2'])
+        self.repository.save(rangevote)
+
+        rangevote.question = 'Q?'
+        self.repository.update(rangevote.uuid, rangevote)
+
+        element = self.repository.get(rangevote_id)
+        self.assertEqual(rangevote.question, element['question'])
