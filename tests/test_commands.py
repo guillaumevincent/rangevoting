@@ -23,7 +23,7 @@ class CommandsTestCase(unittest.TestCase):
         self.assertEqual(question, create_rangevote_command.question)
         self.assertEqual(choices, create_rangevote_command.choices)
 
-    def test_rangevote_validator(self):
+    def test_createrangevote_command_validator(self):
         command_validator = CreateRangeVoteCommandValidator({'question': 'Question', 'choices': ['c1', 'c2']})
         self.assertTrue(command_validator.is_valid())
 
