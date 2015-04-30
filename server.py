@@ -1,31 +1,13 @@
 import os
-import sys
-import logging
 import uuid
 
 import flask
-import pymongo
-import pymongo.errors
-import smartconfigparser
 
+import config
 from bus import Bus, QueryDispatcher
 from queries import GetRangeVoteQuery
-from repository import MongoRepository
 from handlers import CreateRangeVoteHandler, GetRangeVoteHandler
 from commands import CreateRangeVoteCommand, CreateRangeVoteCommandValidator
-
-
-logger = logging.getLogger(__name__)
-
-
-def configure_logging():
-    root = logging.getLogger()
-    root.setLevel(logging.DEBUG)
-    handler = logging.StreamHandler(sys.stdout)
-    handler.setLevel(logging.DEBUG)
-    formatter = logging.Formatter('%(asctime)s  %(name)12s %(levelname)7s - %(message)s')
-    handler.setFormatter(formatter)
-    root.addHandler(handler)
 
 
 class Server():
@@ -43,6 +25,9 @@ class Server():
 
         self.query_dispatcher = QueryDispatcher()
         self.query_dispatcher.register(GetRangeVoteQuery, GetRangeVoteHandler(repository))
+
+    def run(self):
+        self.app.run()
 
     @staticmethod
     def index():
@@ -67,21 +52,7 @@ class Server():
         return flask.jsonify(), 404
 
 
-def get_mongo_repository():
-    config = smartconfigparser.Config()
-    config.read('config.ini')
-    host = config.get('DATABASE', 'host', 'localhost')
-    port = config.getint('DATABASE', 'port', 27017)
-    try:
-        database = pymongo.MongoClient(host, port)['rangevoting']
-        return MongoRepository(database)
-    except (pymongo.errors.ConnectionFailure, pymongo.errors.AutoReconnect):
-        logger.exception('mongo database is not started on mongodb://{0}:{1}/'.format(host, port))
-        sys.exit(0)
-
-
 if __name__ == '__main__':
-    configure_logging()
-    mongo_repository = get_mongo_repository()
-    server = Server(mongo_repository)
-    server.app.run()
+    config.configure_logging()
+    mongo_repository = config.get_mongo_repository()
+    Server(mongo_repository).run()
