@@ -6,8 +6,8 @@ import flask
 import config
 from bus import Bus, QueryDispatcher
 from queries import GetRangeVoteQuery
-from handlers import CreateRangeVoteHandler, GetRangeVoteHandler
-from commands import CreateRangeVoteCommand, RangeVoteCommandValidator
+from handlers import CreateRangeVoteHandler, GetRangeVoteHandler, UpdateRangeVoteHandler
+from commands import CreateRangeVoteCommand, RangeVoteCommandValidator, UpdateRangeVoteCommand
 
 
 class Server():
@@ -19,9 +19,11 @@ class Server():
         self.app.add_url_rule('/', view_func=self.index)
         self.app.add_url_rule('/rangevotes', view_func=self.create_rangevotes, methods=['POST'])
         self.app.add_url_rule('/rangevotes/<path:rangevote_id>', view_func=self.get_rangevote, methods=['GET'])
+        self.app.add_url_rule('/rangevotes/<path:rangevote_id>', view_func=self.update_rangevote, methods=['PUT'])
 
         self.bus = Bus()
         self.bus.register(CreateRangeVoteCommand, CreateRangeVoteHandler(repository))
+        self.bus.register(UpdateRangeVoteCommand, UpdateRangeVoteHandler(repository))
 
         self.query_dispatcher = QueryDispatcher()
         self.query_dispatcher.register(GetRangeVoteQuery, GetRangeVoteHandler(repository))
@@ -42,6 +44,14 @@ class Server():
                 rangevote_id = str(command.uuid)
                 return flask.jsonify({'id': rangevote_id}), 201, {'Location': '/rangevotes/{0}'.format(rangevote_id)}
 
+        return flask.jsonify(), 400
+
+    def update_rangevote(self, rangevote_id):
+        if RangeVoteCommandValidator(flask.request.json).is_valid():
+            command = UpdateRangeVoteCommand(rangevote_id, flask.request.json['question'], flask.request.json['choices'])
+            result = self.bus.send(command)
+            if result.ok:
+                return flask.jsonify(), 200
         return flask.jsonify(), 400
 
     def get_rangevote(self, rangevote_id):

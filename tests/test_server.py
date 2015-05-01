@@ -89,3 +89,11 @@ class ServerTestCase(unittest.TestCase):
         response = self.app.get('/rangevotes/375ce742-495f-4b0c-b831-3fb0dcc61b17', content_type='application/json')
 
         self.assertEqual(404, response.status_code)
+
+    def test_update_rangevote(self):
+        self.server.bus = SpyBus()
+
+        response = self.app.put('/rangevotes/375ce742-495f-4b0c-b831-3fb0dcc61b17',
+                                data=json.dumps({'question': 'test question ?', 'choices': ['c1', 'c2', 'c3']}),
+                                content_type='application/json')
+        self.assertEqual(200, response.status_code)
