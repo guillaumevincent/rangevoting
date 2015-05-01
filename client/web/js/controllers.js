@@ -41,4 +41,7 @@ angular.module('rangevoting').controller('adminRangeVoteController', ['$scope', 
         choices.splice(index, 1);
     };
 
+    $scope.updateRangeVote = function () {
+        $scope.rangevote.put();
+    };
 }]);

@@ -50,7 +50,7 @@ describe("admin RangeVote Controller", function () {
 
     beforeEach(module('rangevoting'));
 
-    var scope, controller, httpBackend;
+    var scope, controller, httpBackend, rangevote;
 
     beforeEach(inject(function ($rootScope, $controller, $httpBackend) {
         httpBackend = $httpBackend;
@@ -59,7 +59,7 @@ describe("admin RangeVote Controller", function () {
     }));
 
     beforeEach(function () {
-        var rangevote = {"choices": ["c1", "c2"], "id": "375ce742-495f-4b0c-b831-3fb0dcc61b17", "question": "Q?", "votes": []};
+        rangevote = {"choices": ["c1", "c2"], "id": "375ce742-495f-4b0c-b831-3fb0dcc61b17", "question": "Q?", "votes": []};
         httpBackend.expectGET('/rangevotes/375ce742-495f-4b0c-b831-3fb0dcc61b17').respond(200, rangevote);
         httpBackend.flush();
     });
@@ -79,4 +79,13 @@ describe("admin RangeVote Controller", function () {
         scope.deleteChoice(scope.rangevote.choices, 0);
         assert.deepEqual(['c2', firstChoice], scope.rangevote.choices);
     });
+
+    it('should update vote with new value when update method is called', function (done) {
+        httpBackend.whenPUT('/rangevotes/375ce742-495f-4b0c-b831-3fb0dcc61b17').respond(function () {
+            done();
+        });
+        scope.updateRangeVote();
+        httpBackend.flush();
+    })
+
 });
