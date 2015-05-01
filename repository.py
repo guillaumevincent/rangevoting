@@ -17,11 +17,13 @@ class MongoRepository():
 
 class MockRepository():
     def __init__(self):
-        self.saved_called = False
-        self.get_called = False
+        self.saved_element = None
 
-    def save(self, aggregate):
-        self.saved_called = True
+    def save(self, element):
+        self.saved_element = element
+
+    def update(self, _id, element):
+        self.saved_element = element
 
     def get(self, id):
-        self.get_called = True
+        return self.saved_element
