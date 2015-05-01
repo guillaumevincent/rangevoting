@@ -7,7 +7,7 @@ import config
 from bus import Bus, QueryDispatcher
 from queries import GetRangeVoteQuery
 from handlers import CreateRangeVoteHandler, GetRangeVoteHandler
-from commands import CreateRangeVoteCommand, CreateRangeVoteCommandValidator
+from commands import CreateRangeVoteCommand, RangeVoteCommandValidator
 
 
 class Server():
@@ -34,7 +34,7 @@ class Server():
         return flask.render_template('index.html')
 
     def create_rangevotes(self):
-        if CreateRangeVoteCommandValidator(flask.request.json).is_valid():
+        if RangeVoteCommandValidator(flask.request.json).is_valid():
             command = CreateRangeVoteCommand(uuid.uuid4(), flask.request.json['question'], flask.request.json['choices'])
             result = self.bus.send(command)
 
