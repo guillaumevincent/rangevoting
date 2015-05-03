@@ -43,6 +43,18 @@ angular.module('rangevoting').controller('adminRangeVoteController', ['$scope', 
     };
 
     $scope.updateRangeVote = function () {
-        $scope.rangevote.put();
+        $scope.rangevote.put().then(function () {
+            new Notification({
+                message: '<p>votre vote a été correctement mis à jour.</p>',
+                ttl: 5000,
+                type: 'success'
+            }).show();
+        }, function () {
+            new Notification({
+                message: "<p>Vote de valeur est temporairement indisponible :( Patientez quelques instants et essayez d'accéder de nouveau à la page.</p>",
+                ttl: 20000,
+                type: 'error'
+            }).show();
+        });
     };
 }]);

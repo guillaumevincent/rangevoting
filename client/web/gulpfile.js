@@ -11,6 +11,7 @@ var sources = {
     pages: 'pages/**/*',
     img: 'img/**/*',
     js: [
+        'bower_components/simple-notify/js/notification.js',
         'bower_components/angular/angular.js',
         'bower_components/angular-route/angular-route.js',
         'bower_components/lodash/lodash.js',
@@ -23,7 +24,9 @@ var sources = {
         'css/base.css',
         'css/grids.css',
         'css/forms.css',
-        'css/buttons.css'
+        'css/buttons.css',
+        'bower_components/simple-notify/css/notification-default.css',
+        'bower_components/simple-notify/css/notification-style-bar.css'
     ]
 };
 
