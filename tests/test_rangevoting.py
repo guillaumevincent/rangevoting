@@ -90,8 +90,24 @@ class RangeVoteTestCase(unittest.TestCase):
 
         self.assertEqual({'a': 1, 'b': 1, 'c': 1}, counting)
 
-    def test_has_to_json_method(self):
-        id = uuid.uuid4()
-        rangevote = RangeVote(id, 'Q?', ['a', 'b'])
-        expected_json = {'id': str(id), 'question': rangevote.question, 'choices': ['a', 'b'], 'votes': []}
-        self.assertEqual(expected_json, rangevote.serialize())
+    def test_serialize_method(self):
+        rangevote_id = uuid.uuid4()
+        rangevote = RangeVote(rangevote_id, 'Q?', ['a', 'b'])
+
+        serialize_rangevote = rangevote.serialize()
+
+        self.assertEqual(str(rangevote_id), serialize_rangevote['id'])
+        self.assertEqual(rangevote.question, serialize_rangevote['question'])
+        self.assertEqual(rangevote.choices, serialize_rangevote['choices'])
+        self.assertEqual(set(rangevote.choices), set(serialize_rangevote['randomized_choices']))
+        self.assertEqual([], serialize_rangevote['votes'])
+
+    def test_serialize_method_add_randomized_choices(self):
+        choices = [str(c) for c in range(0, 100)]
+        rangevote = RangeVote(uuid.uuid4(), 'Q?', choices)
+
+        first_choices = rangevote.serialize()['randomized_choices']
+        second_choices = rangevote.serialize()['randomized_choices']
+
+        self.assertNotEqual(first_choices, second_choices)
+        self.assertEqual(set(first_choices), set(second_choices))

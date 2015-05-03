@@ -1,3 +1,4 @@
+import random
 import collections
 
 
@@ -29,7 +30,9 @@ class RangeVote():
         return c
 
     def serialize(self):
-        return {'id': str(self.uuid), 'question': self.question, 'choices': self.choices, 'votes': self.votes}
+        new_choices = list(self.choices)
+        random.shuffle(new_choices)
+        return {'id': str(self.uuid), 'question': self.question, 'choices': self.choices, 'votes': self.votes, 'randomized_choices': new_choices}
 
 
 class Vote():
