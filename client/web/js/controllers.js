@@ -28,13 +28,14 @@ angular.module('rangevoting').controller('createRangeVoteController', ['$scope',
 }]);
 
 angular.module('rangevoting').controller('adminRangeVoteController', ['$scope', '$routeParams', 'Restangular', function ($scope, $routeParams, Restangular) {
-
     $scope.rangevote = Restangular.one("rangevotes", $routeParams.id).get().then(function (rangevote) {
         $scope.rangevote = rangevote;
     });
 
-    $scope.addNewChoice = function (newChoice) {
-        $scope.rangevote.choices.push(newChoice);
+    $scope.newChoice = '';
+    $scope.addNewChoice = function () {
+        $scope.rangevote.choices.push($scope.newChoice);
+        $scope.newChoice = '';
     };
 
     $scope.deleteChoice = function (choices, index) {

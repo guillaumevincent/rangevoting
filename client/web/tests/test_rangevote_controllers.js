@@ -69,8 +69,10 @@ describe("admin RangeVote Controller", function () {
     });
 
     it('should add a new choice', function () {
-        scope.addNewChoice('c3');
-        assert.deepEqual(['c1', 'c2', 'c3'], scope.rangevote.choices)
+        scope.newChoice = 'c3';
+        scope.addNewChoice();
+        assert.deepEqual(['c1', 'c2', 'c3'], scope.rangevote.choices);
+        assert.equal('', scope.newChoice)
     });
 
     it('should delete choice', function () {
