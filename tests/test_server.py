@@ -3,8 +3,8 @@ import json
 import logging
 import unittest
 
+import server
 from bus import Result
-from server import Server
 from repository import MockRepository
 
 
@@ -28,18 +28,19 @@ class SpyQueryDispatcher():
 
 class ServerTestCase(unittest.TestCase):
     def setUp(self):
-        self.repository = MockRepository()
-        self.server = Server(self.repository)
-        self.server.app.config['TESTING'] = True
-        self.app = self.server.app.test_client()
+        server.app.repository = MockRepository()
+        server.app.config['TESTING'] = True
+        server.app.configure_handlers()
+        self.app = server.app.test_client()
+
         root = logging.getLogger()
         root.setLevel(logging.CRITICAL)
 
     def test_server_register_handlers(self):
-        self.assertGreater(len(self.server.bus.handlers), 0)
+        self.assertGreater(len(server.app.bus.handlers), 0)
 
     def test_register_handler_has_repository(self):
-        handler = next(iter(self.server.bus.handlers.values()))
+        handler = next(iter(server.app.bus.handlers.values()))
 
         self.assertIsNotNone(handler.repository)
 
@@ -58,28 +59,28 @@ class ServerTestCase(unittest.TestCase):
         self.assertEqual(400, response.status_code)
 
     def test_command_is_properly_created(self):
-        self.server.bus = SpyBus()
+        server.app.bus = SpyBus()
 
         self.app.post('/rangevotes',
                       data=json.dumps({'question': 'test question ?', 'choices': ['c1', 'c2', 'c3']}),
                       content_type='application/json')
 
-        self.assertEqual(type(uuid.uuid4()), type(self.server.bus.last_command.uuid))
-        self.assertEqual('test question ?', self.server.bus.last_command.question)
-        self.assertEqual(['c1', 'c2', 'c3'], self.server.bus.last_command.choices)
+        self.assertEqual(type(uuid.uuid4()), type(server.app.bus.last_command.uuid))
+        self.assertEqual('test question ?', server.app.bus.last_command.question)
+        self.assertEqual(['c1', 'c2', 'c3'], server.app.bus.last_command.choices)
 
     def test_return_uuid_of_rangevote(self):
-        self.server.bus = SpyBus()
+        server.app.bus = SpyBus()
 
         response = self.app.post('/rangevotes',
                                  data=json.dumps({'question': 'test question ?', 'choices': ['c1', 'c2', 'c3']}),
                                  content_type='application/json')
-        location = '/rangevotes/' + str(self.server.bus.last_command.uuid)
+        location = '/rangevotes/' + str(server.app.bus.last_command.uuid)
 
         self.assertTrue(location in response.headers['Location'])
 
     def test_get_rangevote(self):
-        self.server.query_dispatcher = SpyQueryDispatcher()
+        server.app.query_dispatcher = SpyQueryDispatcher()
 
         response = self.app.get('/rangevotes/375ce742-495f-4b0c-b831-3fb0dcc61b17', content_type='application/json')
 
@@ -91,7 +92,7 @@ class ServerTestCase(unittest.TestCase):
         self.assertEqual(404, response.status_code)
 
     def test_update_rangevote(self):
-        self.server.bus = SpyBus()
+        server.app.bus = SpyBus()
 
         response = self.app.put('/rangevotes/375ce742-495f-4b0c-b831-3fb0dcc61b17',
                                 data=json.dumps({'question': 'test question ?', 'choices': ['c1', 'c2', 'c3']}),
