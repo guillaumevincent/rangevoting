@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="row">
+        <div id="logo">
+            <img src="static/img/logo.png" alt="logo"/>
+        </div>
+    </div>
+    <div class="row">
+        <form id="voteForm" name="voteForm" ng-submit="createRangevote(form)" novalidate>
+            <input name="question" type="text" class="input-white" ng-class="{ 'input-error': voteForm.$submitted && voteForm.question.$invalid}"
+                   ng-model="form.question" placeholder="Quel type de cuisine préférez-vous ?" required>
+            <input name="choices" type="text" class="input-white" ng-class="{ 'input-error': voteForm.$submitted && voteForm.choices.$invalid}"
+                   ng-model="form.choices" placeholder="Chinoise, Italienne, Française..." haschoices>
+            <input id="createVote" type="submit" class="btn btn-green" value="créer un vote"/>
+        </form>
+    </div>
+    <div class="row text-center">
+        <p>trouver la réponse qui convient le mieux</p>
+    </div>
+    <div class="row text-center" ng-show="voteForm.$submitted || (voteForm.question.$touched && voteForm.choices.$touched)">
+        <div class="error-block" ng-show="voteForm.question.$invalid || voteForm.choices.$invalid">
+            Entrez une question et des choix séparés par une virgule
+        </div>
+    </div>
+</div>

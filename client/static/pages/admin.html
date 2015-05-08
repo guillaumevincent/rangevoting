@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="row">
+        <p class="question" ng-model="rangevote.question" contenteditable="true">{{ rangevote.question }}</p>
+    </div>
+    <div class="row content">
+        <ul class="choices">
+            <li class="choice new-choice">
+                <form ng-submit="addNewChoice(newChoice)">
+                    <label>
+                        <input type="text" placeholder="ajouter un nouveau choix" ng-model="newChoice">
+                    </label>
+                    <img src="../../static/img/add.png" alt="add" ng-click="addNewChoice()" />
+                    <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
+                </form>
+            </li>
+            <li class="choice" ng-repeat="choice in rangevote.choices track by $index">
+                <label>
+                    <input type="text" ng-model="rangevote.choices[$index]">
+                </label>
+                <img src="../../static/img/clear.png" alt="clear" ng-click="deleteChoice(rangevote.choices, $index)"/>
+            </li>
+        </ul>
+    </div>
+    <div class="row content text-right">
+        <input type="button" class="btn btn-green" value="enregister" ng-click="updateRangeVote()"/>
+    </div>
+</div>
