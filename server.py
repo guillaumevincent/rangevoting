@@ -3,7 +3,6 @@ import uuid
 
 import flask
 
-import config
 from bus import Bus, QueryDispatcher
 from queries import GetRangeVoteQuery
 from handlers import CreateRangeVoteHandler, GetRangeVoteHandler, UpdateRangeVoteHandler
@@ -70,9 +69,3 @@ def update_rangevote(rangevote_id):
             return flask.jsonify(), 200
     return flask.jsonify(), 400
 
-
-if __name__ == '__main__':
-    config.configure_logging()
-    app.repository = config.get_mongo_repository()
-    app.configure_handlers()
-    app.run()
