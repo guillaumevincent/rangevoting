@@ -17,7 +17,7 @@ angular.module('rangevoting').controller('createRangeVoteController', ['$scope',
 
     var rangevotes = Restangular.all('rangevotes');
 
-    $scope.createRangevote = function (form) {
+    $scope.createRangeVote = function (form) {
         var rangevote = $scope.convertRangeVote(form);
         if ($scope.rangevoteIsValid(rangevote)) {
             rangevotes.post(rangevote).then(function (newRangevote) {
@@ -58,3 +58,11 @@ angular.module('rangevoting').controller('adminRangeVoteController', ['$scope', 
         });
     };
 }]);
+
+
+angular.module('rangevoting').controller('rangeVoteController', ['$scope', '$routeParams', 'Restangular', function ($scope, $routeParams, Restangular) {
+    $scope.rangevote = Restangular.one("rangevotes", $routeParams.id).get().then(function (rangevote) {
+        $scope.rangevote = rangevote;
+    });
+}]);
+

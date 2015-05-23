@@ -12,6 +12,10 @@ rangevotingModule.config(['$routeProvider', '$locationProvider', function ($rout
             templateUrl: 'static/pages/admin.html',
             controller: 'adminRangeVoteController'
         }).
+        when('/rangevotes/:id/', {
+            templateUrl: 'static/pages/vote.html',
+            controller: 'rangeVoteController'
+        }).
         otherwise({
             redirectTo: '/'
         });
