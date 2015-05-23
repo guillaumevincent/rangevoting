@@ -1,0 +1,7 @@
+<div class="question">
+    {{ rangevote.question }}
+</div>
+<div class="slider" ng-repeat="choice in rangevote.randomized_choices">
+    <span>{{ choice }}</span>
+    <input type='range' value='50' step='25'/>
+</div>
