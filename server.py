@@ -43,11 +43,9 @@ def create_rangevotes():
     if RangeVoteCommandValidator(flask.request.json).is_valid():
         command = CreateRangeVoteCommand(uuid.uuid4(), flask.request.json['question'], flask.request.json['choices'])
         result = app.bus.send(command)
-
         if result.ok:
             rangevote_id = str(command.uuid)
             return flask.jsonify({'id': rangevote_id}), 201, {'Location': '/rangevotes/{0}'.format(rangevote_id)}
-
     return flask.jsonify(), 400
 
 
