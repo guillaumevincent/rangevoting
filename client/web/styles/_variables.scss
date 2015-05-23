@@ -1,0 +1,61 @@
+// Config file and project variables
+
+// font sizes
+$base-font-size : 14px; // if "14px" then 1em = 14px
+$line-height    : 1.5; // equiv line-height 1.5
+$h1-size        : 3.2rem; // equiv "32px"
+$h2-size        : 2.8rem; // equiv "28px"
+$h3-size        : 2.4rem; // equiv "24px"
+$h4-size        : 2.0rem; // equiv "20px"
+$h5-size        : 1.8rem; // equiv "18px"
+$h6-size        : 1.6rem; // equiv "16px"
+
+// font stacks
+$font-stack-common    : "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif; // common font
+$font-stack-headings  : Helvetica, Arial, sans-serif; // headings font
+$font-stack-monospace : Consolas, DejaVu Sans Mono, Courier, monospace; // monospace font
+
+// font colors
+$base-color             : #000; // text color on body and content
+$primary-color          : #000; // text color on primary elements
+$secondary-color        : #000; // text color on secondary elements
+$headings-color         : #000; // text color on headings
+$base-color-link        : #333; // base links color
+$base-color-link-hover  : #000; // base hovered/focused links color
+
+// colors
+$light-grey             : #cccccc;
+$grey                   : #666666;
+$dark-grey              : #333333;
+$white                  : #ffffff;
+$light-white            : #fafafa;
+$light-green            : #add978;
+$green                  : #83b348;
+$black                  : #111111;
+$blue                   : #008CBA;
+
+// backgrounds
+$base-background        : #ededed; // body background color
+$primary-background     : #ededed; // primary elements background color
+$secondary-background   : #ededed; // secondary elements background color
+
+// spacings
+$tiny-value             : 5px; // tiny value for margins / paddings
+$small-value            : 10px; // small value for margins / paddings
+$medium-value           : 20px; // medium value for margins / paddings
+$large-value            : 40px; // large value for margins / paddings
+$extra-large-value      : 80px; // extra large value for margins / paddings
+$ultra-large-value      : 160px; // ultra large value for margins / paddings
+
+// breakpoints
+$tiny-screen            : 480px; // tiny screens media query (less than 480px)
+$small-screen           : 768px; // screens between 481px and 768px
+$medium-screen          : 1024px; // screens between 769px and 1024px
+$large-screen           : 1280px; // screens between 1025px and 1280px
+$extra-large-screen     : 1600px; // screens between 1281px and 1600px
+$ultra-large-screen     : 1920px; // ultra large screens
+
+// grids variables
+$gutter:  1em; // gutter value for grid layouts. Unit can be: %, px, em, rem
+$mi-gutter: .5em;
+$container-width: 1140px;

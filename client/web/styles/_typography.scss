@@ -1,0 +1,113 @@
+@import "variables";
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  /* set body font-size in em (1.4em equiv "14px") */
+  font-size: ($base-font-size / 10px) + em;
+
+  background-color: $base-background;
+  color: $base-color;
+  font-family: $font-stack-common;
+  line-height: $line-height;
+}
+
+a {
+  color: $base-color-link;
+  &:hover, &:focus, &:active {
+    color: $base-color-link-hover;
+  }
+}
+
+/* font-sizing for content */
+p,
+.p-like,
+ul,
+ol,
+dl,
+blockquote,
+pre,
+td,
+th,
+label,
+textarea,
+caption,
+details,
+figure {
+  margin-top: 0.75em;
+  margin-bottom: 0;
+  line-height: $line-height;
+}
+
+h1 {
+  font-size: $h1-size;
+  font-family: $font-stack-headings;
+}
+
+h2 {
+  font-size: $h2-size;
+  font-family: $font-stack-headings;
+}
+
+h3 {
+  font-size: $h3-size;
+}
+
+h4 {
+  font-size: $h4-size;
+}
+
+h5 {
+  font-size: $h5-size;
+}
+
+h6 {
+  font-size: $h6-size;
+}
+
+/* alternate font-sizing */
+.smaller {
+  font-size: 0.6em;
+}
+
+.small {
+  font-size: 0.8em;
+}
+
+.big {
+  font-size: 1.2em;
+}
+
+.bigger {
+  font-size: 1.5em;
+}
+
+.biggest {
+  font-size: 2em;
+}
+
+code,
+pre,
+samp,
+kbd {
+  white-space: pre-line;
+  font-family: $font-stack-monospace;
+  line-height: normal;
+}
+
+em,
+.italic,
+address,
+cite,
+i,
+var {
+  font-style: italic;
+}
+
+small,
+sub,
+sup {
+  font-size: smaller;
+}

@@ -1,0 +1,27 @@
+@import "variables";
+
+html {
+  color: $grey;
+  background-color: $base-background;
+}
+
+p {
+  color: inherit;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+.img-responsive {
+  max-width: 100%;
+  height: auto;
+}

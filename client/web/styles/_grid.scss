@@ -1,0 +1,87 @@
+@import "variables";
+
+.container {
+  max-width: $container-width;
+  margin: 0 auto;
+  //padding: $gutter;
+}
+
+.row {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.cell {
+  flex: 0 0 100%;
+  padding: 0 $gutter;
+  max-width: 100%;
+}
+
+.cell--top {
+  align-self: flex-start;
+}
+
+.cell--bottom {
+  align-self: flex-end;
+}
+
+.cell--center {
+  align-self: center;
+}
+
+@mixin generate-cell-size($size:null) {
+  $sep: null;
+  @if ($size) {
+    $sep: $size + '-';
+  } @else {
+    $sep: $size;
+  }
+
+  .cell--#{$sep}4of5 {
+    flex: 0 0 80%;
+  }
+
+  .cell--#{$sep}3of4 {
+    flex: 0 0 75%;
+  }
+
+  .cell--#{$sep}2of3 {
+    flex: 0 0 66.6666%;
+  }
+
+  .cell--#{$sep}3of5 {
+    flex: 0 0 60%;
+  }
+
+  .cell--#{$sep}1of2 {
+    flex: 0 0 50%;
+  }
+
+  .cell--#{$sep}2of5 {
+    flex: 0 0 40%;
+  }
+
+  .cell--#{$sep}1of3 {
+    flex: 0 0 33.3333%;
+  }
+
+  .cell--#{$sep}1of4 {
+    flex: 0 0 25%;
+  }
+
+  .cell--#{$sep}1of5 {
+    flex: 0 0 20%;
+  }
+
+}
+
+@include generate-cell-size();
+
+@media (min-width: $small-screen) {
+  @include generate-cell-size('md')
+}
+
+@media (min-width: $medium-screen) {
+  @include generate-cell-size('lg')
+}

@@ -6,10 +6,12 @@ var del = require('del');
 var concat = require('gulp-concat');
 var autoprefixer = require('gulp-autoprefixer');
 var minifycss = require('gulp-minify-css');
+var sass = require('gulp-sass');
 
 var sources = {
     pages: 'pages/**/*',
     img: 'img/**/*',
+    fonts: 'bower_components/font-awesome/fonts/**/*',
     js: [
         'bower_components/simple-notify/js/notification.js',
         'bower_components/angular/angular.js',
@@ -20,13 +22,9 @@ var sources = {
         'js/directives.js',
         'js/controllers.js'
     ],
-    css: [
-        'css/base.css',
-        'css/grids.css',
-        'css/forms.css',
-        'css/buttons.css',
-        'bower_components/simple-notify/css/notification-default.css',
-        'bower_components/simple-notify/css/notification-style-bar.css'
+    scss: [
+        'bower_components/font-awesome/scss/font-awesome.scss',
+        'styles/**/*.scss'
     ]
 };
 
@@ -36,7 +34,8 @@ var destination = {
     pages: build_path + '/pages',
     img: build_path + '/img',
     css: build_path + '/css',
-    js: build_path + '/js'
+    js: build_path + '/js',
+    fonts: build_path + '/fonts'
 };
 
 var application_name = 'rangevoting';
@@ -45,6 +44,13 @@ gulp.task('pages', function () {
     return gulp.src(sources.pages)
         .pipe(gulp.dest(destination.pages));
 });
+
+
+gulp.task('fonts', function () {
+    return gulp.src(sources.fonts)
+        .pipe(gulp.dest(destination.fonts));
+});
+
 
 gulp.task('images', function () {
     return gulp.src(sources.img)
@@ -58,11 +64,12 @@ gulp.task('js', function () {
         .pipe(gulp.dest(destination.js));
 });
 
-gulp.task('css', function () {
-    return gulp.src(sources.css)
+gulp.task('scss', function () {
+    return gulp.src(sources.scss)
+        .pipe(sass().on('error', sass.logError))
         .pipe(concat(application_name + '.min.css'))
-        .pipe(autoprefixer('last 3 version'))
-        .pipe(minifycss())
+        .pipe(autoprefixer('last 2 versions'))
+        .pipe(minifycss({keepSpecialComments: 0}))
         .pipe(gulp.dest(destination.css));
 });
 
@@ -71,11 +78,11 @@ gulp.task('clean', function (callback) {
 });
 
 gulp.task('build', ['clean'], function () {
-    gulp.start('js', 'css', 'images', 'pages');
+    gulp.start('js', 'scss', 'images', 'pages', 'fonts');
 });
 
 gulp.task('watch', ['build'], function () {
-    gulp.watch(sources.css, ['css']);
+    gulp.watch(sources.scss, ['scss']);
     gulp.watch(sources.js, ['js']);
     gulp.watch(sources.img, ['images']);
     gulp.watch(sources.pages, ['pages']);
