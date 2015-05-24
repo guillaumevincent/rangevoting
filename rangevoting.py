@@ -32,10 +32,20 @@ class RangeVote:
     def serialize(self):
         new_choices = list(self.choices)
         random.shuffle(new_choices)
-        return {'id': str(self.uuid), 'question': self.question, 'choices': self.choices, 'votes': self.votes, 'randomized_choices': new_choices}
+        return {'id': str(self.uuid), 'question': self.question, 'choices': self.choices, 'votes': self.get_serialized_votes(),
+                'randomized_choices': new_choices}
+
+    def get_serialized_votes(self):
+        returned_votes = []
+        for vote in self.votes:
+            returned_votes.append(vote.serialize())
+        return returned_votes
 
 
 class Vote:
     def __init__(self, elector, opinions):
         self.elector = elector
         self.opinions = opinions
+
+    def serialize(self):
+        return {'elector': self.elector, 'opinions': self.opinions}

@@ -5,10 +5,11 @@ import unittest
 
 import server
 from bus import Result
+from rangevoting import RangeVote
 from repository import MockRepository
 
 
-class SpyBus():
+class SpyBus:
     def __init__(self):
         self.last_command = None
 
@@ -17,13 +18,13 @@ class SpyBus():
         return Result()
 
 
-class SpyQueryDispatcher():
+class SpyQueryDispatcher:
     def __init__(self):
         self.last_query = None
 
     def execute(self, query):
         self.last_query = query
-        return {'id': '1', 'question': 'q?', 'choices': ['c1', 'c2']}
+        return RangeVote(uuid=1, question='q?', choices=['c1', 'c2'])
 
 
 class ServerTestCase(unittest.TestCase):

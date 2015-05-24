@@ -53,9 +53,9 @@ def create_rangevote():
 @app.route('/rangevotes/<path:rangevote_id>')
 def get_rangevote(rangevote_id):
     query = queries.GetRangeVoteQuery(rangevote_id)
-    result = app.query_dispatcher.execute(query)
-    if result:
-        return flask.jsonify(result), 200
+    rangevote = app.query_dispatcher.execute(query)
+    if rangevote:
+        return flask.jsonify(rangevote.serialize()), 200
     return flask.jsonify(), 404
 
 

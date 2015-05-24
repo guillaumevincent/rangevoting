@@ -19,6 +19,11 @@ class VoteTestCase(unittest.TestCase):
 
         self.assertEqual(opinions, vote.opinions)
 
+    def test_serialize_method(self):
+        vote = Vote('GV', {'a':1,'b':-2})
+        expected_vote = {'elector':'GV', 'opinions':{'a':1,'b':-2}}
+        self.assertDictEqual(expected_vote, vote.serialize())
+
 
 class RangeVoteTestCase(unittest.TestCase):
     def test_has_id(self):
@@ -93,14 +98,16 @@ class RangeVoteTestCase(unittest.TestCase):
     def test_serialize_method(self):
         rangevote_id = uuid.uuid4()
         rangevote = RangeVote(rangevote_id, 'Q?', ['a', 'b'])
-
+        rangevote.add_vote(Vote(elector='Guillaume', opinions={'a': 1, 'b': -2}))
+        rangevote.add_vote(Vote(elector='Vincent', opinions={'a': 0, 'b': -2}))
         serialize_rangevote = rangevote.serialize()
 
         self.assertEqual(str(rangevote_id), serialize_rangevote['id'])
         self.assertEqual(rangevote.question, serialize_rangevote['question'])
         self.assertEqual(rangevote.choices, serialize_rangevote['choices'])
         self.assertEqual(set(rangevote.choices), set(serialize_rangevote['randomized_choices']))
-        self.assertEqual([], serialize_rangevote['votes'])
+        self.assertEqual([{'elector': 'Guillaume', 'opinions': {'a': 1, 'b': -2}}, {'elector': 'Vincent', 'opinions': {'a': 0, 'b': -2}}],
+                         serialize_rangevote['votes'])
 
     def test_serialize_method_add_randomized_choices(self):
         choices = [str(c) for c in range(0, 100)]
