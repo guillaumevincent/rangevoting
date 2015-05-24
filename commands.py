@@ -31,3 +31,20 @@ class CreateRangeVoteCommand(RangeVoteCommand):
 class UpdateRangeVoteCommand(RangeVoteCommand):
     pass
 
+
+class VoteCommandValidator:
+    def __init__(self, data):
+        self.data = data
+
+    def is_valid(self):
+        if 'elector' not in self.data or 'opinions' not in self.data:
+            logger.debug('RangeVoteCommandValidator : elector or opinions not in vote')
+            return False
+        return True
+
+
+class CreateVoteCommand:
+    def __init__(self, rangevote_id, elector, opinions):
+        self.rangevote_id = rangevote_id
+        self.elector = elector
+        self.opinions = opinions

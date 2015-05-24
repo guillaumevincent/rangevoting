@@ -81,7 +81,7 @@ angular.module('rangevoting').controller('rangeVoteController', ['$scope', '$rou
     }, true);
 
     $scope.createNewVote = function () {
-        $scope.rangevote.all('votes').post().then(function () {
+        $scope.rangevote.all('votes').post($scope.vote).then(function () {
             $location.path('/rangevotes/' + $routeParams.id + '/results/');
         }, function () {
             new Notification({

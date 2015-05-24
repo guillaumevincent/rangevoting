@@ -98,3 +98,12 @@ class ServerTestCase(unittest.TestCase):
                                 data=json.dumps({'question': 'test question ?', 'choices': ['c1', 'c2', 'c3']}),
                                 content_type='application/json')
         self.assertEqual(200, response.status_code)
+
+    def test_create_vote(self):
+        server.app.bus = SpyBus()
+
+        response = self.app.post('/rangevotes/375ce742-495f-4b0c-b831-3fb0dcc61b17/votes',
+                                 data=json.dumps({'elector': 'Guillaume Vincent', 'opinions': {}}),
+                                 content_type='application/json')
+
+        self.assertEqual(201, response.status_code)

@@ -3,10 +3,10 @@ import uuid
 
 import flask
 
-from bus import Bus, QueryDispatcher
-from queries import GetRangeVoteQuery
-from handlers import CreateRangeVoteHandler, GetRangeVoteHandler, UpdateRangeVoteHandler
-from commands import CreateRangeVoteCommand, RangeVoteCommandValidator, UpdateRangeVoteCommand
+import bus
+import queries
+import handlers
+import commands
 
 
 class Server(flask.Flask):
@@ -22,12 +22,13 @@ class Server(flask.Flask):
                          template_folder=os.path.join(root_dir, 'client'))
 
     def configure_handlers(self):
-        self.bus = Bus()
-        self.bus.register(CreateRangeVoteCommand, CreateRangeVoteHandler(self.repository))
-        self.bus.register(UpdateRangeVoteCommand, UpdateRangeVoteHandler(self.repository))
+        self.bus = bus.Bus()
+        self.bus.register(commands.CreateRangeVoteCommand, handlers.CreateRangeVoteHandler(self.repository))
+        self.bus.register(commands.UpdateRangeVoteCommand, handlers.UpdateRangeVoteHandler(self.repository))
+        self.bus.register(commands.CreateVoteCommand, handlers.CreateVoteHandler(self.repository))
 
-        self.query_dispatcher = QueryDispatcher()
-        self.query_dispatcher.register(GetRangeVoteQuery, GetRangeVoteHandler(self.repository))
+        self.query_dispatcher = bus.QueryDispatcher()
+        self.query_dispatcher.register(queries.GetRangeVoteQuery, handlers.GetRangeVoteHandler(self.repository))
 
 
 app = Server(__name__)
@@ -39,9 +40,9 @@ def index():
 
 
 @app.route('/rangevotes', methods=['POST'])
-def create_rangevotes():
-    if RangeVoteCommandValidator(flask.request.json).is_valid():
-        command = CreateRangeVoteCommand(uuid.uuid4(), flask.request.json['question'], flask.request.json['choices'])
+def create_rangevote():
+    if commands.RangeVoteCommandValidator(flask.request.json).is_valid():
+        command = commands.CreateRangeVoteCommand(uuid.uuid4(), flask.request.json['question'], flask.request.json['choices'])
         result = app.bus.send(command)
         if result.ok:
             rangevote_id = str(command.uuid)
@@ -51,7 +52,7 @@ def create_rangevotes():
 
 @app.route('/rangevotes/<path:rangevote_id>')
 def get_rangevote(rangevote_id):
-    query = GetRangeVoteQuery(rangevote_id)
+    query = queries.GetRangeVoteQuery(rangevote_id)
     result = app.query_dispatcher.execute(query)
     if result:
         return flask.jsonify(result), 200
@@ -60,10 +61,19 @@ def get_rangevote(rangevote_id):
 
 @app.route('/rangevotes/<path:rangevote_id>', methods=['PUT'])
 def update_rangevote(rangevote_id):
-    if RangeVoteCommandValidator(flask.request.json).is_valid():
-        command = UpdateRangeVoteCommand(rangevote_id, flask.request.json['question'], flask.request.json['choices'])
+    if commands.RangeVoteCommandValidator(flask.request.json).is_valid():
+        command = commands.UpdateRangeVoteCommand(rangevote_id, flask.request.json['question'], flask.request.json['choices'])
         result = app.bus.send(command)
         if result.ok:
             return flask.jsonify(), 200
     return flask.jsonify(), 400
 
+
+@app.route('/rangevotes/<path:rangevote_id>/votes', methods=['POST'])
+def create_vote(rangevote_id):
+    if commands.VoteCommandValidator(flask.request.json).is_valid():
+        command = commands.CreateVoteCommand(rangevote_id, flask.request.json['elector'], flask.request.json['opinions'])
+        result = app.bus.send(command)
+        if result.ok:
+            return flask.jsonify({'id': rangevote_id}), 201, {'Location': '/rangevotes/{0}'.format(rangevote_id)}
+    return flask.jsonify(), 400

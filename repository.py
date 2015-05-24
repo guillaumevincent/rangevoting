@@ -17,13 +17,13 @@ class MongoRepository:
 
 class MockRepository:
     def __init__(self):
-        self.saved_element = None
+        self.db = {}
 
     def save(self, element):
-        self.saved_element = element
+        self.db[element.uuid] = element
 
-    def update(self, _id, element):
-        self.saved_element = element
+    def update(self, uuid, element):
+        self.db[uuid] = element
 
-    def get(self, _id):
-        return self.saved_element
+    def get(self, uuid):
+        return self.db[uuid]
