@@ -62,7 +62,7 @@ angular.module('rangevoting').controller('adminRangeVoteController', ['$scope', 
 
 angular.module('rangevoting').controller('rangeVoteController', ['$scope', '$routeParams', '$location', 'Restangular', function ($scope, $routeParams, $location, Restangular) {
     $scope.vote = {
-        voter: ''
+        elector: ''
     };
 
     $scope.rangevote = Restangular.one("rangevotes", $routeParams.id).get().then(function (rangevote) {

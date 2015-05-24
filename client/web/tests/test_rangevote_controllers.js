@@ -113,7 +113,7 @@ describe("vote RangeVote Controller", function () {
 
     it('should watch the opinion to fix the range input value', function () {
         $scope.vote = {
-            voter: ""
+            elector: ""
         };
 
         $scope.$digest();
@@ -121,7 +121,7 @@ describe("vote RangeVote Controller", function () {
         assert.deepEqual(undefined, $scope.vote.opinions);
 
         $scope.vote = {
-            voter: "",
+            elector: "",
             opinions: {'a a': "2", 'b': "-2"}
         };
 
