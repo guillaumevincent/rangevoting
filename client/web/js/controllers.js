@@ -51,7 +51,7 @@ angular.module('rangevoting').controller('adminRangeVoteController', ['$scope', 
             }).show();
         }, function () {
             new Notification({
-                message: "<p>Vote de valeur est temporairement indisponible :( Patientez quelques instants et essayez d'accéder de nouveau à la page.</p>",
+                message: "<p>Je suis désolé, quelque chose a mal tourné. Pouvez-vous me dire comment cela est arrivé par <a href='mailto:contact@oslab.fr?subject=Erreur vote de valeur'>e-mail</a> ?<br/>Je tiens à corriger le problème pour que cela ne se reproduise pas.</p>",
                 ttl: 20000,
                 type: 'error'
             }).show();

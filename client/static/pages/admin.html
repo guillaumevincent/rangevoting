@@ -1,27 +1,34 @@
-<div class="container">
-    <div class="row">
-        <p class="question" ng-model="rangevote.question" contenteditable="true">{{ rangevote.question }}</p>
+<div class="row">
+    <div class="cell cell--lg-3of5">
+        <h2>Modifiez votre question :</h2>
     </div>
-    <div class="row content">
-        <ul class="choices">
-            <li class="choice new-choice">
-                <form ng-submit="addNewChoice(newChoice)">
-                    <label>
-                        <input type="text" placeholder="ajouter un nouveau choix" ng-model="newChoice">
-                    </label>
-                    <img src="../../static/img/add.png" alt="add" ng-click="addNewChoice()" />
-                    <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
-                </form>
-            </li>
-            <li class="choice" ng-repeat="choice in rangevote.choices track by $index">
+</div>
+<div class="row">
+    <div class="cell cell--lg-3of5">
+        <form ng-submit="createRangeVote(form)" novalidate>
+            <label for="question">Question
+                <input type="text" id="question" ng-model="rangevote.question"/>
+            </label>
+
+            <label>Choix
+                <input type="text" ng-model="rangevote.choices[$index]" ng-repeat="choice in rangevote.choices track by $index"/>
+            </label>
+            <!--<li class="choice" ng-repeat="choice in rangevote.choices track by $index">
                 <label>
                     <input type="text" ng-model="rangevote.choices[$index]">
                 </label>
                 <img src="../../static/img/clear.png" alt="clear" ng-click="deleteChoice(rangevote.choices, $index)"/>
-            </li>
-        </ul>
+            </li>-->
+
+            <button class="button-green" type="submit" ng-click="updateRangeVote()">enregistrez vos modifications</button>
+        </form>
+
     </div>
-    <div class="row content text-right">
-        <input type="button" class="btn btn-green" value="enregister" ng-click="updateRangeVote()"/>
+    <div class="cell--lg-2of5 cell">
+        <i class="fa fa-lightbulb-o"></i> <u>astuces</u> :
+        <ul>
+            <li>L'ordre des votes n'a pas d'importance, vote de valeur affiche un ordre différent pour chaque participant;</li>
+            <li>pensez au point d'interrogation, une question se termine toujours par un point d'interrogation.</li>
+        </ul>
     </div>
 </div>

@@ -24,8 +24,14 @@ var sources = {
     ],
     scss: [
         'bower_components/font-awesome/scss/font-awesome.scss',
+        'bower_components/simple-notify/css/notification-default.css',
+        'bower_components/simple-notify/css/notification-style-bar.css',
         'styles/**/*.scss'
     ]
+};
+
+var gulpSassOptions = {
+    includePaths: ['bower_components/foundation/scss']
 };
 
 var build_path = '../static';
@@ -66,7 +72,7 @@ gulp.task('js', function () {
 
 gulp.task('scss', function () {
     return gulp.src(sources.scss)
-        .pipe(sass().on('error', sass.logError))
+        .pipe(sass(gulpSassOptions).on('error', sass.logError))
         .pipe(concat(application_name + '.min.css'))
         .pipe(autoprefixer('last 2 versions'))
         .pipe(minifycss({keepSpecialComments: 0}))

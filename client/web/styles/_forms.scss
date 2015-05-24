@@ -134,3 +134,20 @@ button:hover, button:focus, .button:hover, .button:focus {
   color: $white;
   background-color: darken($green, 10%);
 }
+
+.btn-link, .btn-link:active, .btn-link:focus, .btn-link:hover {
+  border-color: transparent;
+}
+
+.btn-link, .btn-link.active, .btn-link:active, .btn-link[disabled] {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.btn-link {
+  font-weight: 400;
+  color: $blue;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+}

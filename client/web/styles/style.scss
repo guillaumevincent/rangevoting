@@ -1,18 +1,47 @@
 @import "normalize";
+@import 'foundation/components/tables';
 @import "base";
 @import "typography";
 @import "grid";
 @import "forms";
 
-* { box-sizing: border-box }
+* {
+  box-sizing: border-box
+}
 
 html,
 body {
   font-size: 100%;
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
 }
 
-.help{
+.help {
   margin-bottom: $gutter;
+}
+
+.fa-twitter-square {
+  color: $twitter-color;
+}
+
+.fa-facebook-square {
+  color: $facebook-color;
+}
+
+.fa-google-plus-square, .fa-trash {
+  color: $google-plus-color;
+}
+
+.fa-envelope-square {
+  color: $grey;
+}
+
+@media (min-width: $small-screen) {
+  .admin-menu__sign {
+    padding: 0 $gutter 0 0;
+  }
+
+  .admin-menu__sign:last-child {
+    padding: 0;
+  }
 }

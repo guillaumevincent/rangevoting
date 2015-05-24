@@ -25,3 +25,39 @@ p {
   max-width: 100%;
   height: auto;
 }
+
+hr {
+  margin: 1.11111rem 0 1.05556rem;
+  border: 0 solid $light-grey;
+  border-top-width: 1px;
+  clear: both;
+  height: 0;
+}
+
+.bg-green {
+  background-color: lighten($green, 10%);
+
+}
+
+.bg-blue {
+  background-color: lighten($blue, 10%);
+}
+
+.bg-red {
+  background-color: lighten($orange, 10%);
+}
+
+.radius {
+  border-radius: 0;
+}
+
+@media (min-width: $small-screen) {
+
+  .radius {
+    border-radius: 3px;
+  }
+}
+
+.padding {
+  padding: $gutter;
+}

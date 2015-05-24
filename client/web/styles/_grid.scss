@@ -85,3 +85,9 @@
 @media (min-width: $medium-screen) {
   @include generate-cell-size('lg')
 }
+
+
+.table-responsive {
+    min-height: 0.01%;
+    overflow-x: auto;
+}
