@@ -1,7 +1,6 @@
 <div class="row">
     <div class="cell text-center">
         <h2>{{ rangevote.question }}</h2>
-        <p>{{ vote }}</p>
     </div>
 </div>
 <div class="row">
@@ -16,7 +15,7 @@
             <input type='range' max="2" min="-2" step="1" ng-model="vote.opinions[rangevote.randomized_choices[$index]]"/>
         </div>
         <div class="slider text-center margin-top">
-            <button class='button-green margin-top' type="submit">
+            <button class='button-green margin-top' type="submit" ng-click="createNewVote()">
                 <i class="fa fa-thumbs-up fa-2x"></i><br/>
                 Votez !
             </button>

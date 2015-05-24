@@ -60,7 +60,7 @@ angular.module('rangevoting').controller('adminRangeVoteController', ['$scope', 
 }]);
 
 
-angular.module('rangevoting').controller('rangeVoteController', ['$scope', '$routeParams', 'Restangular', function ($scope, $routeParams, Restangular) {
+angular.module('rangevoting').controller('rangeVoteController', ['$scope', '$routeParams', '$location', 'Restangular', function ($scope, $routeParams, $location, Restangular) {
     $scope.vote = {
         voter: ''
     };
@@ -79,6 +79,19 @@ angular.module('rangevoting').controller('rangeVoteController', ['$scope', '$rou
             }
         }
     }, true);
+
+    $scope.createNewVote = function () {
+        $scope.rangevote.all('votes').post().then(function () {
+            $location.path('/rangevotes/' + $routeParams.id + '/results/');
+        }, function () {
+            new Notification({
+                message: "<p>Je suis désolé, quelque chose a mal tourné. Pouvez-vous me dire comment cela est arrivé par <a href='mailto:contact@oslab.fr?subject=Erreur vote de valeur'>e-mail</a> ?<br/>Je tiens à corriger le problème pour que cela ne se reproduise pas.</p>",
+                ttl: 20000,
+                type: 'error'
+            }).show();
+        });
+    };
+
 
 }]);
 
