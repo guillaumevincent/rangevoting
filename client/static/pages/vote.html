@@ -1,7 +1,51 @@
-<div class="question">
-    {{ rangevote.question }}
+<div class="row">
+    <div class="cell text-center">
+        <h2>{{ rangevote.question }}</h2>
+        <p>{{ vote }}</p>
+    </div>
 </div>
-<div class="slider" ng-repeat="choice in rangevote.randomized_choices">
-    <span>{{ choice }}</span>
-    <input type='range' value='50' step='25'/>
+<div class="row">
+    <div class="cell cell--lg-2of5 no-padding">
+        <div class="slider">
+            <label for="name">Nom
+                <input type="text" id="name" placeholder="Entrez votre nom" ng-model="vote.voter"/>
+            </label>
+        </div>
+        <div class="slider" ng-repeat="choice in rangevote.randomized_choices">
+            <span>{{ choice }}</span>
+            <input type='range' max="2" min="-2" step="1" ng-model="vote.opinions[rangevote.randomized_choices[$index]]"/>
+        </div>
+        <div class="slider text-center margin-top">
+            <button class='button-green margin-top' type="submit">
+                <i class="fa fa-thumbs-up fa-2x"></i><br/>
+                Votez !
+            </button>
+            <button class='margin-top' type="submit">
+                <i class="fa fa-trophy fa-2x"></i><br/>
+                Voir les résultats
+            </button>
+        </div>
+    </div>
+    <div class="cell--lg-3of5 cell--center cell">
+
+        <i class="fa fa-lightbulb-o"></i> <u>astuces</u> :
+        <ul>
+            <li>Pour chacun des choix proposés, donnez une note entre -2 et 2.<br/> Vous pouvez soutenir plusieurs réponses, plus ou moins
+                fortement, et en même temps, vous pouvez rejeter d'autres réponses, plus ou moins fortement;
+            </li>
+            <li>L'ordre des réponses est aléatoire;</li>
+            <li>Vous pouvez voir les résultats sans voter en cliquant sur le bouton voir les résultats.</li>
+        </ul>
+        <br/>
+        <i class="fa fa-share-alt"></i> <u>partagez</u> :
+
+        <p>Partagez cette question sur les réseaux sociaux ou envoyez la par mail à vos amis.</p>
+
+        <p>
+            <a href="#"><i class="fa fa-twitter-square fa-2x"></i></a>
+            <a href="#"><i class="fa fa-facebook-square fa-2x"></i></a>
+            <a href="#"><i class="fa fa-google-plus-square fa-2x"></i></a>
+            <a href="#"><i class="fa fa-envelope-square fa-2x"></i></a>
+        </p>
+    </div>
 </div>

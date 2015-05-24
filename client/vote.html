@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+    <title>Vote</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/rangevoting.min.css" media="all">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="cell text-center">
+            <h2>Quel restaurant pour ce soir ?</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="cell cell--lg-2of5 no-padding">
+            <div class="slider">
+                <label for="name">Nom
+                    <input type="text" id="name" placeholder="Entrez votre nom"/>
+                </label>
+
+            </div>
+            <div class="slider">
+                <span>burger</span>
+                <input type='range' value='50' step='25'/>
+            </div>
+            <div class="slider">
+                <span>cuisine française</span>
+                <input type='range' value='50' step='25'/>
+            </div>
+            <div class="slider">
+                <span>restaurant chinois</span>
+                <input type='range' value='50' step='25'/>
+
+            </div>
+            <div class="slider text-center margin-top">
+                <button class='button-green margin-top' type="submit">
+                    <i class="fa fa-thumbs-up fa-2x"></i><br/>
+                    Votez !
+                </button>
+                <button class='margin-top' type="submit">
+                    <i class="fa fa-trophy fa-2x"></i><br/>
+                    Voir les résultats
+                </button>
+            </div>
+        </div>
+        <div class="cell--lg-3of5 cell--center cell">
+
+            <i class="fa fa-lightbulb-o"></i> <u>astuces</u> :
+            <ul>
+                <li>Pour chacun des choix proposés, donnez une note entre -2 et 2.<br/> Vous pouvez soutenir plusieurs opinions, plus ou moins
+                    fortement, et en même temps, vous pouvez rejeter d'autres opinions, plus ou moins fortement;
+                </li>
+                <li>L'ordre des choix est aléatoire;</li>
+                <li>Vous pouvez voir les résultats sans voter en cliquant sur le bouton voir les résultats.</li>
+            </ul>
+            <br/>
+            <i class="fa fa-share-alt"></i> <u>partagez</u> :
+
+            <p>Partagez cette question sur les réseaux sociaux ou envoyez la par mail à vos amis.</p>
+
+            <p>
+                <a href="#"><i class="fa fa-twitter-square fa-2x"></i></a>
+                <a href="#"><i class="fa fa-facebook-square fa-2x"></i></a>
+                <a href="#"><i class="fa fa-google-plus-square fa-2x"></i></a>
+                <a href="#"><i class="fa fa-envelope-square fa-2x"></i></a>
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

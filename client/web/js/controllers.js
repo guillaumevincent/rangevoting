@@ -61,8 +61,24 @@ angular.module('rangevoting').controller('adminRangeVoteController', ['$scope', 
 
 
 angular.module('rangevoting').controller('rangeVoteController', ['$scope', '$routeParams', 'Restangular', function ($scope, $routeParams, Restangular) {
+    $scope.vote = {
+        voter: ''
+    };
+
     $scope.rangevote = Restangular.one("rangevotes", $routeParams.id).get().then(function (rangevote) {
         $scope.rangevote = rangevote;
     });
+
+    $scope.$watch('vote', function (newVote, oldVote) {
+        if (typeof(newVote.opinions) !== 'undefined') {
+            var opinions = $scope.vote.opinions;
+            for (var key in  opinions) {
+                if (opinions.hasOwnProperty(key)) {
+                    opinions[key] = parseInt(opinions[key]);
+                }
+            }
+        }
+    }, true);
+
 }]);
 

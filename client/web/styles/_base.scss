@@ -35,16 +35,15 @@ hr {
 }
 
 .bg-green {
-  background-color: lighten($green, 10%);
-
+  background-color: $green;
 }
 
 .bg-blue {
-  background-color: lighten($blue, 10%);
+  background-color: $blue;
 }
 
 .bg-red {
-  background-color: lighten($orange, 10%);
+  background-color: $orange;
 }
 
 .radius {
@@ -60,4 +59,12 @@ hr {
 
 .padding {
   padding: $gutter;
+}
+
+.row > .no-padding {
+  padding: 0;
+}
+
+.margin-top {
+  margin-top: $gutter;
 }

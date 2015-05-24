@@ -32,8 +32,24 @@ body {
   color: $google-plus-color;
 }
 
-.fa-envelope-square {
-  color: $grey;
+.fa-envelope-square:hover {
+  color: darken($grey, 10%);
+}
+
+.fa-twitter-square:hover {
+  color: darken($twitter-color, 10%);
+}
+
+.fa-facebook-square:hover {
+  color: darken($facebook-color, 10%);
+}
+
+.fa-google-plus-square:hover, .fa-trash:hover {
+  color: darken($google-plus-color, 10%);
+}
+
+.fa-envelope-square:hover {
+  color: darken($grey, 10%);
 }
 
 @media (min-width: $small-screen) {

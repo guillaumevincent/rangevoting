@@ -151,3 +151,85 @@ button:hover, button:focus, .button:hover, .button:focus {
   padding: 0;
   margin: 0;
 }
+
+.slider {
+  position: relative;
+  width: 300px;
+  margin: 0 auto $gutter;
+}
+
+.slider span {
+  display: block;
+  width: 100%;
+  padding: 0.7em;
+  text-align: center;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  width: 100%;
+  height: 32px;
+  margin: 0;
+  padding: 10px;
+  border: none;
+  border-radius: 3px;
+  background-size: cover;
+  background: #222222 url(data:image/png;base64,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) no-repeat center center;
+  //outline: none;
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-track {
+  border: none;
+  background: transparent;
+}
+
+input[type="range"]::-ms-track {
+  border: inherit;
+  color: transparent;
+  background: transparent;
+}
+
+input[type="range"]::-ms-fill-lower,
+input[type="range"]::-ms-fill-upper {
+  background: transparent;
+}
+
+input[type="range"]::-ms-tooltip {
+  display: none;
+}
+
+input[type=range]::-moz-focus-outer {
+  border: 0;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 36px;
+  height: 42px;
+  border-radius: 3px;
+  opacity: .65;
+  border: none;
+  background-image: linear-gradient(to bottom, #ADD978 0, #83B348 100%);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 36px;
+  height: 42px;
+  border-radius: 3px;
+  border: none;
+  opacity: .65;
+  background-image: linear-gradient(to bottom, #ADD978 0, #83B348 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ADD978), color-stop(100%, #83B348));
+  background-image: -webkit-linear-gradient(top, #ADD978 0, #83B348 100%);
+}
+
+input[type="range"]::-ms-thumb {
+  width: 36px;
+  height: 42px;
+  border-radius: 3px;
+  opacity: .65;
+  border: 0;
+  background-image: linear-gradient(to bottom, #ADD978 0, #83B348 100%);
+}
