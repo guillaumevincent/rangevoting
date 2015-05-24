@@ -1,7 +1,7 @@
 from rangevoting import RangeVote
 
 
-class RangeVoteHandler():
+class RangeVoteHandler:
     def __init__(self, rangevote_repository):
         self.repository = rangevote_repository
 

@@ -3,7 +3,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class Result():
+class Result:
     def __init__(self):
         self.ok = True
 
@@ -17,7 +17,7 @@ class BadResult(Result):
         self.ok = False
 
 
-class Bus():
+class Bus:
     def __init__(self):
         self.handlers = {}
 

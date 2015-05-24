@@ -3,7 +3,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class RangeVoteCommandValidator():
+class RangeVoteCommandValidator:
     def __init__(self, data):
         self.data = data
 
@@ -17,7 +17,7 @@ class RangeVoteCommandValidator():
         return True
 
 
-class RangeVoteCommand():
+class RangeVoteCommand:
     def __init__(self, uuid, question, choices):
         self.uuid = uuid
         self.question = question

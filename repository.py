@@ -1,4 +1,4 @@
-class MongoRepository():
+class MongoRepository:
     def __init__(self, db):
         self.rangevotes = db['rangevote']
 
@@ -15,7 +15,7 @@ class MongoRepository():
         self.rangevotes.update({'_id': element['_id']}, new_rangevote.serialize())
 
 
-class MockRepository():
+class MockRepository:
     def __init__(self):
         self.saved_element = None
 
@@ -25,5 +25,5 @@ class MockRepository():
     def update(self, _id, element):
         self.saved_element = element
 
-    def get(self, id):
+    def get(self, _id):
         return self.saved_element

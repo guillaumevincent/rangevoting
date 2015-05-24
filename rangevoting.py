@@ -2,7 +2,7 @@ import random
 import collections
 
 
-class RangeVote():
+class RangeVote:
     def __init__(self, uuid, question, choices):
         self.uuid = uuid
         self.question = question
@@ -35,7 +35,7 @@ class RangeVote():
         return {'id': str(self.uuid), 'question': self.question, 'choices': self.choices, 'votes': self.votes, 'randomized_choices': new_choices}
 
 
-class Vote():
+class Vote:
     def __init__(self, elector, opinions):
         self.elector = elector
         self.opinions = opinions
