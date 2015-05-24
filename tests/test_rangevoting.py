@@ -86,9 +86,9 @@ class RangeVoteTestCase(unittest.TestCase):
     def test_counting(self):
         rangevote = RangeVote(1, '', [])
 
-        counting = rangevote.counting([{'a': 0, 'b': 1, 'c': -1}, {'a': 1, 'b': 0, 'c': 2}])
+        counting = rangevote.counting([{'a a': 0, 'b': 1, 'c': -1}, {'a a': 1, 'b': 0, 'c': 2}])
 
-        self.assertEqual({'a': 1, 'b': 1, 'c': 1}, counting)
+        self.assertEqual({'a a': 1, 'b': 1, 'c': 1}, counting)
 
     def test_serialize_method(self):
         rangevote_id = uuid.uuid4()
