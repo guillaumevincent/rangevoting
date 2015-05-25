@@ -3,17 +3,17 @@ import unittest
 
 import mongomock
 
-from rangevoting import RangeVote, Vote
-from repository import MongoRepository
+import repository
+import rangevoting
 
 
 class MongoRepositoryTestCase(unittest.TestCase):
     def setUp(self):
         self.database = mongomock.Connection().db
-        self.repository = MongoRepository(self.database)
+        self.repository = repository.MongoRepository(self.database)
 
     def test_repository_save(self):
-        rangevote = RangeVote(uuid.uuid4(), '?', ['c1', 'c2'])
+        rangevote = rangevoting.RangeVote(uuid.uuid4(), '?', ['c1', 'c2'])
         self.repository.save(rangevote)
 
         element = self.database.rangevote.find_one()
@@ -23,13 +23,13 @@ class MongoRepositoryTestCase(unittest.TestCase):
 
     def test_repository_get(self):
         rangevote_id = uuid.uuid4()
-        rangevote = RangeVote(rangevote_id, '?', ['c1', 'c2'])
-        rangevote.add_vote(Vote(elector='Guillaume', opinions={'a': 1, 'b': -2}))
+        rangevote = rangevoting.RangeVote(rangevote_id, '?', ['c1', 'c2'])
+        rangevote.add_vote(rangevoting.Vote(elector='Guillaume', opinions={'a': 1, 'b': -2}))
         self.repository.save(rangevote)
 
         element = self.repository.get(rangevote_id)
 
-        self.assertTrue(isinstance(element, RangeVote))
+        self.assertTrue(isinstance(element, rangevoting.RangeVote))
         self.assertEqual(rangevote.question, element.question)
         self.assertEqual(rangevote.choices, element.choices)
         self.assertEqual(rangevote.votes[0].elector, element.votes[0].elector)
@@ -37,7 +37,7 @@ class MongoRepositoryTestCase(unittest.TestCase):
 
     def test_repository_update(self):
         rangevote_id = uuid.uuid4()
-        rangevote = RangeVote(rangevote_id, 'Q', ['c1', 'c2'])
+        rangevote = rangevoting.RangeVote(rangevote_id, 'Q', ['c1', 'c2'])
         self.repository.save(rangevote)
 
         rangevote.question = 'Q?'

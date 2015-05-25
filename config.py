@@ -5,8 +5,7 @@ import pymongo
 import pymongo.errors
 import smartconfigparser
 
-from repository import MongoRepository
-
+import repository
 
 logger = logging.getLogger(__name__)
 
@@ -18,7 +17,7 @@ def get_mongo_repository():
     port = config.getint('DATABASE', 'port', 27017)
     try:
         database = pymongo.MongoClient(host, port)['rangevoting']
-        return MongoRepository(database)
+        return repository.MongoRepository(database)
     except (pymongo.errors.ConnectionFailure, pymongo.errors.AutoReconnect):
         logger.exception('mongo database is not started on mongodb://{0}:{1}/'.format(host, port))
         sys.exit(0)

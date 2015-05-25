@@ -3,10 +3,10 @@ import json
 import logging
 import unittest
 
+import bus
 import server
-from bus import Result
-from rangevoting import RangeVote
-from repository import MockRepository
+import repository
+import rangevoting
 
 
 class SpyBus:
@@ -15,7 +15,7 @@ class SpyBus:
 
     def send(self, command):
         self.last_command = command
-        return Result()
+        return bus.Result()
 
 
 class SpyQueryDispatcher:
@@ -24,12 +24,12 @@ class SpyQueryDispatcher:
 
     def execute(self, query):
         self.last_query = query
-        return RangeVote(uuid=1, question='q?', choices=['c1', 'c2'])
+        return rangevoting.RangeVote(uuid=1, question='q?', choices=['c1', 'c2'])
 
 
 class ServerTestCase(unittest.TestCase):
     def setUp(self):
-        server.app.repository = MockRepository()
+        server.app.repository = repository.MockRepository()
         server.app.config['TESTING'] = True
         server.app.configure_handlers()
         self.app = server.app.test_client()

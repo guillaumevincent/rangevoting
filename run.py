@@ -1,11 +1,11 @@
 import config
-from server import app
+import server
 
 
 config.configure_logging()
 
-app.repository = config.get_mongo_repository()
-app.configure_handlers()
+server.app.repository = config.get_mongo_repository()
+server.app.configure_handlers()
 
 if __name__ == '__main__':
-    app.run()
+    server.app.run()

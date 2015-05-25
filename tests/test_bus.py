@@ -1,10 +1,10 @@
 import logging
 import unittest
 
-from bus import Bus
+import bus
 
 
-class FakeHandler():
+class FakeHandler:
     def __init__(self):
         self.handle_called = False
         self.command = None
@@ -14,11 +14,12 @@ class FakeHandler():
         self.command = command
 
 
-class RaiseExceptionHandler():
+class RaiseExceptionHandler:
     def __init__(self):
         pass
 
-    def handle(self, command):
+    @staticmethod
+    def handle(command):
         raise Exception
 
 
@@ -28,36 +29,36 @@ class BusTestCase(unittest.TestCase):
         root.setLevel(logging.CRITICAL)
 
     def test_bus_can_register_handler(self):
-        bus = Bus()
+        b = bus.Bus()
         command = object
         handler = object()
 
-        bus.register(command, handler)
+        b.register(command, handler)
 
-        self.assertTrue(command in bus.handlers)
-        self.assertEqual(handler, bus.handlers[command])
+        self.assertTrue(command in b.handlers)
+        self.assertEqual(handler, b.handlers[command])
 
     def test_send_execute_handle_method_from_handler(self):
-        bus = Bus()
+        b = bus.Bus()
         handler = FakeHandler()
-        bus.register(object, handler)
+        b.register(object, handler)
         command = object()
 
-        bus.send(command)
+        b.send(command)
 
         self.assertTrue(handler.handle_called)
         self.assertEqual(command, handler.command)
 
     def test_handler_raise_exception_in_send_method(self):
-        bus = Bus()
-        bus.register(object, RaiseExceptionHandler())
+        b = bus.Bus()
+        b.register(object, RaiseExceptionHandler())
         command = object()
 
-        result = bus.send(command)
+        result = b.send(command)
 
         self.assertFalse(result.ok)
 
     def test_raise_error_if_no_handlers_availables(self):
-        bus = Bus()
+        b = bus.Bus()
         with self.assertRaises(Exception):
-            bus.send(object())
+            b.send(object())
