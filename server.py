@@ -29,6 +29,7 @@ class Server(flask.Flask):
 
         self.query_dispatcher = bus.QueryDispatcher()
         self.query_dispatcher.register(queries.GetRangeVoteQuery, handlers.GetRangeVoteHandler(self.repository))
+        self.query_dispatcher.register(queries.GetRangeVoteResultsQuery, handlers.GetRangeVoteResultsHandler(self.repository))
 
 
 app = Server(__name__)
@@ -55,7 +56,7 @@ def get_rangevote(rangevote_id):
     query = queries.GetRangeVoteQuery(rangevote_id)
     rangevote = app.query_dispatcher.execute(query)
     if rangevote:
-        return flask.jsonify(rangevote.serialize()), 200
+        return flask.jsonify(rangevote), 200
     return flask.jsonify(), 404
 
 
@@ -76,4 +77,13 @@ def create_vote(rangevote_id):
         result = app.bus.send(command)
         if result.ok:
             return flask.jsonify({'id': rangevote_id}), 201, {'Location': '/rangevotes/{0}'.format(rangevote_id)}
+    return flask.jsonify(), 400
+
+
+@app.route('/rangevotes/<path:rangevote_id>/results')
+def get_rangevote_results(rangevote_id):
+    query = queries.GetRangeVoteResultsQuery(rangevote_id)
+    results = app.query_dispatcher.execute(query)
+    if results:
+        return flask.jsonify(results), 200
     return flask.jsonify(), 400

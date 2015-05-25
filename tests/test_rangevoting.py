@@ -56,37 +56,37 @@ class RangeVoteTestCase(unittest.TestCase):
 
         self.assertEqual([vote], rangevote.votes)
 
-    def test_get_results_equal_to_choices_if_no_votes(self):
+    def test_get_answers_equal_to_choices_if_no_votes(self):
         choices = ['a', 'b']
         rangevote = rangevoting.RangeVote(1, '', choices)
 
-        results = rangevote.get_results()
+        answers = rangevote.get_answers()
 
-        self.assertEqual(choices, results)
+        self.assertEqual(choices, answers)
 
-    def test_get_results_with_one_winner(self):
+    def test_get_answers_with_one_winner(self):
         rangevote = rangevoting.RangeVote(1, '', [])
         counting = {'a': 2, 'b': 1}
 
-        results = rangevote.get_results(counting)
+        answers = rangevote.get_answers(counting)
 
-        self.assertEqual(['a'], results)
+        self.assertEqual(['a'], answers)
 
-    def test_get_results_with_two_winners(self):
+    def test_get_answers_with_two_winners(self):
         rangevote = rangevoting.RangeVote(1, '', [])
         counting = {'a': 2, 'b': 1, 'c': 2}
 
-        results = rangevote.get_results(counting)
+        answers = rangevote.get_answers(counting)
 
-        self.assertEqual(sorted(['a', 'c']), sorted(results))
+        self.assertEqual(sorted(['a', 'c']), sorted(answers))
 
-    def test_get_results_with_equality(self):
+    def test_get_answers_with_equality(self):
         rangevote = rangevoting.RangeVote(1, '', [])
         equality = {'a': 1, 'b': 1}
 
-        results = rangevote.get_results(equality)
+        answers = rangevote.get_answers(equality)
 
-        self.assertCountEqual(['a', 'b'], results)
+        self.assertCountEqual(['a', 'b'], answers)
 
     def test_counting(self):
         rangevote = rangevoting.RangeVote(1, '', [])

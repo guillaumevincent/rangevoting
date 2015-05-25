@@ -24,7 +24,7 @@ class SpyQueryDispatcher:
 
     def execute(self, query):
         self.last_query = query
-        return rangevoting.RangeVote(uuid=1, question='q?', choices=['c1', 'c2'])
+        return rangevoting.RangeVote(uuid=1, question='q?', choices=['c1', 'c2']).serialize()
 
 
 class ServerTestCase(unittest.TestCase):
@@ -86,6 +86,7 @@ class ServerTestCase(unittest.TestCase):
         response = self.app.get('/rangevotes/375ce742-495f-4b0c-b831-3fb0dcc61b17', content_type='application/json')
 
         self.assertEqual(200, response.status_code)
+        self.assertEqual('375ce742-495f-4b0c-b831-3fb0dcc61b17', server.app.query_dispatcher.last_query.uuid)
 
     def test_get_rangevote_404(self):
         response = self.app.get('/rangevotes/375ce742-495f-4b0c-b831-3fb0dcc61b17', content_type='application/json')
@@ -99,12 +100,26 @@ class ServerTestCase(unittest.TestCase):
                                 data=json.dumps({'question': 'test question ?', 'choices': ['c1', 'c2', 'c3']}),
                                 content_type='application/json')
         self.assertEqual(200, response.status_code)
+        self.assertEqual('375ce742-495f-4b0c-b831-3fb0dcc61b17', server.app.bus.last_command.uuid)
+        self.assertEqual('test question ?', server.app.bus.last_command.question)
+        self.assertListEqual(['c1', 'c2', 'c3'], server.app.bus.last_command.choices)
 
     def test_create_vote(self):
         server.app.bus = SpyBus()
 
         response = self.app.post('/rangevotes/375ce742-495f-4b0c-b831-3fb0dcc61b17/votes',
-                                 data=json.dumps({'elector': 'Guillaume Vincent', 'opinions': {}}),
+                                 data=json.dumps({'elector': 'Guillaume Vincent', 'opinions': {'a': 1, 'b': -1}}),
                                  content_type='application/json')
 
         self.assertEqual(201, response.status_code)
+        self.assertEqual('375ce742-495f-4b0c-b831-3fb0dcc61b17', server.app.bus.last_command.rangevote_id)
+        self.assertEqual('Guillaume Vincent', server.app.bus.last_command.elector)
+        self.assertDictEqual({'a': 1, 'b': -1}, server.app.bus.last_command.opinions)
+
+    def test_get_results(self):
+        server.app.query_dispatcher = SpyQueryDispatcher()
+
+        response = self.app.get('/rangevotes/375ce742-495f-4b0c-b831-3fb0dcc61b17/results', content_type='application/json')
+
+        self.assertEqual('375ce742-495f-4b0c-b831-3fb0dcc61b17', server.app.query_dispatcher.last_query.uuid)
+        self.assertEqual(200, response.status_code)

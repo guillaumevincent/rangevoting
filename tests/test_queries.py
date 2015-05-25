@@ -10,3 +10,10 @@ class QueriesTestCase(unittest.TestCase):
         get_rangevote_query = queries.GetRangeVoteQuery(uuid)
 
         self.assertEqual(uuid, get_rangevote_query.uuid)
+
+    def test_get_rangevote_results_query(self):
+        uuid = 1
+
+        get_rangevote_results_query = queries.GetRangeVoteResultsQuery(uuid)
+
+        self.assertEqual(uuid, get_rangevote_results_query.uuid)

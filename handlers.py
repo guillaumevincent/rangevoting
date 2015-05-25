@@ -14,7 +14,7 @@ class CreateRangeVoteHandler(Handler):
 
 class GetRangeVoteHandler(Handler):
     def handle(self, query):
-        return self.repository.get(query.uuid)
+        return self.repository.get(query.uuid).serialize()
 
 
 class UpdateRangeVoteHandler(Handler):
@@ -29,3 +29,11 @@ class CreateVoteHandler(Handler):
         rangevote = self.repository.get(command.rangevote_id)
         rangevote.add_vote(vote)
         self.repository.update(command.rangevote_id, rangevote)
+
+
+class GetRangeVoteResultsHandler(Handler):
+    def handle(self, query):
+        rangevote = self.repository.get(query.uuid)
+        votes = rangevote.votes
+        couting = rangevote.counting(votes)
+        return {'question': rangevote.question, 'answers': rangevote.get_answers(couting), 'counting': couting, 'number_of_votes': len(votes)}
