@@ -12,15 +12,22 @@ class RangeVote:
     def add_vote(self, vote):
         self.votes.append(vote)
 
-    def get_answers(self, counting=None):
-        if counting:
-            highest_note = max(counting.values())
-            answers = []
-            for key, value in counting.items():
-                if value >= highest_note:
-                    answers.append(key)
-            return answers
-        return self.choices
+    def get_answers(self):
+        counting = self.get_counting()
+        if not counting:
+            return self.choices
+        highest_note = max(counting.values())
+        answers = []
+        for key, value in counting.items():
+            if value == highest_note:
+                answers.append(key)
+        return answers
+
+    def get_counting(self):
+        c = collections.Counter()
+        for vote in self.votes:
+            c.update(vote)
+        return c
 
     @staticmethod
     def counting(votes):

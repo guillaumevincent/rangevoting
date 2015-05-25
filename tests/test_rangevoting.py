@@ -66,34 +66,36 @@ class RangeVoteTestCase(unittest.TestCase):
 
     def test_get_answers_with_one_winner(self):
         rangevote = rangevoting.RangeVote(1, '', [])
-        counting = {'a': 2, 'b': 1}
+        rangevote.add_vote({'a': 2, 'b': 1})
 
-        answers = rangevote.get_answers(counting)
+        answers = rangevote.get_answers()
 
         self.assertEqual(['a'], answers)
 
     def test_get_answers_with_two_winners(self):
         rangevote = rangevoting.RangeVote(1, '', [])
-        counting = {'a': 2, 'b': 1, 'c': 2}
+        rangevote.add_vote({'a': 2, 'b': 1, 'c': 2})
 
-        answers = rangevote.get_answers(counting)
+        answers = rangevote.get_answers()
 
         self.assertEqual(sorted(['a', 'c']), sorted(answers))
 
     def test_get_answers_with_equality(self):
         rangevote = rangevoting.RangeVote(1, '', [])
-        equality = {'a': 1, 'b': 1}
+        rangevote.add_vote({'a': 1, 'b': 1})
 
-        answers = rangevote.get_answers(equality)
+        answers = rangevote.get_answers()
 
         self.assertCountEqual(['a', 'b'], answers)
 
-    def test_counting(self):
+    def test_get_answer_with_two_votes(self):
         rangevote = rangevoting.RangeVote(1, '', [])
+        rangevote.add_vote({'a a': 0, 'b': 1, 'c': -1})
+        rangevote.add_vote({'a a': 1, 'b': 0, 'c': 2})
 
-        counting = rangevote.counting([{'a a': 0, 'b': 1, 'c': -1}, {'a a': 1, 'b': 0, 'c': 2}])
+        answers = rangevote.get_answers()
 
-        self.assertEqual({'a a': 1, 'b': 1, 'c': 1}, counting)
+        self.assertListEqual(sorted(['a a', 'b', 'c']), sorted(answers))
 
     def test_serialize_method(self):
         rangevote_id = uuid.uuid4()
