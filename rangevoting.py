@@ -12,10 +12,16 @@ class RangeVote:
     def add_vote(self, vote):
         self.votes.append(vote)
 
+    def _get_counting(self):
+        c = collections.Counter()
+        for vote in self.votes:
+            c.update(vote.opinions)
+        return c
+
     def get_answers(self):
-        counting = self.get_counting()
+        counting = self._get_counting()
         if not counting:
-            return self.choices
+            return []
         highest_note = max(counting.values())
         answers = []
         for key, value in counting.items():
@@ -23,30 +29,26 @@ class RangeVote:
                 answers.append(key)
         return answers
 
-    def get_counting(self):
-        c = collections.Counter()
-        for vote in self.votes:
-            c.update(vote)
-        return c
+    def get_ranking(self):
+        counting = self._get_counting()
+        if not counting:
+            return []
+        ranking = []
+        for choice in sorted(counting, key=counting.get, reverse=True):
+            ranking.append({'choice': choice, 'score': counting[choice]})
+        return ranking
 
-    @staticmethod
-    def counting(votes):
-        c = collections.Counter()
-        for vote in votes:
-            c.update(vote)
-        return c
-
-    def serialize(self):
-        new_choices = list(self.choices)
-        random.shuffle(new_choices)
-        return {'id': str(self.uuid), 'question': self.question, 'choices': self.choices, 'votes': self.get_serialized_votes(),
-                'randomized_choices': new_choices}
-
-    def get_serialized_votes(self):
+    def _get_serialized_votes(self):
         returned_votes = []
         for vote in self.votes:
             returned_votes.append(vote.serialize())
         return returned_votes
+
+    def serialize(self):
+        new_choices = list(self.choices)
+        random.shuffle(new_choices)
+        return {'id': str(self.uuid), 'question': self.question, 'choices': self.choices, 'votes': self._get_serialized_votes(),
+                'randomized_choices': new_choices}
 
 
 class Vote:

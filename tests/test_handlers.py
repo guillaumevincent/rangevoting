@@ -58,14 +58,16 @@ class QueryHandlersTestCase(unittest.TestCase):
 
     def test_get_rangevote_results_handler(self):
         self.mock_repository.db[1] = rangevoting.RangeVote(1, 'Q?', ['a', 'b'])
-        self.mock_repository.db[1].votes = [{'a': 1, 'b': -1}, {'a': -1}, {'a': -2, 'b': 1}]
+        self.mock_repository.db[1].votes = [rangevoting.Vote(elector='G', opinions={'a': 1, 'b': -1}),
+                                            rangevoting.Vote(elector='V', opinions={'a': -1, 'b': 2})]
+
         get_rangevote_results_handler = handlers.GetRangeVoteResultsHandler(self.mock_repository)
 
         results = get_rangevote_results_handler.handle(queries.GetRangeVoteResultsQuery(1))
         expected_results = {
             'question': 'Q?',
             'answers': ['b'],
-            'counting': {'a': -2, 'b': 0},
-            'number_of_votes': 3
+            'ranking': [{'choice': 'b', 'score': 1}, {'choice': 'a', 'score': 0}],
+            'number_of_votes': 2
         }
         self.assertDictEqual(results, expected_results)
