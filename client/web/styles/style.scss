@@ -16,8 +16,14 @@ body {
   padding: 0;
 }
 
+#logo{
+  margin-top:2em;
+  margin-bottom: 1em;
+}
+
 .help {
   margin-bottom: $gutter;
+  color: $blue;
 }
 
 .fa-twitter-square {

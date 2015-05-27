@@ -1,12 +1,10 @@
 <div class="row">
-    <div class="cell text-center">
-        <img src="static/img/logo.png" class="img-responsive" alt="logo"/>
+    <div class="cell cell--md-3of5 cell--lg-1of3 text-center">
+        <img id="logo" src="static/img/logo.png" class="img-responsive" alt="logo"/>
     </div>
 </div>
 <div class="row">
-    <div class="cell cell--md-1of5">
-    </div>
-    <div class="cell cell--md-3of5">
+    <div class="cell  cell--md-3of5 cell--lg-1of3">
         <form ng-submit="createRangeVote(form)" novalidate>
             <label for="question">
                 Question
@@ -16,12 +14,13 @@
                 Choix
                 <input type="text" id="choices" ng-model="form.choices" placeholder="Chinoise, Italienne, Française..."/>
             </label>
-            <p class="help text-center text-justify">
-                <i class="fa fa-info-circle"></i>
-                le vote de valeur vous aide à trouver la réponse qui convient le mieux, entrez une question et des choix séparés par des
-                virgules
-            </p>
             <button class='button-green' type="submit">créer un vote</button>
+            <button data-ng-click="iNeedSomeHelp=!iNeedSomeHelp"><i class="fa fa-question-circle"></i></button>
+            <p data-ng-show="iNeedSomeHelp" class="help text-center text-justify">
+                <i class="fa fa-question-circle"></i>
+                Vote de valeur est une application qui vous aide à trouver la réponse qui convient le mieux. Entrez une question et des choix
+                séparés par des virgules.
+            </p>
         </form>
     </div>
 </div>

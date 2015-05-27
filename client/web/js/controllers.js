@@ -1,5 +1,6 @@
 angular.module('rangevoting').controller('createRangeVoteController', ['$scope', '$location', 'Restangular', function ($scope, $location, Restangular) {
     $scope.isValid = true;
+    $scope.iNeedSomeHelp = false;
 
     $scope.rangevoteIsValid = function (rangevote) {
         return !!(rangevote.question && rangevote.choices.length > 1);
