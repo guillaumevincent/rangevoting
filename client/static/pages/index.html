@@ -1,26 +1,30 @@
 <div class="row">
-    <div class="cell cell--md-3of5 cell--lg-1of3 text-center">
-        <img id="logo" src="static/img/logo.png" class="img-responsive" alt="logo"/>
-    </div>
-</div>
-<div class="row">
-    <div class="cell  cell--md-3of5 cell--lg-1of3">
-        <form ng-submit="createRangeVote(form)" novalidate>
+  <div class="medium-6 large-5 small-centered columns">
+       <img id="logo" src="static/img/logo.png" alt="logo"/>
+
+        <form name="voteForm" ng-submit="createRangeVote(form)" novalidate>
             <label for="question">
                 Question
-                <input type="text" id="question" ng-model="form.question" placeholder="Quel type de cuisine préférez-vous ?"/>
+                <span class="error" data-ng-show="voteForm.$submitted && voteForm.question.$invalid">- ajoutez une question</span>
+                <input type="text" id="question" name="question" required ng-model="form.question"
+                       placeholder="Quel type de cuisine préférez-vous ?" autofocus
+                       data-ng-class="{'input-error': voteForm.$submitted && voteForm.question.$invalid}"/>
             </label>
             <label for="choices">
                 Choix
-                <input type="text" id="choices" ng-model="form.choices" placeholder="Chinoise, Italienne, Française..."/>
+                <span class="error"
+                      data-ng-show="voteForm.$submitted && voteForm.choices.$invalid">- ajoutez des choix séparés par des virgules</span>
+                <input type="text" id="choices" name="choices" ng-model="form.choices" required
+                       placeholder="Chinoise, Italienne, Française..."
+                       data-ng-class="{'input-error': voteForm.$submitted && voteForm.choices.$invalid}" haschoices/>
             </label>
-            <button class='button-green' type="submit">créer un vote</button>
-            <button data-ng-click="iNeedSomeHelp=!iNeedSomeHelp"><i class="fa fa-question-circle"></i></button>
+            <button class='button-green' type="submit" ng-disabled="voteForm.$submitted && voteForm.$invalid">créer un vote</button>
+            <button data-ng-click="iNeedSomeHelp=!iNeedSomeHelp" type="button"><i class="fa fa-question-circle"></i></button>
             <p data-ng-show="iNeedSomeHelp" class="help text-center text-justify">
                 <i class="fa fa-question-circle"></i>
                 Vote de valeur est une application qui vous aide à trouver la réponse qui convient le mieux. Entrez une question et des choix
                 séparés par des virgules.
             </p>
         </form>
-    </div>
+  </div>
 </div>

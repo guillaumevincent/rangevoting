@@ -1,5 +1,4 @@
 angular.module('rangevoting').controller('createRangeVoteController', ['$scope', '$location', 'Restangular', function ($scope, $location, Restangular) {
-    $scope.isValid = true;
     $scope.iNeedSomeHelp = false;
 
     $scope.rangevoteIsValid = function (rangevote) {
@@ -8,7 +7,7 @@ angular.module('rangevoting').controller('createRangeVoteController', ['$scope',
 
     $scope.convertRangeVote = function (form) {
         var rangevote = {question: '', choices: []};
-        if (form) {
+        if (form && form.question && form.choices) {
             rangevote.question = form.question;
             rangevote.choices = _.map(form.choices.split(','), _.trim);
             return rangevote
@@ -92,7 +91,5 @@ angular.module('rangevoting').controller('rangeVoteController', ['$scope', '$rou
             }).show();
         });
     };
-
-
 }]);
 

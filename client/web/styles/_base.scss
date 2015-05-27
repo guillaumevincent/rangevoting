@@ -1,5 +1,16 @@
 @import "variables";
 
+* {
+  box-sizing: border-box
+}
+
+html,
+body {
+  font-size: $html-font-size;
+  margin: 0;
+  padding: 0;
+}
+
 html {
   color: $grey;
   background-color: $base-background;
@@ -9,62 +20,10 @@ p {
   color: inherit;
 }
 
-.text-center {
-  text-align: center;
-}
-
-.text-right {
-  text-align: right;
-}
-
-.text-justify {
-  text-align: justify;
-}
-
-.img-responsive {
-  max-width: 100%;
-  height: auto;
-}
-
 hr {
   margin: 1.11111rem 0 1.05556rem;
   border: 0 solid $light-grey;
   border-top-width: 1px;
   clear: both;
   height: 0;
-}
-
-.bg-green {
-  background-color: $green;
-}
-
-.bg-blue {
-  background-color: $blue;
-}
-
-.bg-red {
-  background-color: $orange;
-}
-
-.radius {
-  border-radius: 0;
-}
-
-@media (min-width: $small-screen) {
-
-  .radius {
-    border-radius: 3px;
-  }
-}
-
-.padding {
-  padding: $gutter;
-}
-
-.row > .no-padding {
-  padding: 0;
-}
-
-.margin-top {
-  margin-top: $gutter;
 }

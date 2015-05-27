@@ -42,6 +42,23 @@ textarea {
   box-sizing: border-box;
 }
 
+button.disabled, button[disabled], .button.disabled, .button[disabled] {
+    background-color: lighten($blue, 10%);
+    border-color: darken($blue, 10%);
+    color: #FFF;
+    box-shadow: none;
+    cursor: default;
+    opacity: 0.7;
+}
+
+
+form.ng-submitted input.ng-invalid {
+  background-color:$red;
+  border:0;
+  color:$white;
+}
+
+
 button,
 .button {
   -moz-appearance: none;
@@ -134,6 +151,17 @@ button:hover, button:focus, .button:hover, .button:focus {
   color: $white;
   background-color: darken($green, 10%);
 }
+
+
+.button-green.disabled, .button-green[disabled] {
+    background-color: lighten($green, 10%);
+    border-color: darken($green, 10%);
+    color: #FFF;
+    box-shadow: none;
+    cursor: default;
+    opacity: 0.7;
+}
+
 
 .btn-link, .btn-link:active, .btn-link:focus, .btn-link:hover {
   border-color: transparent;

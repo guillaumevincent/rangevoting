@@ -22,6 +22,11 @@ describe("create RangeVote Controller", function () {
         assert.deepEqual({question: '', choices: []}, rangevote);
     });
 
+    it('should convert undefined choices into default rangevote', function () {
+        var rangevote = $scope.convertRangeVote({question: 'Q?'});
+        assert.deepEqual({question: '', choices: []}, rangevote);
+    });
+
     it('rangevote is valid if there is one question and two choices', function () {
         assert.ok($scope.rangevoteIsValid({
             question: 'New question ?',

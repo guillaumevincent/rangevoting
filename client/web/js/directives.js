@@ -4,7 +4,7 @@ angular.module('rangevoting').directive('haschoices', function () {
         link: function (scope, elm, attrs, ctrl) {
             ctrl.$validators.haschoices = function (modelValue, viewValue) {
                 if (viewValue) {
-                    var choices = viewValue.split(',');
+                    var choices = viewValue.split(',').filter(Boolean);
                     if (choices.length > 1) {
                         return true;
                     }
@@ -15,22 +15,11 @@ angular.module('rangevoting').directive('haschoices', function () {
     };
 });
 
-angular.module('rangevoting').directive("contenteditable", function() {
-  return {
-    require: "ngModel",
-    link: function(scope, element, attrs, ngModel) {
-
-      function read() {
-        ngModel.$setViewValue(element.html());
-      }
-
-      ngModel.$render = function() {
-        element.html(ngModel.$viewValue || "");
+angular.module('rangevoting').directive('autofocus', function() {
+      return {
+        restrict: 'A',
+        link: function($scope, element) {
+          element[0].focus();
+        }
       };
-
-      element.bind("blur keyup change", function() {
-        scope.$apply(read);
-      });
-    }
-  };
-});
+    });

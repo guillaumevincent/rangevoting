@@ -1,0 +1,49 @@
+@import "variables";
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+.help {
+  margin-bottom: $gutter;
+  color: $blue;
+}
+
+.bg-green {
+  background-color: $green;
+}
+
+.bg-blue {
+  background-color: $blue;
+}
+
+.bg-red {
+  background-color: $orange;
+}
+
+.radius {
+  border-radius: 0;
+}
+
+@media (min-width: $small-screen) {
+
+  .radius {
+    border-radius: 3px;
+  }
+}
+
+.padding {
+  padding: $gutter;
+}
+
+.margin-top {
+  margin-top: $gutter;
+}

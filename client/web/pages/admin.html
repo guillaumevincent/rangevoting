@@ -1,26 +1,21 @@
 <div class="row">
-    <div class="cell cell--lg-3of5">
-        <h2>Modifiez votre question :</h2>
+    <div class="cell cell--md-3of5 cell--lg-1of3">
+        <img id="logo" src="static/img/logo.png" class="img-responsive" alt="logo"/>
     </div>
 </div>
 <div class="row">
     <div class="cell cell--lg-3of5">
-        <form ng-submit="createRangeVote(form)" novalidate>
+        <form ng-submit="updateRangeVote()" novalidate>
             <label for="question">Question
                 <input type="text" id="question" ng-model="rangevote.question"/>
             </label>
-
             <label>Choix
                 <input type="text" ng-model="rangevote.choices[$index]" ng-repeat="choice in rangevote.choices track by $index"/>
             </label>
-            <!--<li class="choice" ng-repeat="choice in rangevote.choices track by $index">
-                <label>
-                    <input type="text" ng-model="rangevote.choices[$index]">
-                </label>
-                <img src="../../static/img/clear.png" alt="clear" ng-click="deleteChoice(rangevote.choices, $index)"/>
-            </li>-->
 
-            <button class="button-green" type="submit" ng-click="updateRangeVote()">enregistrez vos modifications</button>
+            <button type="button" ng-click=""><i class="fa fa-plus"></i> ajouter un choix</button>
+            <button class="button-green" type="submit"><i class="fa fa-floppy-o"></i> enregistrer</button>
+
         </form>
 
     </div>
