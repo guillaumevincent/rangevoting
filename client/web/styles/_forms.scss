@@ -75,7 +75,7 @@ textarea {
   border-radius: 3px;
   background-color: $white;
   border: 1px solid $light-grey;
-  box-shadow: 0 1px 2px rgba($dark-grey, 0.1) inset;
+  box-shadow: none;
   color: rgba($black, 0.75);
   display: block;
   font-family: inherit;
@@ -101,15 +101,15 @@ button, .button {
   display: inline-block;
   padding: 0.44445rem 0.88889rem 0.47222rem;
   font-size: 0.88889rem;
-  background-color: $blue;
-  border: 0 solid darken($blue, 10%);
+  background-color: $facebook-color;
+  border: 0 solid darken($facebook-color, 10%);
   color: $white;
   transition: background-color 300ms ease-out 0s;
 }
 
 button:hover, button:focus, .button:hover, .button:focus {
   color: $white;
-  background-color: darken($blue, 10%);
+  background-color: darken($facebook-color, 10%);
 }
 
 .button-green {
@@ -133,22 +133,6 @@ button:hover, button:focus, .button:hover, .button:focus {
 }
 
 
-.btn-link, .btn-link:active, .btn-link:focus, .btn-link:hover {
-  border-color: transparent;
-}
-
-.btn-link, .btn-link.active, .btn-link:active, .btn-link[disabled] {
-  background-color: transparent;
-  box-shadow: none;
-}
-
-.btn-link {
-  font-weight: 400;
-  color: $blue;
-  border-radius: 0;
-  padding: 0;
-  margin: 0;
-}
 
 .slider {
   position: relative;
