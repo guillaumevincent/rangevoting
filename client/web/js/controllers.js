@@ -37,6 +37,10 @@ angular.module('rangevoting').controller('adminRangeVoteController', ['$scope', 
         $scope.message_to_share = rangevote.question + ' ' + $scope.rangevote_url + ' #votedevaleur';
     });
 
+    Restangular.one('rangevotes', $routeParams.id).customGET('results').then(function (results) {
+        $scope.results = results;
+    });
+
     $scope.newChoice = '';
     $scope.addNewChoice = function () {
         $scope.rangevote.choices.push($scope.newChoice);
@@ -45,6 +49,11 @@ angular.module('rangevoting').controller('adminRangeVoteController', ['$scope', 
 
     $scope.deleteChoice = function (choices, index) {
         choices.splice(index, 1);
+    };
+
+    $scope.deleteVote = function (index) {
+        $scope.rangevote.votes.splice(index, 1);
+        $scope.updateRangeVote();
     };
 
     $scope.updateRangeVote = function () {
@@ -121,10 +130,6 @@ angular.module('rangevoting').controller('resultRangeVoteController', ['$scope',
     Restangular.one('rangevotes', $routeParams.id).customGET('results').then(function (results) {
         $scope.results = results;
     });
-
-    //$scope.rangevote = Restangular.one("rangevotes", $routeParams.id).all('results').get().then(function (results) {
-    //    $scope.results = results;
-    //});
 
 }]);
 
