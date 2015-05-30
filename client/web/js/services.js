@@ -8,7 +8,6 @@ angular.module('rangevoting').factory('Url', ['$location', function ($location) 
         redirect: function (p) {
             console.log(p);
             $location.path(p);
-        },
-        location:$location
+        }
     }
 }]);

@@ -70,20 +70,19 @@ angular.module('rangevoting').controller('rangeVoteController', ['$scope', '$rou
         elector: ''
     };
 
-    $scope.initVote = function (choices) {
+    $scope.getEmptyOpinions = function (choices) {
         var opinions = {};
         for (var i = 0; i < choices.length; i++) {
             opinions[choices[i]] = 0;
         }
-        $scope.vote = {
-            elector: '',
-            opinions: opinions
-        };
+        return opinions
     };
 
     $scope.rangevote = Restangular.one("rangevotes", $routeParams.id).get().then(function (rangevote) {
         $scope.rangevote = rangevote;
-        $scope.initVote(rangevote.choices);
+        return rangevote
+    }).then(function (rangevote) {
+        $scope.vote.opinions = $scope.getEmptyOpinions(rangevote.choices);
         $scope.rangevote_url = Url.getBaseUrl() + '/rangevotes/' + $routeParams.id;
         $scope.message_to_share = rangevote.question + ' ' + $scope.rangevote_url + ' #votedevaleur';
     });
@@ -118,6 +117,14 @@ angular.module('rangevoting').controller('rangeVoteController', ['$scope', '$rou
 
 
 angular.module('rangevoting').controller('resultRangeVoteController', ['$scope', '$routeParams', 'Restangular', function ($scope, $routeParams, Restangular) {
+
+    Restangular.one('rangevotes', $routeParams.id).customGET('results').then(function (results) {
+        $scope.results = results;
+    });
+
+    //$scope.rangevote = Restangular.one("rangevotes", $routeParams.id).all('results').get().then(function (results) {
+    //    $scope.results = results;
+    //});
 
 }]);
 
