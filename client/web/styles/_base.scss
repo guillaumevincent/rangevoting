@@ -6,14 +6,13 @@
 
 html,
 body {
-  font-size: $html-font-size;
   margin: 0;
   padding: 0;
 }
 
 html {
   color: $grey;
-  background-color: $base-background;
+  background-color: $light-grey;
 }
 
 p {
@@ -22,7 +21,7 @@ p {
 
 hr {
   margin: 1.11111rem 0 1.05556rem;
-  border: 0 solid $light-grey;
+  border: 0 solid $grey;
   border-top-width: 1px;
   clear: both;
   height: 0;

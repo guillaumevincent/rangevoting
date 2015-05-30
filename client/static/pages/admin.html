@@ -1,10 +1,10 @@
 <div class="row">
-    <div class="cell cell--md-3of5 cell--lg-1of3">
-        <img id="logo" src="static/img/logo.png" class="img-responsive" alt="logo"/>
+    <div class="medium-6 columns">
+        <img id="logo" src="static/img/logo.png" alt="logo"/>
     </div>
 </div>
 <div class="row">
-    <div class="cell cell--lg-3of5">
+    <div class="medium-6 columns">
         <form ng-submit="updateRangeVote()" novalidate>
             <label for="question">Question
                 <input type="text" id="question" ng-model="rangevote.question"/>
@@ -13,13 +13,10 @@
                 <input type="text" ng-model="rangevote.choices[$index]" ng-repeat="choice in rangevote.choices track by $index"/>
             </label>
 
-            <button type="button" ng-click=""><i class="fa fa-plus"></i> ajouter un choix</button>
             <button class="button-green" type="submit"><i class="fa fa-floppy-o"></i> enregistrer</button>
-
         </form>
-
     </div>
-    <div class="cell cell--lg-2of5">
+    <div class="medium-6 columns ends">
         <i class="fa fa-lightbulb-o"></i> <u>astuces</u> :
         <ul>
             <li>L'ordre des votes n'a pas d'importance, vote de valeur affiche un ordre différent pour chaque participant;</li>
