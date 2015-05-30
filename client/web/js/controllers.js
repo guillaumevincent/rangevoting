@@ -27,20 +27,13 @@ angular.module('rangevoting').controller('createRangeVoteController', ['$scope',
     }
 }]);
 
-angular.module('rangevoting').controller('adminRangeVoteController', ['$scope', '$routeParams', '$location', 'Restangular', function ($scope, $routeParams, $location, Restangular) {
+angular.module('rangevoting').controller('adminRangeVoteController', ['$scope', '$routeParams', 'Url', 'Restangular', function ($scope, $routeParams, Url, Restangular) {
 
     $scope.rangevote_id = $routeParams.id;
 
-
-    $scope.getBaseUrl = function () {
-        var absoluteUrl = $location.absUrl();
-        var relativeUrl = $location.url();
-        return absoluteUrl.substring(0, absoluteUrl.length - relativeUrl.length);
-    };
-
     $scope.rangevote = Restangular.one("rangevotes", $routeParams.id).get().then(function (rangevote) {
         $scope.rangevote = rangevote;
-        $scope.rangevote_url = $scope.getBaseUrl() + '/rangevotes/' + $routeParams.id;
+        $scope.rangevote_url = Url.getBaseUrl() + '/rangevotes/' + $routeParams.id;
         $scope.message_to_share = rangevote.question + ' ' + $scope.rangevote_url + ' #votedevaleur';
     });
 
@@ -72,13 +65,15 @@ angular.module('rangevoting').controller('adminRangeVoteController', ['$scope', 
 }]);
 
 
-angular.module('rangevoting').controller('rangeVoteController', ['$scope', '$routeParams', '$location', 'Restangular', function ($scope, $routeParams, $location, Restangular) {
+angular.module('rangevoting').controller('rangeVoteController', ['$scope', '$routeParams', 'Url', 'Restangular', function ($scope, $routeParams, Url, Restangular) {
     $scope.vote = {
         elector: ''
     };
 
     $scope.rangevote = Restangular.one("rangevotes", $routeParams.id).get().then(function (rangevote) {
         $scope.rangevote = rangevote;
+        $scope.rangevote_url = Url.getBaseUrl() + '/rangevotes/' + $routeParams.id;
+        $scope.message_to_share = rangevote.question + ' ' + $scope.rangevote_url + ' #votedevaleur';
     });
 
     $scope.$watch('vote', function (newVote, oldVote) {

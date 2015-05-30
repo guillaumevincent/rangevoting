@@ -1,10 +1,13 @@
 <div class="row">
-    <div class="cell text-center">
-        <h2>{{ rangevote.question }}</h2>
+    <div class="columns">
+        <h2> {{ rangevote.question }}</h2>
+
+        <hr>
     </div>
 </div>
+
 <div class="row">
-    <div class="cell cell--lg-2of5 no-padding">
+    <div class="">
         <div class="slider">
             <label for="name">Nom
                 <input type="text" id="name" placeholder="Entrez votre nom" ng-model="vote.elector"/>
@@ -25,26 +28,13 @@
             </button>
         </div>
     </div>
-    <div class="cell--lg-3of5 cell--center cell">
+    <div class="medium-4 columns">
 
-        <i class="fa fa-lightbulb-o"></i> <u>astuces</u> :
-        <ul>
-            <li>Pour chacun des choix proposés, donnez une note entre -2 et 2.<br/> Vous pouvez soutenir plusieurs réponses, plus ou moins
-                fortement, et en même temps, vous pouvez rejeter d'autres réponses, plus ou moins fortement;
-            </li>
-            <li>L'ordre des réponses est aléatoire;</li>
-            <li>Vous pouvez voir les résultats sans voter en cliquant sur le bouton voir les résultats.</li>
-        </ul>
-        <br/>
-        <i class="fa fa-share-alt"></i> <u>partagez</u> :
+    </div>
+</div>
 
-        <p>Partagez cette question sur les réseaux sociaux ou envoyez la par mail à vos amis.</p>
-
-        <p>
-            <a href="#"><i class="fa fa-twitter-square fa-2x"></i></a>
-            <a href="#"><i class="fa fa-facebook-square fa-2x"></i></a>
-            <a href="#"><i class="fa fa-google-plus-square fa-2x"></i></a>
-            <a href="#"><i class="fa fa-envelope-square fa-2x"></i></a>
-        </p>
+<div class="row">
+    <div class="medium-12 columns text-center">
+        <share message="message_to_share" url="rangevote_url"></share>
     </div>
 </div>

@@ -24,6 +24,16 @@ angular.module('rangevoting').directive('autofocus', function () {
     };
 });
 
+angular.module('rangevoting').directive('selectOnClick', function () {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+            element.on('click', function () {
+                this.select();
+            });
+        }
+    };
+});
 
 angular.module('rangevoting').directive('share', function () {
 
@@ -47,16 +57,5 @@ angular.module('rangevoting').directive('share', function () {
         },
         controller: controller,
         templateUrl: 'static/pages/share.html'
-    };
-});
-
-angular.module('rangevoting').directive('selectOnClick', function () {
-    return {
-        restrict: 'A',
-        link: function (scope, element, attrs) {
-            element.on('click', function () {
-                this.select();
-            });
-        }
     };
 });

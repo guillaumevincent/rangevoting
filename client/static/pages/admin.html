@@ -1,45 +1,3 @@
-<!--
-<div class="row">
-    <div class="medium-6 columns">
-        <img id="logo" src="static/img/logo.png" alt="logo"/>
-    </div>
-</div>
-<div class="row">
-    <div class="medium-6 columns">
-        <form ng-submit="updateRangeVote()" novalidate>
-            <label for="question">Question
-                <input type="text" id="question" ng-model="rangevote.question"/>
-            </label>
-            <label>Choix
-                <input type="text" ng-model="rangevote.choices[$index]" ng-repeat="choice in rangevote.choices track by $index"/>
-            </label>
-
-            <button class="button-green" type="submit"><i class="fa fa-floppy-o"></i> enregistrer</button>
-
-        </form>
-    </div>
-    <div class="medium-6 columns">
-        <i class="fa fa-lightbulb-o"></i> <u>astuces</u> :
-        <ul>
-            <li>L'ordre des votes n'a pas d'importance, vote de valeur affiche un ordre différent pour chaque participant;</li>
-            <li>pensez au point d'interrogation, une question se termine toujours par un point d'interrogation.</li>
-        </ul>
-    </div>
-</div>
-
-        <div class="cell cell&#45;&#45;lg-2of5">
-            <h2>Partagez :</h2>
-
-            <p>Maintenant que votre question est prête, partagez la sur les réseaux sociaux ou envoyez la par mail à vos amis.</p>
-
-            <p>
-                <a href="#"><i class="fa fa-twitter-square fa-2x"></i></a>
-                <a href="#"><i class="fa fa-facebook-square fa-2x"></i></a>
-                <a href="#"><i class="fa fa-google-plus-square fa-2x"></i></a>
-                <a href="#"><i class="fa fa-envelope-square fa-2x"></i></a>
-            </p>
-        </div>-->
-
 <div class="row">
     <div class="columns">
         <h1><i class="fa fa-cogs"></i> Console d'administration</h1>
@@ -75,7 +33,7 @@
 
 <div class="row">
     <div class="medium-12 columns text-center">
-        <share message="message_to_share"></share>
+        <share message="message_to_share" url="rangevote_url"></share>
         <input class="margin-top" type="text" value="{{rangevote_url}}" select-on-click/>
     </div>
 </div>

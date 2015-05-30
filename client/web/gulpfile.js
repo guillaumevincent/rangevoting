@@ -20,6 +20,7 @@ var sources = {
         'bower_components/restangular/dist/restangular.js',
         'js/rangevoting.js',
         'js/directives.js',
+        'js/services.js',
         'js/controllers.js'
     ],
     scss: [
