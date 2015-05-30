@@ -7,7 +7,7 @@
 </div>
 
 <div class="row">
-    <div class="">
+    <div class="columns">
         <div class="slider">
             <label for="name">Nom
                 <input type="text" id="name" placeholder="Entrez votre nom" ng-model="vote.elector"/>
@@ -22,14 +22,11 @@
                 <i class="fa fa-thumbs-up fa-2x"></i><br/>
                 Votez !
             </button>
-            <button class='margin-top' type="submit">
+            <button class='margin-top' type="submit" ng-click="showResults()">
                 <i class="fa fa-trophy fa-2x"></i><br/>
                 Voir les résultats
             </button>
         </div>
-    </div>
-    <div class="medium-4 columns">
-
     </div>
 </div>
 

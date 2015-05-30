@@ -1,4 +1,4 @@
-angular.module('rangevoting').controller('createRangeVoteController', ['$scope', '$location', 'Restangular', function ($scope, $location, Restangular) {
+angular.module('rangevoting').controller('createRangeVoteController', ['$scope', 'Url', 'Restangular', function ($scope, Url, Restangular) {
     $scope.iNeedSomeHelp = false;
 
     $scope.rangevoteIsValid = function (rangevote) {
@@ -21,7 +21,7 @@ angular.module('rangevoting').controller('createRangeVoteController', ['$scope',
         var rangevote = $scope.convertRangeVote(form);
         if ($scope.rangevoteIsValid(rangevote)) {
             rangevotes.post(rangevote).then(function (newRangevote) {
-                $location.path('/rangevotes/' + newRangevote.id + '/admin/');
+                Url.redirect('/rangevotes/' + newRangevote.id + '/admin/');
             });
         }
     }
@@ -70,8 +70,20 @@ angular.module('rangevoting').controller('rangeVoteController', ['$scope', '$rou
         elector: ''
     };
 
+    $scope.initVote = function (choices) {
+        var opinions = {};
+        for (var i = 0; i < choices.length; i++) {
+            opinions[choices[i]] = 0;
+        }
+        $scope.vote = {
+            elector: '',
+            opinions: opinions
+        };
+    };
+
     $scope.rangevote = Restangular.one("rangevotes", $routeParams.id).get().then(function (rangevote) {
         $scope.rangevote = rangevote;
+        $scope.initVote(rangevote.choices);
         $scope.rangevote_url = Url.getBaseUrl() + '/rangevotes/' + $routeParams.id;
         $scope.message_to_share = rangevote.question + ' ' + $scope.rangevote_url + ' #votedevaleur';
     });
@@ -89,7 +101,7 @@ angular.module('rangevoting').controller('rangeVoteController', ['$scope', '$rou
 
     $scope.createNewVote = function () {
         $scope.rangevote.all('votes').post($scope.vote).then(function () {
-            $location.path('/rangevotes/' + $routeParams.id + '/results/');
+            $scope.showResults();
         }, function () {
             new Notification({
                 message: "<p>Je suis désolé, quelque chose a mal tourné. Pouvez-vous me dire comment cela est arrivé par <a href='mailto:contact@oslab.fr?subject=Erreur vote de valeur'>e-mail</a> ?<br/>Je tiens à corriger le problème pour que cela ne se reproduise pas.</p>",
@@ -98,5 +110,14 @@ angular.module('rangevoting').controller('rangeVoteController', ['$scope', '$rou
             }).show();
         });
     };
+
+    $scope.showResults = function () {
+        Url.redirect('/rangevotes/' + $routeParams.id + '/results/');
+    };
+}]);
+
+
+angular.module('rangevoting').controller('resultRangeVoteController', ['$scope', '$routeParams', 'Restangular', function ($scope, $routeParams, Restangular) {
+
 }]);
 

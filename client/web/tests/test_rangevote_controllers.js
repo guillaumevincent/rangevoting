@@ -135,12 +135,21 @@ describe("vote RangeVote Controller", function () {
         assert.deepEqual({'a a': 2, 'b': -2}, $scope.vote.opinions);
     });
 
+    it('should contain a empty vote with opinions', function () {
+        var expected_vote = {
+            elector: "",
+            opinions: {'c1': 0, 'c2': 0}
+        };
+        assert.equal(expected_vote.elector, $scope.vote.elector);
+        assert.deepEqual(expected_vote.opinions, $scope.vote.opinions);
+    });
+
     it('should POST new vote when create new vote method is called', function (done) {
         httpBackend.whenPOST('/rangevotes/375ce742-495f-4b0c-b831-3fb0dcc61b17/votes').respond(function () {
             done();
         });
         $scope.createNewVote();
         httpBackend.flush();
-    })
+    });
 
 });

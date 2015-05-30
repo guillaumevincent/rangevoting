@@ -38,7 +38,7 @@ class VoteCommandValidator:
 
     def is_valid(self):
         if 'elector' not in self.data or 'opinions' not in self.data:
-            logger.debug('RangeVoteCommandValidator : elector or opinions not in vote')
+            logger.debug('RangeVoteCommandValidator : elector or opinions not in vote ({0})'.format(self.data))
             return False
         return True
 
