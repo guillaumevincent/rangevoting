@@ -63,7 +63,8 @@ def get_rangevote(rangevote_id):
 @app.route('/rangevotes/<path:rangevote_id>', methods=['PUT'])
 def update_rangevote(rangevote_id):
     if commands.RangeVoteCommandValidator(flask.request.json).is_valid():
-        command = commands.UpdateRangeVoteCommand(rangevote_id, flask.request.json['question'], flask.request.json['choices'])
+        command = commands.UpdateRangeVoteCommand(rangevote_id, flask.request.json['question'], flask.request.json['choices'],
+                                                  flask.request.json['votes'])
         result = app.bus.send(command)
         if result.ok:
             return flask.jsonify(), 200

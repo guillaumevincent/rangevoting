@@ -1,3 +1,4 @@
+from factories import RangeVoteFactory
 from rangevoting import RangeVote, Vote
 
 
@@ -19,7 +20,9 @@ class GetRangeVoteHandler(Handler):
 
 class UpdateRangeVoteHandler(Handler):
     def handle(self, command):
-        rangevote = RangeVote(command.uuid, command.question, command.choices)
+        rangevote = RangeVoteFactory.create_rangevote({
+            "id": command.uuid, "choices": command.choices, "votes": command.votes, "question": command.question
+        })
         self.repository.update(command.uuid, rangevote)
 
 

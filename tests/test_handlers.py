@@ -23,11 +23,14 @@ class HandlersTestCase(unittest.TestCase):
     def test_update_rangevote_handler_call_update_method(self):
         update_rangevote_handler = handlers.UpdateRangeVoteHandler(self.mock_repository)
 
-        update_rangevote_handler.handle(commands.UpdateRangeVoteCommand(1, 'Q?', ['a', 'b']))
+        update_rangevote_handler.handle(
+            commands.UpdateRangeVoteCommand(1, 'Q?', ['a', 'b'], votes=[{'elector': 'e', 'opinions': {'a': 0, 'b': 0}}]))
 
         self.assertEqual(1, self.mock_repository.db[1].uuid)
         self.assertEqual('Q?', self.mock_repository.db[1].question)
         self.assertEqual(['a', 'b'], self.mock_repository.db[1].choices)
+        self.assertEqual('e', self.mock_repository.db[1].votes[0].elector)
+        self.assertEqual({'a': 0, 'b': 0}, self.mock_repository.db[1].votes[0].opinions)
 
     def test_create_vote_handler_save_vote_created(self):
         self.mock_repository.db[1] = rangevoting.RangeVote(1, 'Q?', ['a', 'b'])

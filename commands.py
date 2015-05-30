@@ -29,7 +29,9 @@ class CreateRangeVoteCommand(RangeVoteCommand):
 
 
 class UpdateRangeVoteCommand(RangeVoteCommand):
-    pass
+    def __init__(self, uuid, question, choices, votes):
+        self.votes = votes
+        super().__init__(uuid, question, choices)
 
 
 class VoteCommandValidator:

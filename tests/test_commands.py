@@ -39,12 +39,13 @@ class CommandsTestCase(unittest.TestCase):
         uid = 1
         question = 'Question ?'
         choices = ['a', 'b']
-
-        update_rangevote_command = commands.UpdateRangeVoteCommand(uid, question, choices)
+        votes = [{'elector': 'e', 'opinions': {'a': 0, 'b': 0}}]
+        update_rangevote_command = commands.UpdateRangeVoteCommand(uid, question, choices, votes)
 
         self.assertEqual(uid, update_rangevote_command.uuid)
         self.assertEqual(question, update_rangevote_command.question)
         self.assertEqual(choices, update_rangevote_command.choices)
+        self.assertEqual(votes, update_rangevote_command.votes)
 
     def test_vote_command_validator(self):
         command_validator = commands.VoteCommandValidator({'elector': 'Guillaume Vincent', 'opinions': {}})

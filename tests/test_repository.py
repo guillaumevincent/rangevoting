@@ -2,6 +2,7 @@ import uuid
 import unittest
 
 import mongomock
+from factories import RangeVoteFactory
 
 import repository
 import rangevoting
@@ -23,8 +24,12 @@ class MongoRepositoryTestCase(unittest.TestCase):
 
     def test_repository_get(self):
         rangevote_id = uuid.uuid4()
-        rangevote = rangevoting.RangeVote(rangevote_id, '?', ['c1', 'c2'])
-        rangevote.add_vote(rangevoting.Vote(elector='Guillaume', opinions={'a': 1, 'b': -2}))
+        rangevote = RangeVoteFactory.create_rangevote({
+            "id": rangevote_id,
+            "choices": ["a", "b"],
+            "votes": [{"opinions": {"a": 1, "b": 2}, "elector": "G"}, {"opinions": {"a": 0, "b": 0}, "elector": "C"}],
+            'question': 'Q'
+        })
         self.repository.save(rangevote)
 
         element = self.repository.get(rangevote_id)
@@ -37,11 +42,22 @@ class MongoRepositoryTestCase(unittest.TestCase):
 
     def test_repository_update(self):
         rangevote_id = uuid.uuid4()
-        rangevote = rangevoting.RangeVote(rangevote_id, 'Q', ['c1', 'c2'])
+        rangevote = RangeVoteFactory.create_rangevote({
+            "id": rangevote_id,
+            "choices": ["a", "b"],
+            "votes": [{"opinions": {"a": 1, "b": 2}, "elector": "G"}, {"opinions": {"a": 0, "b": 0}, "elector": "C"}],
+            'question': 'Q'
+        })
         self.repository.save(rangevote)
 
-        rangevote.question = 'Q?'
-        self.repository.update(rangevote.uuid, rangevote)
+        updated_rangevote = RangeVoteFactory.create_rangevote({
+            "id": rangevote_id,
+            "choices": ["a", "b"],
+            "votes": [{"opinions": {"a": 1, "b": 2}, "elector": "G"}],
+            'question': 'Q?'
+        })
+        self.repository.update(rangevote_id, updated_rangevote)
 
         element = self.repository.get(rangevote_id)
-        self.assertEqual(rangevote.question, element.question)
+        self.assertEqual(updated_rangevote.question, element.question)
+        self.assertEqual(len(updated_rangevote.votes), len(element.votes))
