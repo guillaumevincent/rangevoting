@@ -1,30 +1,75 @@
+@import 'variables';
 
 h1 {
-  font-size: 4rem;
+  font-size: 1.5rem;
   font-weight: bolder;
-  margin-top: 3rem;
-  margin-bottom: 3rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  line-height: 1.2;
 }
 
 h2 {
-  font-size: 3rem;
-  font-weight: lighter;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-}
-
-h3 {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-  margin-top: 4rem;
-}
-
-h4 {
   font-size: 1.5rem;
-  font-weight: bold;
+  font-weight: lighter;
+  margin-top: 1rem;
   margin-bottom: 1rem;
-  margin-top: 3rem;
+  line-height: 1.2;
+}
+
+@media (min-width: $small-screen) {
+
+  h1 {
+    font-size: 3rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  h2 {
+    font-size: 3rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+  }
+
+  h4 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    margin-top: 1.5rem;
+  }
+
+}
+
+@media (min-width: $large-screen) {
+  h1 {
+    font-size: 4rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  h2 {
+    font-size: 3rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  h3 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    margin-top: 4rem;
+  }
+
+  h4 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    margin-top: 3rem;
+  }
 }
 
 hr {

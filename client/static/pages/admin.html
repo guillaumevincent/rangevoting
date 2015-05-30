@@ -1,3 +1,4 @@
+<!--
 <div class="row">
     <div class="medium-6 columns">
         <img id="logo" src="static/img/logo.png" alt="logo"/>
@@ -14,13 +15,135 @@
             </label>
 
             <button class="button-green" type="submit"><i class="fa fa-floppy-o"></i> enregistrer</button>
+
         </form>
     </div>
-    <div class="medium-6 columns ends">
+    <div class="medium-6 columns">
         <i class="fa fa-lightbulb-o"></i> <u>astuces</u> :
         <ul>
             <li>L'ordre des votes n'a pas d'importance, vote de valeur affiche un ordre différent pour chaque participant;</li>
             <li>pensez au point d'interrogation, une question se termine toujours par un point d'interrogation.</li>
         </ul>
+    </div>
+</div>
+
+        <div class="cell cell&#45;&#45;lg-2of5">
+            <h2>Partagez :</h2>
+
+            <p>Maintenant que votre question est prête, partagez la sur les réseaux sociaux ou envoyez la par mail à vos amis.</p>
+
+            <p>
+                <a href="#"><i class="fa fa-twitter-square fa-2x"></i></a>
+                <a href="#"><i class="fa fa-facebook-square fa-2x"></i></a>
+                <a href="#"><i class="fa fa-google-plus-square fa-2x"></i></a>
+                <a href="#"><i class="fa fa-envelope-square fa-2x"></i></a>
+            </p>
+        </div>-->
+
+<div class="row">
+    <div class="columns">
+        <h1><i class="fa fa-cogs"></i> Console d'administration</h1>
+
+        <hr>
+    </div>
+</div>
+
+<div class="row">
+    <div class="medium-6 columns">
+        <h2><i class="fa fa-pencil"></i> Modifier son vote</h2>
+
+        <form ng-submit="updateRangeVote()" novalidate>
+            <label for="question">Question
+                <input type="text" id="question" ng-model="rangevote.question"/>
+            </label>
+            <label>Choix
+                <input type="text" ng-model="rangevote.choices[$index]" ng-repeat="choice in rangevote.choices track by $index"/>
+            </label>
+
+            <button class="button-green" type="submit"><i class="fa fa-floppy-o"></i> enregistrer</button>
+        </form>
+    </div>
+    <div class="medium-6 columns">
+        <h2><i class="fa fa-lightbulb-o"></i> Astuces</h2>
+
+        <ul>
+            <li>L'ordre des votes n'a pas d'importance, vote de valeur affiche un ordre différent pour chaque participant;</li>
+            <li>pensez au point d'interrogation, une question se termine toujours par un point d'interrogation.</li>
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <div class="medium-12 columns text-center">
+        <share message="message_to_share"></share>
+        <input class="margin-top" type="text" value="{{rangevote_url}}" select-on-click/>
+    </div>
+</div>
+
+<div class="row">
+    <div class="medium-12 columns">
+        <h2><i class="fa fa-trophy"></i> Résultats</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="medium-12 columns">
+        <h2><i class="fa fa-thumbs-up"></i> Votes</h2>
+
+        <div class="table-responsive">
+            <table>
+                <tr>
+                    <th id="actions">Supprimer</th>
+                    <th id="user">Utilisateurs</th>
+                    <th class="text-center">chinoise</th>
+                    <th class="text-center">italienne</th>
+                    <th class="text-center">française</th>
+                    <th class="text-center">ecnore</th>
+                    <th class="text-center">choix beaucoup plus long</th>
+                    <th class="text-center">Lorem ipsum dolor sit amet.</th>
+                </tr>
+                <tr>
+                    <td class="text-center" headers="actions"><a href="#"><i class="fa fa-trash fa-2x"></i></a></td>
+                    <td class="text-center" headers="user">Jean</td>
+                    <td class="text-center">-1</td>
+                    <td class="text-center">-1</td>
+                    <td class="text-center">-1</td>
+                    <td class="text-center">-1</td>
+                    <td class="text-center">-1</td>
+                    <td class="text-center">-1</td>
+                </tr>
+
+                <tr>
+                    <td class="text-center" headers="actions"><a href="#"><i class="fa fa-trash fa-2x"></i></a></td>
+                    <td class="text-center" headers="user">Paul</td>
+                    <td class="text-center">-2</td>
+                    <td class="text-center">0</td>
+                    <td class="text-center">1</td>
+                    <td class="text-center">-2</td>
+                    <td class="text-center">0</td>
+                    <td class="text-center">1</td>
+                </tr>
+                <tr>
+                    <td class="text-center" headers="actions"><a href="#"><i class="fa fa-trash fa-2x"></i></a></td>
+                    <td class="text-center" headers="user"></td>
+                    <td class="text-center">-2</td>
+                    <td class="text-center">+2</td>
+                    <td class="text-center">+1</td>
+                    <td class="text-center">-2</td>
+                    <td class="text-center">+2</td>
+                    <td class="text-center">+1</td>
+                </tr>
+                <tr>
+                    <td class="text-center" headers="actions"><a href="#"><i class="fa fa-trash fa-2x"></i></a></td>
+                    <td class="text-center" headers="user">Phillipe</td>
+                    <td class="text-center">0</td>
+                    <td class="text-center">+2</td>
+                    <td class="text-center">+1</td>
+                    <td class="text-center">0</td>
+                    <td class="text-center">+2</td>
+                    <td class="text-center">+1</td>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>

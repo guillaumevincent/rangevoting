@@ -27,9 +27,21 @@ angular.module('rangevoting').controller('createRangeVoteController', ['$scope',
     }
 }]);
 
-angular.module('rangevoting').controller('adminRangeVoteController', ['$scope', '$routeParams', 'Restangular', function ($scope, $routeParams, Restangular) {
+angular.module('rangevoting').controller('adminRangeVoteController', ['$scope', '$routeParams', '$location', 'Restangular', function ($scope, $routeParams, $location, Restangular) {
+
+    $scope.rangevote_id = $routeParams.id;
+
+
+    $scope.getBaseUrl = function () {
+        var absoluteUrl = $location.absUrl();
+        var relativeUrl = $location.url();
+        return absoluteUrl.substring(0, absoluteUrl.length - relativeUrl.length);
+    };
+
     $scope.rangevote = Restangular.one("rangevotes", $routeParams.id).get().then(function (rangevote) {
         $scope.rangevote = rangevote;
+        $scope.rangevote_url = $scope.getBaseUrl() + '/rangevotes/' + $routeParams.id;
+        $scope.message_to_share = rangevote.question + ' ' + $scope.rangevote_url + ' #votedevaleur';
     });
 
     $scope.newChoice = '';

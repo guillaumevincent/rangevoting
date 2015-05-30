@@ -30,7 +30,7 @@
 //@import 'foundation/components/split-buttons';
 //@import 'foundation/components/sub-nav';
 //@import 'foundation/components/switches';
-//@import 'foundation/components/tables';
+@import 'foundation/components/tables';
 //@import 'foundation/components/tabs';
 //@import 'foundation/components/thumbs';
 //@import 'foundation/components/tooltips';
@@ -67,8 +67,8 @@
   color: $google-plus-color;
 }
 
-.fa-envelope-square:hover {
-  color: darken($grey, 10%);
+.fa-external-link-square {
+  color: $grey;
 }
 
 .fa-twitter-square:hover {
@@ -83,7 +83,7 @@
   color: darken($google-plus-color, 10%);
 }
 
-.fa-envelope-square:hover {
+.fa-external-link-square:hover {
   color: darken($grey, 10%);
 }
 
