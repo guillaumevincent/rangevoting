@@ -38,5 +38,9 @@ class GetRangeVoteResultsHandler(Handler):
     def handle(self, query):
         rangevote = self.repository.get(query.uuid)
         votes = rangevote.votes
-        return {'question': rangevote.question, 'answers': rangevote.get_answers(), 'ranking': rangevote.get_ranking(),
-                'number_of_votes': len(votes)}
+        return {
+            'question': rangevote.question,
+            'answers': rangevote.get_answers(),
+            'ranking': rangevote.get_ranking(),
+            'number_of_votes': len(votes)
+        }
