@@ -9,3 +9,8 @@ class GetRangeVoteQuery(RangeVoteQuery):
 
 class GetRangeVoteResultsQuery(RangeVoteQuery):
     pass
+
+
+class GetRangeVotesQuery:
+    def __init__(self, count=20):
+        self.count = count

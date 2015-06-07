@@ -40,6 +40,15 @@ def index():
     return flask.render_template('index.html')
 
 
+@app.route('/rangevotes')
+def get_rangevotes():
+    query = queries.GetRangeVotesQuery()
+    results = app.query_dispatcher.execute(query)
+    if results:
+        return flask.jsonify(results), 200
+    return flask.jsonify([]), 200
+
+
 @app.route('/rangevotes', methods=['POST'])
 def create_rangevote():
     if commands.RangeVoteCommandValidator(flask.request.json).is_valid():

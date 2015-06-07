@@ -44,3 +44,11 @@ class GetRangeVoteResultsHandler(Handler):
             'ranking': rangevote.get_ranking(),
             'number_of_votes': len(votes)
         }
+
+
+class GetRangeVotesHandler(Handler):
+    def handle(self, query):
+        rangevotes = []
+        for element in self.repository.find(query.count):
+            rangevotes.append(element.serialize())
+        return rangevotes

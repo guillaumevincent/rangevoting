@@ -4,7 +4,12 @@ import queries
 import handlers
 import commands
 import repository
-import rangevoting
+
+
+def get_faked_rangevote(_id='1', votes=None):
+    if votes is None:
+        votes = [{'opinions': {'a': 1, 'b': -1}, 'elector': 'G'}, {'opinions': {'a': -1, 'b': 2}, 'elector': 'V'}]
+    return {'id': _id, 'votes': votes, 'randomized_choices': ['a', 'b'], 'question': 'Q?', 'choices': ['a', 'b']}
 
 
 class HandlersTestCase(unittest.TestCase):
@@ -33,14 +38,13 @@ class HandlersTestCase(unittest.TestCase):
         self.assertEqual({'a': 0, 'b': 0}, self.mock_repository.db[1].votes[0].opinions)
 
     def test_create_vote_handler_save_vote_created(self):
-        self.mock_repository.db[1] = rangevoting.RangeVote(1, 'Q?', ['a', 'b'])
+        self.mock_repository.db['1'] = get_faked_rangevote(votes=[])
         create_vote_handler = handlers.CreateVoteHandler(self.mock_repository)
 
-        create_vote_handler.handle(commands.CreateVoteCommand(1, 'GV', {'a': 1, 'b': -2}))
+        create_vote_handler.handle(commands.CreateVoteCommand('1', 'GV', {'a': 1, 'b': -2}))
 
-        self.assertEqual(1, self.mock_repository.db[1].uuid)
-        self.assertEqual('GV', self.mock_repository.db[1].votes[0].elector)
-        self.assertDictEqual({'a': 1, 'b': -2}, self.mock_repository.db[1].votes[0].opinions)
+        self.assertEqual('GV', self.mock_repository.db['1'].votes[0].elector)
+        self.assertDictEqual({'a': 1, 'b': -2}, self.mock_repository.db['1'].votes[0].opinions)
 
 
 class QueryHandlersTestCase(unittest.TestCase):
@@ -48,25 +52,20 @@ class QueryHandlersTestCase(unittest.TestCase):
         self.mock_repository = repository.MockRepository()
 
     def test_get_rangevote_handler(self):
-        self.mock_repository.db[1] = rangevoting.RangeVote(1, 'Q?', ['a', 'b'])
+        self.mock_repository.db['1'] = get_faked_rangevote()
         get_rangevote_handler = handlers.GetRangeVoteHandler(self.mock_repository)
 
-        rangevote = get_rangevote_handler.handle(queries.GetRangeVoteQuery(1))
+        rangevote = get_rangevote_handler.handle(queries.GetRangeVoteQuery('1'))
 
-        expected_rangevote = self.mock_repository.db[1].serialize()
-
-        self.assertEqual(expected_rangevote['id'], rangevote['id'])
-        self.assertEqual(expected_rangevote['question'], rangevote['question'])
-        self.assertListEqual(expected_rangevote['choices'], rangevote['choices'])
+        self.assertEqual(self.mock_repository.db['1']['id'], rangevote['id'])
+        self.assertEqual(self.mock_repository.db['1']['question'], rangevote['question'])
+        self.assertListEqual(self.mock_repository.db['1']['choices'], rangevote['choices'])
 
     def test_get_rangevote_results_handler(self):
-        self.mock_repository.db[1] = rangevoting.RangeVote(1, 'Q?', ['a', 'b'])
-        self.mock_repository.db[1].votes = [rangevoting.Vote(elector='G', opinions={'a': 1, 'b': -1}),
-                                            rangevoting.Vote(elector='V', opinions={'a': -1, 'b': 2})]
-
+        self.mock_repository.db['1'] = get_faked_rangevote()
         get_rangevote_results_handler = handlers.GetRangeVoteResultsHandler(self.mock_repository)
 
-        results = get_rangevote_results_handler.handle(queries.GetRangeVoteResultsQuery(1))
+        results = get_rangevote_results_handler.handle(queries.GetRangeVoteResultsQuery('1'))
         expected_results = {
             'question': 'Q?',
             'answers': ['b'],
@@ -74,3 +73,12 @@ class QueryHandlersTestCase(unittest.TestCase):
             'number_of_votes': 2
         }
         self.assertDictEqual(results, expected_results)
+
+    def test_get_rangevotes_handler(self):
+        self.mock_repository.db['1'] = get_faked_rangevote('1')
+        self.mock_repository.db['2'] = get_faked_rangevote('2')
+        get_rangevotes_handler = handlers.GetRangeVotesHandler(self.mock_repository)
+
+        results = get_rangevotes_handler.handle(queries.GetRangeVotesQuery())
+
+        self.assertEqual(2, len(results))

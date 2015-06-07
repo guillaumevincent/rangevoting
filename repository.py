@@ -1,4 +1,5 @@
 from rangevoting import RangeVote, Vote
+import factories
 
 
 class MongoRepository:
@@ -10,13 +11,18 @@ class MongoRepository:
 
     def get(self, uid):
         element = self.rangevotes.find_one({"id": str(uid)})
-        rangevote = RangeVote(uuid=uid, question=element['question'], choices=element['choices'])
-        rangevote.votes = [Vote(v['elector'], v['opinions']) for v in element['votes']]
-        return rangevote
+        return factories.RangeVoteFactory().create_rangevote(element)
 
     def update(self, _id, new_rangevote):
         element = self.rangevotes.find_one({"id": str(_id)})
         self.rangevotes.update({'_id': element['_id']}, new_rangevote.serialize())
+
+    def find(self, count=20):
+        rangevote_factory = factories.RangeVoteFactory()
+        elements = []
+        for element in self.rangevotes.find()[:count]:
+            elements.append(rangevote_factory.create_rangevote(element))
+        return elements
 
 
 class MockRepository:
@@ -30,4 +36,12 @@ class MockRepository:
         self.db[uuid] = element
 
     def get(self, uuid):
-        return self.db[uuid]
+        element = self.db[uuid]
+        return factories.RangeVoteFactory().create_rangevote(element)
+
+    def find(self, count=20):
+        rangevote_factory = factories.RangeVoteFactory()
+        elements = []
+        for element in list(self.db.values())[:count]:
+            elements.append(rangevote_factory.create_rangevote(element))
+        return elements

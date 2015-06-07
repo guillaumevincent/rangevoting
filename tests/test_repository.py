@@ -2,8 +2,8 @@ import uuid
 import unittest
 
 import mongomock
-from factories import RangeVoteFactory
 
+from factories import RangeVoteFactory
 import repository
 import rangevoting
 
@@ -61,3 +61,20 @@ class MongoRepositoryTestCase(unittest.TestCase):
         element = self.repository.get(rangevote_id)
         self.assertEqual(updated_rangevote.question, element.question)
         self.assertEqual(len(updated_rangevote.votes), len(element.votes))
+
+    def test_repository_find_all(self):
+        self.repository.save(rangevoting.RangeVote(uuid.uuid4(), '?', ['c1', 'c2']))
+        self.repository.save(rangevoting.RangeVote(uuid.uuid4(), '?', ['c1', 'c2']))
+
+        elements = self.repository.find()
+
+        self.assertEqual(2, len(elements))
+        self.assertTrue(isinstance(elements[0], rangevoting.RangeVote))
+
+    def test_repository_find_all_count(self):
+        self.repository.save(rangevoting.RangeVote(uuid.uuid4(), '?', ['c1', 'c2']))
+        self.repository.save(rangevoting.RangeVote(uuid.uuid4(), '?', ['c1', 'c2']))
+
+        elements = self.repository.find(1)
+
+        self.assertEqual(1, len(elements))

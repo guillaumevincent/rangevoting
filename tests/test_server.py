@@ -19,12 +19,13 @@ class SpyBus:
 
 
 class SpyQueryDispatcher:
-    def __init__(self):
+    def __init__(self, results=None):
         self.last_query = None
+        self.results = results
 
     def execute(self, query):
         self.last_query = query
-        return rangevoting.RangeVote(uuid=1, question='q?', choices=['c1', 'c2']).serialize()
+        return self.results
 
 
 class ServerTestCase(unittest.TestCase):
@@ -81,7 +82,7 @@ class ServerTestCase(unittest.TestCase):
         self.assertTrue(location in response.headers['Location'])
 
     def test_get_rangevote(self):
-        server.app.query_dispatcher = SpyQueryDispatcher()
+        server.app.query_dispatcher = SpyQueryDispatcher(rangevoting.RangeVote(uuid=1, question='q?', choices=['c1', 'c2']).serialize())
 
         response = self.app.get('/rangevotes/375ce742-495f-4b0c-b831-3fb0dcc61b17', content_type='application/json')
 
@@ -117,9 +118,19 @@ class ServerTestCase(unittest.TestCase):
         self.assertDictEqual({'a': 1, 'b': -1}, server.app.bus.last_command.opinions)
 
     def test_get_results(self):
-        server.app.query_dispatcher = SpyQueryDispatcher()
+        server.app.query_dispatcher = SpyQueryDispatcher(
+            {'choices': ['c1', 'c2'], 'id': '1', 'randomized_choices': ['c2', 'c1'], 'votes': [], 'question': 'q?'}
+        )
 
         response = self.app.get('/rangevotes/375ce742-495f-4b0c-b831-3fb0dcc61b17/results', content_type='application/json')
 
         self.assertEqual('375ce742-495f-4b0c-b831-3fb0dcc61b17', server.app.query_dispatcher.last_query.uuid)
+        self.assertEqual(200, response.status_code)
+
+    def test_get_votes(self):
+        server.app.query_dispatcher = SpyQueryDispatcher([])
+
+        response = self.app.get('/rangevotes', content_type='application/json')
+
+        self.assertEqual(20, server.app.query_dispatcher.last_query.count)
         self.assertEqual(200, response.status_code)
