@@ -21,36 +21,29 @@ class Bus:
     def __init__(self):
         self.handlers = {}
 
-    def register(self, command, handler):
-        self.handlers[command] = handler
+    def register(self, action, handler):
+        self.handlers[action] = handler
 
-    def send(self, command):
-        command_type = type(command)
-        if command_type not in self.handlers:
-            raise (Exception('No handler for command ' + str(command_type) + ' found'))
-
+    def handle(self, action, action_type):
         try:
-            self.handlers[command_type].handle(command)
+            self.handlers[action_type].handle(action)
             return Result()
         except Exception as e:
             logger.exception(e)
             return BadResult()
 
+    def execute(self, action):
+        action_type = type(action)
+        if action_type not in self.handlers:
+            raise Exception('No handler for action ' + str(action_type) + ' found')
 
-class QueryDispatcher:
-    def __init__(self):
-        self.handlers = {}
+        return self.handle(action, action_type)
 
-    def register(self, query, handler):
-        self.handlers[query] = handler
 
-    def execute(self, query):
-        query_type = type(query)
-
-        if query_type not in self.handlers:
-            raise (Exception('No handler for query ' + str(query_type) + ' found'))
-
+class QueryDispatcher(Bus):
+    def handle(self, query, query_type):
         try:
             return self.handlers[query_type].handle(query)
         except Exception as e:
             logger.exception(e)
+            return None

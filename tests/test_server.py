@@ -13,7 +13,7 @@ class SpyBus:
     def __init__(self):
         self.last_command = None
 
-    def send(self, command):
+    def execute(self, command):
         self.last_command = command
         return bus.Result()
 

@@ -38,27 +38,27 @@ class BusTestCase(unittest.TestCase):
         self.assertTrue(command in b.handlers)
         self.assertEqual(handler, b.handlers[command])
 
-    def test_send_execute_handle_method_from_handler(self):
+    def test_execute_handle_method_from_handler(self):
         b = bus.Bus()
         handler = FakeHandler()
         b.register(object, handler)
         command = object()
 
-        b.send(command)
+        b.execute(command)
 
         self.assertTrue(handler.handle_called)
         self.assertEqual(command, handler.command)
 
-    def test_handler_raise_exception_in_send_method(self):
+    def test_handler_raise_exception_in_execute_method(self):
         b = bus.Bus()
         b.register(object, RaiseExceptionHandler())
         command = object()
 
-        result = b.send(command)
+        result = b.execute(command)
 
         self.assertFalse(result.ok)
 
     def test_raise_error_if_no_handlers_availables(self):
         b = bus.Bus()
         with self.assertRaises(Exception):
-            b.send(object())
+            b.execute(object())

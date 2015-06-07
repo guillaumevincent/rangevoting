@@ -40,7 +40,7 @@ class QueryDispatcherTestCase(unittest.TestCase):
         self.assertTrue(query in query_dispatcher.handlers)
         self.assertEqual(handler, query_dispatcher.handlers[query])
 
-    def test_send_execute_handle_method_from_handler(self):
+    def test_execute_handle_method_from_handler(self):
         query_dispatcher = bus.QueryDispatcher()
         handler = FakeHandler()
         query_dispatcher.register(object, handler)
@@ -51,7 +51,7 @@ class QueryDispatcherTestCase(unittest.TestCase):
         self.assertTrue(handler.handle_called)
         self.assertEqual(query, handler.query)
 
-    def test_handler_raise_exception_in_send_method(self):
+    def test_handler_raise_exception_in_execute_method(self):
         query_dispatcher = bus.QueryDispatcher()
         query_dispatcher.register(object, RaiseExceptionHandler())
         query = object()
