@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html data-ng-app="rangevoting">
+<head lang="fr">
+    <meta charset="UTF-8">
+    <title>Vote de valeur</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/rangevoting.min.css" media="all">
+</head>
+<body>
 <div class="container" data-ng-controller="createRangeVoteController">
     <div class="row">
         <div class="col">
@@ -20,11 +29,9 @@
                         <input type="text" id="choices" name="choices" ng-model="form.choices" required
                                placeholder="Réponses séparées par des virgules"
                                data-ng-class="{'input-error': questionForm.$submitted && questionForm.choices.$invalid}" haschoices/>
-
                         <p class="input-help" data-ng-hide="questionForm.$submitted && questionForm.choices.$invalid">
                             ex: Chinoise, Italienne, Française...
                         </p>
-
                         <p class="input-help error" data-ng-show="questionForm.$submitted && questionForm.choices.$invalid">
                             ajoutez des réponses séparées par des virgules
                             <span data-ng-show="questionForm.choices.$viewValue"><br/>ex: {{questionForm.choices.$viewValue}}, choix 2, choix 3...</span>
@@ -37,4 +44,11 @@
             </form>
         </div>
     </div>
+    <div class="row">
+        <div class="col">
+        </div>
+    </div>
 </div>
+<script src="static/js/rangevoting.min.js"></script>
+</body>
+</html>

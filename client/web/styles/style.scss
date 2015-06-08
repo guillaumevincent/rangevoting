@@ -1,98 +1,33 @@
+//@import "debug";
 @import 'variables';
+@import "grid";
+@import "typography";
+@import "forms";
 
-
-@import 'foundation/components/grid';
-//@import 'foundation/components/accordion';
-//@import 'foundation/components/alert-boxes';
-//@import 'foundation/components/block-grid';
-//@import 'foundation/components/breadcrumbs';
-//@import 'foundation/components/button-groups';
-//@import 'foundation/components/buttons';
-//@import 'foundation/components/clearing';
-//@import 'foundation/components/dropdown';
-//@import 'foundation/components/dropdown-buttons';
-//@import 'foundation/components/flex-video';
-//@import 'foundation/components/forms';
-//@import 'foundation/components/icon-bar';
-//@import 'foundation/components/inline-lists';
-//@import 'foundation/components/joyride';
-//@import 'foundation/components/keystrokes';
-//@import 'foundation/components/labels';
-//@import 'foundation/components/magellan';
-//@import 'foundation/components/orbit';
-//@import 'foundation/components/pagination';
-//@import 'foundation/components/panels';
-//@import 'foundation/components/pricing-tables';
-//@import 'foundation/components/progress-bars';
-//@import 'foundation/components/range-slider';
-//@import 'foundation/components/reveal';
-//@import 'foundation/components/side-nav';
-//@import 'foundation/components/split-buttons';
-//@import 'foundation/components/sub-nav';
-//@import 'foundation/components/switches';
-@import 'foundation/components/tables';
-//@import 'foundation/components/tabs';
-//@import 'foundation/components/thumbs';
-//@import 'foundation/components/tooltips';
-//@import 'foundation/components/top-bar';
-//@import 'foundation/components/type';
-//@import 'foundation/components/offcanvas';
-//@import 'foundation/components/visibility';
-
-@import 'base';
-@import 'forms';
-@import 'helpers';
-@import 'typography';
-
-
-#logo {
-  margin-top: 2em;
-  margin-bottom: 1em;
-  max-width: 100%;
-  @media (min-width: $small-screen) {
-    margin-top: 8.4em;
-  }
+html, body {
+  margin: 0;
+  padding: 0;
 }
 
-
-.fa-twitter-square {
-  color: $twitter-color;
+body {
+  background-color: $grey50;
+  //background-color: $white;
+  color: $grey800;
 }
 
-.fa-facebook-square {
-  color: $facebook-color;
+a {
+  color: $link-color !important;
 }
 
-.fa-google-plus-square, .fa-trash, .error {
-  color: $google-plus-color;
+hr {
+  border: none;
+  background-color: rgba(0, 0, 0, 0.1);
+  height: 1px;
 }
 
-.fa-external-link-square {
-  color: $grey;
-}
-
-.fa-twitter-square:hover {
-  color: darken($twitter-color, 10%);
-}
-
-.fa-facebook-square:hover {
-  color: darken($facebook-color, 10%);
-}
-
-.fa-google-plus-square:hover, .fa-trash:hover {
-  color: darken($google-plus-color, 10%);
-}
-
-.fa-external-link-square:hover {
-  color: darken($grey, 10%);
-}
-
-@media (min-width: $small-screen) {
-  .admin-menu__sign {
-    padding: 0 $gutter 0 0;
-  }
-
-  .admin-menu__sign:last-child {
-    padding: 0;
+#questionForm {
+  padding: $gutter 0;
+  @media (min-width: $medium-screen) {
+    padding: 5*$gutter 0;
   }
 }

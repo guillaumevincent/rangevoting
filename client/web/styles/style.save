@@ -1,0 +1,274 @@
+@import 'variables';
+
+* {
+  outline: 2px dotted red
+}
+
+* * {
+  outline: 2px dotted green
+}
+
+* * * {
+  outline: 2px dotted orange
+}
+
+* * * * {
+  outline: 2px dotted blue
+}
+
+* * * * * {
+  outline: 1px solid red
+}
+
+* * * * * * {
+  outline: 1px solid green
+}
+
+* * * * * * * {
+  outline: 1px solid orange
+}
+
+* * * * * * * * {
+  outline: 1px solid blue
+}
+
+*, *:before, *:after {
+  box-sizing: border-box
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  text-rendering: optimizelegibility;
+  font-size: $font-size;
+  line-height: 1.35;
+  font-family: $font-stack-common;
+  background-color: $green;
+  color: $grey800;
+}
+
+a {
+  color: $link-color !important;
+}
+
+hr {
+  border: none;
+  background-color: rgba(0, 0, 0, 0.1);
+  height: 1px;
+}
+
+h1, h2, h3, h4 {
+  font-family: $font-stack-headings;
+}
+
+h1 {
+  font-weight: bolder;
+  font-size: 2.2rem;
+  line-height: 1.2;
+}
+
+h2 {
+  font-weight: lighter;
+  font-size: 2rem;
+  line-height: 1.2;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: $container-width;
+  width: 100%;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+
+  @media(min-width: $medium-screen) {
+    flex-direction: row;
+  }
+  .col{
+    margin: auto;
+  }
+}
+
+/*
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+
+  .row {
+    margin: -$gutter;
+  }
+
+  @media (min-width: $medium-screen) {
+    flex-wrap: nowrap;
+  }
+}
+
+.col {
+  flex: 0 0 100%;
+  padding: $gutter;
+  display: flex;
+  flex-wrap: wrap;
+  flex-shrink: 1;
+  min-width: 1px;
+  @media (min-width: $medium-screen) {
+    flex: 1;
+  }
+}
+
+@media (min-width: $medium-screen) {
+  @for $i from 1 through 11 {
+    .w#{$i} {
+      flex: 0 0 ($i / 12) * 100%;
+    }
+  }
+}
+
+@media (min-width: $medium-screen) {
+  #index {
+    padding: 50px 0;
+  }
+}
+
+#index input {
+  outline: medium none;
+  box-sizing: border-box;
+  border: 0 none;
+  color: #7E7E7E;
+  font-size: 14px;
+  line-height: normal;
+  height: 100%;
+  padding: 20px 10px;
+  float: left;
+  border-radius: 0;
+  width: 100%;
+}
+
+#index button {
+  font-style: normal;
+  font-weight: normal;
+  text-align: center;
+  float: left;
+  height: 100%;
+  border-radius: 0;
+  padding: 5px;
+  font-size: 14px;
+  min-height: 54px;
+  border: medium none;
+  text-transform: uppercase;
+  background-color: $orange;
+  color: $light-white;
+  width: 100%;
+  transition: all 0.3s ease-out 0s;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+#index button:hover {
+  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+}
+
+#index .col {
+  padding-bottom: 0;
+}
+
+.last-rangevotes {
+  background-color: $light-white;
+  width: 100%;
+}
+
+.last-rangevotes table {
+  width: 100%;
+}
+
+.last-rangevotes .title {
+  padding-left: .5em;
+  color:$grey600
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0
+}
+
+td, th {
+  padding: 0
+}
+
+.pure-table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  empty-cells: show;
+  //border: 1px solid #cbcbcb
+}
+
+.pure-table caption {
+  color: #000;
+  font: italic 85%/1 arial, sans-serif;
+  padding: 1em 0;
+  text-align: center
+}
+
+.pure-table td, .pure-table th {
+  border-left: 1px solid #cbcbcb;
+  border-width: 0 0 0 1px;
+  font-size: inherit;
+  margin: 0;
+  overflow: visible;
+  padding: .5em 1em
+}
+
+.pure-table td:first-child, .pure-table th:first-child {
+  border-left-width: 0
+}
+
+.pure-table thead {
+  background-color: #e0e0e0;
+  color: #000;
+  text-align: left;
+  vertical-align: bottom
+}
+
+.pure-table td {
+  background-color: transparent
+}
+
+.pure-table-odd td {
+  background-color: #f2f2f2
+}
+
+.pure-table-striped tr:nth-child(2n-1) td {
+  background-color: #f2f2f2
+}
+
+.pure-table-bordered td {
+  //border-bottom: 1px solid #cbcbcb
+}
+
+.pure-table-bordered tbody > tr:last-child > td {
+  border-bottom-width: 0
+}
+
+.pure-table-horizontal td, .pure-table-horizontal th {
+  //border-width: 0 0 1px;
+  //border-bottom: 1px solid #cbcbcb
+}
+
+.pure-table-horizontal tbody > tr:last-child > td {
+  border-bottom-width: 0
+}
+
+.text-center {
+  text-align: center;
+}*/

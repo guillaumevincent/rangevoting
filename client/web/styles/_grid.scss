@@ -1,0 +1,39 @@
+@import 'variables';
+
+*, *:before, *:after {
+  box-sizing: border-box
+}
+
+.container {
+  margin: 0 auto;
+  max-width: $container-width;
+  width: 100%;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  .col {
+    padding: $gutter $gutter 0 $gutter;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 100%;
+  }
+  .row {
+    margin: -$gutter -$gutter 0 -$gutter;
+  }
+  @media (min-width: $medium-screen) {
+    @for $i from 1 through 11 {
+      .w#{$i} {
+        flex: $i 0 0 !important;
+      }
+    }
+  }
+  @media (min-width: $small-screen) {
+    @for $i from 1 through 11 {
+      .m#{$i} {
+        flex: $i 0 0;
+      }
+    }
+  }
+}

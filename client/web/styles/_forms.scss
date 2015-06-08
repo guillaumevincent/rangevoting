@@ -1,217 +1,65 @@
 @import "variables";
 
-label {
-  color: $grey;
-  cursor: pointer;
-  display: block;
-  font-size: 0.9rem;
-  font-weight: normal;
-  line-height: 1.5;
-  margin-bottom: 0;
-  margin-top: 0;
+$padding-fields:.5*$gutter;
+
+@mixin fields-size {
+  font-size: 12px;
+  @media (min-width: $medium-screen) {
+    font-size: 14px;
+  }
 }
 
-
-button.disabled, button[disabled], .button.disabled, .button[disabled] {
-    background-color: lighten($blue, 10%);
-    border-color: darken($blue, 10%);
-    color: #FFF;
-    box-shadow: none;
-    cursor: default;
-    opacity: 0.7;
-}
-
-
-form.ng-submitted input.ng-invalid {
-  background-color:lighten($red, 10%);
-  border:0;
-  color:$white;
-}
-
-
-button,
-.button {
-  -moz-appearance: none;
-  border-radius: 3px;
-  cursor: pointer;
-  margin: 0 0 0.8rem;
-  position: relative;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  padding: 0.4rem 0.8rem;
-  font-size: 0.9rem;
-  background-color: $blue;
-  color: $white;
-  transition: background-color 300ms ease-out 0s;
-}
-
-label {
-  color: $grey;
-  cursor: pointer;
-  display: block;
-  font-size: 0.9rem;
-  font-weight: normal;
-  line-height: 1.5;
-  margin-bottom: 0;
-}
-
-input[type="text"],
-input[type="password"],
-input[type="date"],
-input[type="datetime"],
-input[type="datetime-local"],
-input[type="month"],
-input[type="week"],
-input[type="email"],
-input[type="number"],
-input[type="search"],
-input[type="tel"],
-input[type="time"],
-input[type="url"],
-input[type="color"],
-textarea {
-  -moz-appearance: none;
-  border-radius: 3px;
-  background-color: $white;
-  border: 1px solid $light-grey;
-  box-shadow: none;
-  color: rgba($black, 0.75);
-  display: block;
-  font-family: inherit;
-  font-size: 0.77778rem;
-  height: 2rem;
-  margin: 0 0 0.88889rem;
-  padding: 0.44444rem;
-  width: 100%;
+input {
+  outline: medium none;
   box-sizing: border-box;
-}
-
-button, .button {
-  -moz-appearance: none;
-  border-radius: 3px;
-  cursor: pointer;
-  font-family: $font-stack-common;
-  font-weight: normal;
+  border: 0 none;
+  color: $grey700;
+  background-color: inherit;
   line-height: normal;
-  margin: 0 0 0.88889rem;
-  position: relative;
+  height: 50px;
+  padding: $padding-fields $padding-fields $padding-fields 0;
+  border-radius: 0;
+  width: 100%;
+  border-bottom: 1px solid $grey400;
+  @include fields-size;
+}
+
+button {
+  font-style: normal;
+  font-weight: normal;
   text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  padding: 0.44445rem 0.88889rem 0.47222rem;
-  font-size: 0.88889rem;
-  background-color: $facebook-color;
-  border: 0 solid darken($facebook-color, 10%);
-  color: $white;
-  transition: background-color 300ms ease-out 0s;
+  height: 50px;
+  border-radius: 0;
+  padding: $padding-fields;
+  border: medium none;
+  text-transform: uppercase;
+  width: 100%;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  @include fields-size;
 }
 
-button:hover, button:focus, .button:hover, .button:focus {
-  color: $white;
-  background-color: darken($facebook-color, 10%);
+button:hover {
+  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
 }
 
-.button-green {
+.btn-orange {
+  background-color: $orange;
   color: $light-white;
-  background-color: $light-green;
 }
 
-.button-green:hover, .button-green:focus {
-  color: $white;
-  background-color: darken($light-green, 10%);
-}
-
-
-.button-green.disabled, .button-green[disabled] {
-    background-color: lighten($light-green, 10%);
-    border-color: darken($light-green, 10%);
-    color: #FFF;
-    box-shadow: none;
-    cursor: default;
-    opacity: 0.7;
-}
-
-
-
-.slider {
-  position: relative;
-  width: 300px;
-  margin: 0 auto $gutter;
-}
-
-.slider span {
-  display: block;
-  width: 100%;
-  padding: 0.7em;
-  text-align: center;
-}
-
-input[type="range"] {
-  -webkit-appearance: none;
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
-  width: 100%;
-  height: 32px;
+.input-help{
+  color: $grey500;
+  font-size: 12px;
   margin: 0;
-  padding: 10px;
-  border: none;
-  border-radius: 3px;
-  background-size: cover;
-  background: $dark-grey url(data:image/png;base64,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) no-repeat center center;
-  //outline: none;
-  cursor: pointer;
+  padding: $padding-fields $padding-fields $padding-fields 0;
 }
 
-input[type="range"]::-moz-range-track {
-  border: none;
-  background: transparent;
-}
+.input-help.error{
+  color: $red;
+  background-color: inherit;
 
-input[type="range"]::-ms-track {
-  border: inherit;
-  color: transparent;
-  background: transparent;
+  @include fields-size;
 }
-
-input[type="range"]::-ms-fill-lower,
-input[type="range"]::-ms-fill-upper {
-  background: transparent;
-}
-
-input[type="range"]::-ms-tooltip {
-  display: none;
-}
-
-input[type=range]::-moz-focus-outer {
-  border: 0;
-}
-
-input[type="range"]::-moz-range-thumb {
-  width: 36px;
-  height: 42px;
-  border-radius: 3px;
-  opacity: .65;
-  border: none;
-  background-image: linear-gradient(to bottom, lighten($light-green, 10%) 0, $light-green 100%);
-}
-
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 36px;
-  height: 42px;
-  border-radius: 3px;
-  border: none;
-  opacity: .65;
-  background-image: linear-gradient(to bottom, lighten($light-green, 10%) 0, $light-green 100%);
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, lighten($light-green, 10%)), color-stop(100%, $light-green));
-  background-image: -webkit-linear-gradient(top, lighten($light-green, 10%) 0, $light-green 100%);
-}
-
-input[type="range"]::-ms-thumb {
-  width: 36px;
-  height: 42px;
-  border-radius: 3px;
-  opacity: .65;
-  border: 0;
-  background-image: linear-gradient(to bottom, lighten($light-green, 10%) 0, $light-green 100%);
+.input-error{
+  border-bottom: 2px solid $red;
 }

@@ -1,30 +1,40 @@
-<div class="row">
-  <div class="medium-6 large-5 small-centered columns">
-       <img id="logo" src="static/img/logo.png" alt="logo"/>
+<div class="container" data-ng-controller="createRangeVoteController">
+    <div class="row">
+        <div class="col">
+            <form id="questionForm" name="questionForm" ng-submit="createRangeVote(form)" novalidate>
+                <div class="row">
+                    <div class="col m5">
+                        <input type="text" id="question" name="question" required ng-model="form.question"
+                               placeholder="Question" autofocus
+                               data-ng-class="{'input-error': questionForm.$submitted && questionForm.question.$invalid}"/>
 
-        <form name="voteForm" ng-submit="createRangeVote(form)" novalidate>
-            <label for="question">
-                Question
-                <span class="error" data-ng-show="voteForm.$submitted && voteForm.question.$invalid">- ajoutez une question</span>
-                <input type="text" id="question" name="question" required ng-model="form.question"
-                       placeholder="Quel type de cuisine préférez-vous ?" autofocus
-                       data-ng-class="{'input-error': voteForm.$submitted && voteForm.question.$invalid}"/>
-            </label>
-            <label for="choices">
-                Choix
-                <span class="error"
-                      data-ng-show="voteForm.$submitted && voteForm.choices.$invalid">- ajoutez des choix séparés par des virgules</span>
-                <input type="text" id="choices" name="choices" ng-model="form.choices" required
-                       placeholder="Chinoise, Italienne, Française..."
-                       data-ng-class="{'input-error': voteForm.$submitted && voteForm.choices.$invalid}" haschoices/>
-            </label>
-            <button class='button-green' type="submit" ng-disabled="voteForm.$submitted && voteForm.$invalid">créer un vote</button>
-            <button data-ng-click="iNeedSomeHelp=!iNeedSomeHelp" type="button"><i class="fa fa-question-circle"></i></button>
-            <p data-ng-show="iNeedSomeHelp" class="help text-center text-justify">
-                <i class="fa fa-question-circle"></i>
-                Vote de valeur est une application qui vous aide à trouver la réponse qui convient le mieux. Entrez une question et des choix
-                séparés par des virgules.
-            </p>
-        </form>
-  </div>
+                        <p class="input-help" data-ng-hide="questionForm.$submitted && questionForm.question.$invalid">
+                            ex: Quel type de cuisine préférez-vous ?
+                        </p>
+
+                        <p class="input-help error" data-ng-show="questionForm.$submitted && questionForm.question.$invalid">
+                            ce champ est obligatoire
+                        </p>
+                    </div>
+                    <div class="col m5">
+                        <input type="text" id="choices" name="choices" ng-model="form.choices" required
+                               placeholder="Réponses séparées par des virgules"
+                               data-ng-class="{'input-error': questionForm.$submitted && questionForm.choices.$invalid}" haschoices/>
+
+                        <p class="input-help" data-ng-hide="questionForm.$submitted && questionForm.choices.$invalid">
+                            ex: Chinoise, Italienne, Française...
+                        </p>
+
+                        <p class="input-help error" data-ng-show="questionForm.$submitted && questionForm.choices.$invalid">
+                            ajoutez des réponses séparées par des virgules
+                            <span data-ng-show="questionForm.choices.$viewValue"><br/>ex: {{questionForm.choices.$viewValue}}, choix 2, choix 3...</span>
+                        </p>
+                    </div>
+                    <div class="col m2">
+                        <button class='btn-orange' type="submit" ng-disabled="questionForm.$submitted && questionForm.$invalid">créer</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

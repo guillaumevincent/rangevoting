@@ -24,10 +24,6 @@ var sources = {
         'js/controllers.js'
     ],
     scss: [
-        'bower_components/foundation/scss/normalize.scss',
-        'bower_components/font-awesome/scss/font-awesome.scss',
-        'bower_components/simple-notify/css/notification-default.css',
-        'bower_components/simple-notify/css/notification-style-bar.css',
         'styles/**/*.scss'
     ]
 };
