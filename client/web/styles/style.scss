@@ -3,6 +3,8 @@
 @import "grid";
 @import "typography";
 @import "forms";
+@import "tables";
+@import "helpers";
 
 html, body {
   margin: 0;
@@ -11,7 +13,6 @@ html, body {
 
 body {
   background-color: $grey50;
-  //background-color: $white;
   color: $grey800;
 }
 
@@ -25,9 +26,20 @@ hr {
   height: 1px;
 }
 
+.last-questions-title {
+  color: $blue-btn;
+}
+
 #questionForm {
   padding: $gutter 0;
   @media (min-width: $medium-screen) {
     padding: 5*$gutter 0;
   }
+}
+
+footer {
+  padding: 3*$gutter 0;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  font-family: $font-stack-monospace;
 }

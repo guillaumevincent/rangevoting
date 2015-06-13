@@ -1,5 +1,6 @@
 angular.module('rangevoting').controller('createRangeVoteController', ['$scope', 'Url', 'Restangular', function ($scope, Url, Restangular) {
     $scope.iNeedSomeHelp = false;
+    $scope.rangevotes = [];
 
     $scope.rangevoteIsValid = function (rangevote) {
         return !!(rangevote.question && rangevote.choices.length > 1);
@@ -24,7 +25,16 @@ angular.module('rangevoting').controller('createRangeVoteController', ['$scope',
                 Url.redirect('/rangevotes/' + newRangevote.id + '/admin/');
             });
         }
+    };
+
+    Restangular.all('rangevotes').getList().then(function (rangevotes) {
+        $scope.rangevotes = rangevotes;
+    });
+
+    $scope.seeQuestion = function (id) {
+        Url.redirect('/rangevotes/' + id);
     }
+
 }]);
 
 angular.module('rangevoting').controller('adminRangeVoteController', ['$scope', '$routeParams', 'Url', 'Restangular', function ($scope, $routeParams, Url, Restangular) {
@@ -72,7 +82,6 @@ angular.module('rangevoting').controller('adminRangeVoteController', ['$scope', 
         });
     };
 }]);
-
 
 angular.module('rangevoting').controller('rangeVoteController', ['$scope', '$routeParams', 'Url', 'Restangular', function ($scope, $routeParams, Url, Restangular) {
     $scope.vote = {
@@ -124,7 +133,6 @@ angular.module('rangevoting').controller('rangeVoteController', ['$scope', '$rou
     };
 }]);
 
-
 angular.module('rangevoting').controller('resultRangeVoteController', ['$scope', '$routeParams', 'Restangular', function ($scope, $routeParams, Restangular) {
 
     Restangular.one('rangevotes', $routeParams.id).customGET('results').then(function (results) {
@@ -132,4 +140,3 @@ angular.module('rangevoting').controller('resultRangeVoteController', ['$scope',
     });
 
 }]);
-

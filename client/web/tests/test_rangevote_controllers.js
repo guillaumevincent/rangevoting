@@ -4,12 +4,23 @@ describe("create RangeVote Controller", function () {
 
     beforeEach(module('rangevoting'));
 
-    var $scope, controller;
+    var $scope, controller, rangevotes, httpBackend;
 
-    beforeEach(inject(function ($rootScope, $controller) {
+    beforeEach(inject(function ($rootScope, $controller, $httpBackend) {
+        httpBackend = $httpBackend;
         $scope = $rootScope.$new();
         controller = $controller('createRangeVoteController', {$scope: $scope});
     }));
+
+    beforeEach(function () {
+        rangevotes = [{'question': 'Q1?'}, {'question': 'Q1?'}];
+        httpBackend.expectGET('/rangevotes').respond(200, rangevotes);
+        httpBackend.flush();
+    });
+
+    it('should init last_rangevotes', function () {
+        assert.equal(2, $scope.rangevotes.length);
+    });
 
     it('should convert form into rangevote', function () {
         var rangevote = $scope.convertRangeVote({question: 'Q?', choices: 'c1 ,c2, c3'});
@@ -55,7 +66,7 @@ describe("admin RangeVote Controller", function () {
 
     beforeEach(module('rangevoting'));
 
-    var $scope, controller, httpBackend, rangevote;
+    var $scope, controller, httpBackend, rangevote, results;
 
     beforeEach(inject(function ($rootScope, $controller, $httpBackend) {
         httpBackend = $httpBackend;
@@ -66,6 +77,8 @@ describe("admin RangeVote Controller", function () {
     beforeEach(function () {
         rangevote = {"choices": ["c1", "c2"], "id": "375ce742-495f-4b0c-b831-3fb0dcc61b17", "question": "Q?", "votes": []};
         httpBackend.expectGET('/rangevotes/375ce742-495f-4b0c-b831-3fb0dcc61b17').respond(200, rangevote);
+        results = {"ranking": [{"choice": "c1", "score": 0}, {"choice": "c2", "score": 0}], "answers": ["c1", "c2"], "question": "Q?", "number_of_votes": 0}
+        httpBackend.expectGET('/rangevotes/375ce742-495f-4b0c-b831-3fb0dcc61b17/results').respond(200, results);
         httpBackend.flush();
     });
 

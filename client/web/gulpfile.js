@@ -92,7 +92,6 @@ gulp.task('watch', ['build'], function () {
     gulp.watch(sources.pages, ['pages']);
 });
 
-
-gulp.task('default', ['build'], function () {
+gulp.task('default', ['watch'], function () {
 
 });

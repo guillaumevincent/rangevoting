@@ -1,0 +1,139 @@
+@import 'variables';
+@import 'mixins';
+
+table, th, td {
+  border: none;
+}
+
+table {
+  width: 100%;
+  display: table;
+  border-collapse: collapse;
+  background-color: $white;
+  border: 1px solid $grey100;
+  font-size: 1rem;
+  &.bordered > thead > tr,
+  &.bordered > tbody > tr {
+    border-bottom: 1px solid $grey100;
+  }
+
+  &.striped > tbody {
+    > tr:nth-child(odd) {
+      background-color: $grey100;
+    }
+
+    > tr > td {
+      border-radius: 0;
+    }
+  }
+
+  &.hoverable > tbody > tr {
+    @include transition(background-color .25s ease);
+    &:hover {
+      background-color: $grey100;
+      cursor: pointer;
+    }
+  }
+
+  &.centered {
+    thead tr th, tbody tr td {
+      text-align: center;
+    }
+  }
+
+}
+
+thead {
+  border-bottom: 1px solid $grey900;
+}
+
+td, th {
+  padding: $gutter 0.5*$gutter;
+  display: table-cell;
+  text-align: left;
+  vertical-align: middle;
+  border-radius: 2px;
+}
+
+@media (max-width: $medium-screen) {
+
+  table.responsive-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    display: block;
+    position: relative;
+
+    th,
+    td {
+      margin: 0;
+      vertical-align: top;
+    }
+
+    th {
+      text-align: left;
+    }
+    thead {
+      display: block;
+      float: left;
+
+      tr {
+        display: block;
+        padding: 0 10px 0 0;
+
+        th::before {
+          content: "\00a0";
+        }
+      }
+    }
+    tbody {
+      display: block;
+      width: auto;
+      position: relative;
+      overflow-x: auto;
+      white-space: nowrap;
+
+      tr {
+        display: inline-block;
+        vertical-align: top;
+      }
+    }
+    th {
+      display: block;
+      text-align: right;
+    }
+    td {
+      display: block;
+      min-height: 1.25em;
+      text-align: left;
+    }
+    tr {
+      padding: 0 10px;
+    }
+
+    thead {
+      border: 0;
+      border-right: 1px solid $grey900;
+    }
+
+    &.bordered {
+      th {
+        border-bottom: 0;
+        border-left: 0;
+      }
+      td {
+        border-left: 0;
+        border-right: 0;
+        border-bottom: 0;
+      }
+      tr {
+        border: 0;
+      }
+      tbody tr {
+        border-right: 1px solid $grey900;
+      }
+    }
+
+  }
+
+}

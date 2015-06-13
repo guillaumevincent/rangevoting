@@ -47,11 +47,17 @@ button:hover {
   color: $light-white;
 }
 
+.btn-blue{
+  background-color: $blue-btn;
+  color: $light-white;
+}
+
 .input-help{
   color: $grey500;
   font-size: 12px;
   margin: 0;
   padding: $padding-fields $padding-fields $padding-fields 0;
+  cursor: help;
 }
 
 .input-help.error{
@@ -60,6 +66,7 @@ button:hover {
 
   @include fields-size;
 }
+
 .input-error{
   border-bottom: 2px solid $red;
 }
