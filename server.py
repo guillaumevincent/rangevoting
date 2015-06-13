@@ -4,6 +4,7 @@ import uuid
 import flask
 
 import bus
+import http_response as http
 import queries
 import handlers
 import commands
@@ -29,6 +30,7 @@ class Server(flask.Flask):
 
         self.query_dispatcher = bus.QueryDispatcher()
         self.query_dispatcher.register(queries.GetRangeVoteQuery, handlers.GetRangeVoteHandler(self.repository))
+        self.query_dispatcher.register(queries.GetRangeVotesQuery, handlers.GetRangeVotesHandler(self.repository))
         self.query_dispatcher.register(queries.GetRangeVoteResultsQuery, handlers.GetRangeVoteResultsHandler(self.repository))
 
 
@@ -43,10 +45,10 @@ def index():
 @app.route('/rangevotes')
 def get_rangevotes():
     query = queries.GetRangeVotesQuery()
-    results = app.query_dispatcher.execute(query)
-    if results:
-        return flask.jsonify(results), 200
-    return flask.jsonify([]), 200
+    rangevotes = app.query_dispatcher.execute(query)
+    if rangevotes:
+        return http.jsonify(rangevotes)
+    return http.jsonify([])
 
 
 @app.route('/rangevotes', methods=['POST'])
@@ -56,8 +58,8 @@ def create_rangevote():
         result = app.bus.execute(command)
         if result.ok:
             rangevote_id = str(command.uuid)
-            return flask.jsonify({'id': rangevote_id}), 201, {'Location': '/rangevotes/{0}'.format(rangevote_id)}
-    return flask.jsonify(), 400
+            return http.jsonify({'id': rangevote_id}, 201, {'Location': '/rangevotes/{0}'.format(rangevote_id)})
+    return http.bad_request()
 
 
 @app.route('/rangevotes/<path:rangevote_id>')
@@ -65,8 +67,8 @@ def get_rangevote(rangevote_id):
     query = queries.GetRangeVoteQuery(rangevote_id)
     rangevote = app.query_dispatcher.execute(query)
     if rangevote:
-        return flask.jsonify(rangevote), 200
-    return flask.jsonify(), 404
+        return http.jsonify(rangevote)
+    return http.not_found()
 
 
 @app.route('/rangevotes/<path:rangevote_id>', methods=['PUT'])
@@ -76,8 +78,8 @@ def update_rangevote(rangevote_id):
                                                   flask.request.json['votes'])
         result = app.bus.execute(command)
         if result.ok:
-            return flask.jsonify(), 200
-    return flask.jsonify(), 400
+            return http.jsonify()
+    return http.bad_request()
 
 
 @app.route('/rangevotes/<path:rangevote_id>/votes', methods=['POST'])
@@ -86,8 +88,8 @@ def create_vote(rangevote_id):
         command = commands.CreateVoteCommand(rangevote_id, flask.request.json['elector'], flask.request.json['opinions'])
         result = app.bus.execute(command)
         if result.ok:
-            return flask.jsonify({'id': rangevote_id}), 201, {'Location': '/rangevotes/{0}'.format(rangevote_id)}
-    return flask.jsonify(), 400
+            return http.jsonify({'id': rangevote_id}, 201, {'Location': '/rangevotes/{0}'.format(rangevote_id)})
+    return http.bad_request()
 
 
 @app.route('/rangevotes/<path:rangevote_id>/results')
@@ -95,5 +97,5 @@ def get_rangevote_results(rangevote_id):
     query = queries.GetRangeVoteResultsQuery(rangevote_id)
     results = app.query_dispatcher.execute(query)
     if results:
-        return flask.jsonify(results), 200
-    return flask.jsonify(), 400
+        return http.jsonify(results)
+    return http.bad_request()
