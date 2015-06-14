@@ -1,6 +1,6 @@
 @import "variables";
 
-$padding-fields:.5*$gutter;
+$padding-fields: .5*$gutter;
 
 @mixin fields-size {
   font-size: 12px;
@@ -9,7 +9,7 @@ $padding-fields:.5*$gutter;
   }
 }
 
-input {
+input[type="text"] {
   outline: medium none;
   box-sizing: border-box;
   border: 0 none;
@@ -47,12 +47,12 @@ button:hover {
   color: $light-white;
 }
 
-.btn-blue{
+.btn-blue {
   background-color: $blue-btn;
   color: $light-white;
 }
 
-.input-help{
+.input-help {
   color: $grey500;
   font-size: 12px;
   margin: 0;
@@ -60,13 +60,97 @@ button:hover {
   cursor: help;
 }
 
-.input-help.error{
+.input-help.error {
   color: $red;
   background-color: inherit;
 
   @include fields-size;
 }
 
-.input-error{
+.input-error {
   border-bottom: 2px solid $red;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  width: 100%;
+  height: 32px;
+  margin: 0;
+  padding: 10px;
+  border: none;
+  border-radius: 3px;
+  background-color: $grey800;
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-track {
+  border: none;
+  background: transparent;
+}
+
+input[type="range"]::-ms-track {
+  border: inherit;
+  color: transparent;
+  background: transparent;
+}
+
+input[type="range"]::-ms-fill-lower,
+input[type="range"]::-ms-fill-upper {
+  background: transparent;
+}
+
+input[type="range"]::-ms-tooltip {
+  display: none;
+}
+
+input[type=range]::-moz-focus-outer {
+  border: 0;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 36px;
+  height: 42px;
+  border-radius: 3px;
+  opacity: .65;
+  border: none;
+  background-image: linear-gradient(to bottom, #ADD978 0, #83B348 100%);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 36px;
+  height: 42px;
+  border-radius: 3px;
+  border: none;
+  opacity: .65;
+  background-image: linear-gradient(to bottom, #ADD978 0, #83B348 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ADD978), color-stop(100%, #83B348));
+  background-image: -webkit-linear-gradient(top, #ADD978 0, #83B348 100%);
+}
+
+input[type="range"]::-ms-thumb {
+  width: 36px;
+  height: 42px;
+  border-radius: 3px;
+  opacity: .65;
+  border: 0;
+  background-image: linear-gradient(to bottom, #ADD978 0, #83B348 100%);
+}
+
+input[type=range],
+input[type=range]:focus,
+input[type=range]:active,
+input[type=range]::-moz-focus-inner,
+input[type='range']:-moz-focusring {
+  border: 0;
+  outline: 0;
+  box-shadow: none;
+}
+
+input[type=range]:focus {
+  //border: 0;
+  outline: 0;
+  outline: none;
+  border: 2px solid $light-green;
 }

@@ -1,37 +1,49 @@
-<div class="row">
-    <div class="columns">
-        <h2> {{ rangevote.question }}</h2>
-
-        <hr>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2>{{ rangevote.question }}</h2>
+        </div>
     </div>
-</div>
 
-<div class="row">
-    <div class="columns">
-        <div class="slider">
-            <label for="name">Nom
+    <div class="row">
+        <div class="col w6">
+            <div class="slider">
                 <input type="text" id="name" placeholder="Entrez votre nom" ng-model="vote.elector"/>
-            </label>
+            </div>
+            <br/>
+            <div class="slider padding-top" ng-repeat="choice in rangevote.randomized_choices">
+                <span>{{ choice }}</span>
+                <input type='range' max="2" min="-2" step="1" ng-model="vote.opinions[rangevote.randomized_choices[$index]]"/>
+            </div>
         </div>
-        <div class="slider" ng-repeat="choice in rangevote.randomized_choices">
-            <span>{{ choice }}</span>
-            <input type='range' max="2" min="-2" step="1" ng-model="vote.opinions[rangevote.randomized_choices[$index]]"/>
+        <div class="col w6">
         </div>
-        <div class="slider text-center margin-top">
-            <button class='button-green margin-top' type="submit" ng-click="createNewVote()">
-                <i class="fa fa-thumbs-up fa-2x"></i><br/>
-                Votez !
-            </button>
-            <button class='margin-top' type="submit" ng-click="showResults()">
-                <i class="fa fa-trophy fa-2x"></i><br/>
-                Voir les résultats
-            </button>
+    </div>
+    <div class="row padding-top margin-top">
+        <div class="col w6">
+            <div class="row">
+                <div class="col m5">
+                    <button class='btn-blue margin-top' type="submit" ng-click="createNewVote()">
+                        Votez !
+                    </button>
+                </div>
+                <div class="col m5">
+                    <button class='btn-orange margin-top' type="submit" ng-click="showResults()">
+                        Voir les résultats
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col w6">
         </div>
     </div>
 </div>
-
-<div class="row">
-    <div class="medium-12 columns text-center">
-        <share message="message_to_share" url="rangevote_url"></share>
+<div class="container">
+     <div class="row padding-top">
+        <div class="col w6">
+            <share message="message_to_share" url="rangevote_url"></share>
+        </div>
+        <div class="col w6">
+        </div>
     </div>
 </div>

@@ -17,7 +17,7 @@ body {
 }
 
 a {
-  color: $link-color !important;
+  color: $link-color;
 }
 
 hr {
@@ -42,4 +42,37 @@ footer {
   font-size: 0.7rem;
   text-transform: uppercase;
   font-family: $font-stack-monospace;
+}
+
+
+.fa-twitter {
+  color: $twitter-color;
+}
+
+.fa-facebook {
+  color: $facebook-color;
+}
+
+.fa-google-plus, .fa-trash {
+  color: $google-plus-color;
+}
+
+.fa-external-link {
+  color: $grey700;
+}
+
+.fa-twitter:hover {
+  color: darken($twitter-color, 10%);
+}
+
+.fa-facebook:hover {
+  color: darken($facebook-color, 10%);
+}
+
+.fa-google-plus:hover, .fa-trash:hover {
+  color: darken($google-plus-color, 10%);
+}
+
+.fa-external-link:hover {
+  color: darken($grey700, 10%);
 }
