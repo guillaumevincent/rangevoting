@@ -1,4 +1,3 @@
-from rangevoting import RangeVote, Vote
 import factories
 
 
@@ -20,7 +19,7 @@ class MongoRepository:
     def find(self, count=20):
         rangevote_factory = factories.RangeVoteFactory()
         elements = []
-        for element in self.rangevotes.find()[:count]:
+        for element in self.rangevotes.find().sort('_id', -1)[:count]:
             elements.append(rangevote_factory.create_rangevote(element))
         return elements
 

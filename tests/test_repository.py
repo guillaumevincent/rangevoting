@@ -78,3 +78,11 @@ class MongoRepositoryTestCase(unittest.TestCase):
         elements = self.repository.find(1)
 
         self.assertEqual(1, len(elements))
+
+    def test_repository_find_all_order(self):
+        self.repository.save(rangevoting.RangeVote(uuid.uuid4(), 'Q1?', ['c1', 'c2']))
+        self.repository.save(rangevoting.RangeVote(uuid.uuid4(), 'Q2?', ['c1', 'c2']))
+
+        elements = self.repository.find(1)
+
+        self.assertEqual('Q2?', elements[0].question)
