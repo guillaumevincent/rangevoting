@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="columns">
+    <div class="col">
         <h1><i class="fa fa-cogs"></i> Console d'administration</h1>
 
         <hr>
@@ -7,21 +7,19 @@
 </div>
 
 <div class="row">
-    <div class="medium-6 columns">
+    <div class="col m6">
         <h2><i class="fa fa-pencil"></i> Modifier son vote</h2>
 
         <form ng-submit="updateRangeVote()" novalidate>
-            <label for="question">Question
-                <input type="text" id="question" ng-model="rangevote.question"/>
-            </label>
-            <label>Choix
-                <input type="text" ng-model="rangevote.choices[$index]" ng-repeat="choice in rangevote.choices track by $index"/>
-            </label>
+            <label for="question">Question</label>
+            <input type="text" id="question" ng-model="rangevote.question"/>
 
-            <button class="button-green" type="submit"><i class="fa fa-floppy-o"></i> enregistrer</button>
+            <input type="text" ng-model="rangevote.choices[$index]" ng-repeat="choice in rangevote.choices track by $index"/>
+
+            <button class=" margin-top btn-blue" type="submit"><i class="fa fa-floppy-o"></i> enregistrer</button>
         </form>
     </div>
-    <div class="medium-6 columns">
+    <div class="col m6">
         <h2><i class="fa fa-lightbulb-o"></i> Astuces</h2>
 
         <ul>
@@ -32,15 +30,16 @@
 </div>
 
 <div class="row">
-    <div class="medium-12 columns text-center">
+    <div class="col">
         <share message="message_to_share" url="rangevote_url"></share>
-        <input class="margin-top" type="text" value="{{rangevote_url}}" select-on-click/>
+        <input class="input-no-border margin-top" type="text" value="{{rangevote_url}}" select-on-click/>
     </div>
 </div>
 
 <div class="row">
     <div class="medium-12 columns">
-        <h2><i class="fa fa-trophy"></i> Meilleure<span data-ng-show="results.answers.length>1">s</span> réponse<span data-ng-show="results.answers.length>1">s</span></h2>
+        <h2><i class="fa fa-trophy"></i> Meilleure<span data-ng-show="results.answers.length>1">s</span> réponse<span
+                data-ng-show="results.answers.length>1">s</span></h2>
         {{ results.answers.join(', ') }}
     </div>
 </div>

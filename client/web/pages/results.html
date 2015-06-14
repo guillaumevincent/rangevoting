@@ -1,8 +1,6 @@
 <div class="row">
     <div class="columns">
         <h1><i class="fa fa-trophy"></i> Résultats</h1>
-
-        <hr>
     </div>
 </div>
 
@@ -14,7 +12,8 @@
 
 <div class="row">
     <div class="columns">
-        <h4> Meilleure<span data-ng-show="results.answers.length>1">s</span> réponse<span data-ng-show="results.answers.length>1">s</span></h4>
+        <h4> Meilleure<span data-ng-show="results.answers.length>1">s</span> réponse<span data-ng-show="results.answers.length>1">s</span>
+        </h4>
 
         {{ results.answers.join(', ') }}
         <span data-ng-hide="results.answers.length">il n'y a aucun vote pour l'instant</span>

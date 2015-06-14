@@ -1,61 +1,51 @@
-<div class="container" data-ng-controller="createRangeVoteController">
-    <div class="row">
-        <div class="col">
-            <form id="questionForm" name="questionForm" ng-submit="createRangeVote(form)" novalidate>
-                <div class="row">
-                    <div class="col m5">
-                        <input type="text" id="question" name="question" required ng-model="form.question"
-                               placeholder="Question" autofocus
-                               data-ng-class="{'input-error': questionForm.$submitted && questionForm.question.$invalid}"/>
+<div class="row">
+    <div class="col">
+        <form id="questionForm" name="questionForm" ng-submit="createRangeVote(form)" novalidate>
+            <div class="row">
+                <div class="col m5">
+                    <input type="text" id="question" name="question" required ng-model="form.question"
+                           placeholder="Question" autofocus
+                           data-ng-class="{'input-error': questionForm.$submitted && questionForm.question.$invalid}"/>
 
-                        <p class="input-help" data-ng-hide="questionForm.$submitted && questionForm.question.$invalid">
-                            ex: Quel type de cuisine préférez-vous ?
-                        </p>
+                    <p class="input-help" data-ng-hide="questionForm.$submitted && questionForm.question.$invalid">
+                        ex: Quel type de cuisine préférez-vous ?
+                    </p>
 
-                        <p class="input-help error" data-ng-show="questionForm.$submitted && questionForm.question.$invalid">
-                            ce champ est obligatoire
-                        </p>
-                    </div>
-                    <div class="col m5">
-                        <input type="text" id="choices" name="choices" ng-model="form.choices" required
-                               placeholder="Réponses séparées par des virgules"
-                               data-ng-class="{'input-error': questionForm.$submitted && questionForm.choices.$invalid}" haschoices/>
-
-                        <p class="input-help" data-ng-hide="questionForm.$submitted && questionForm.choices.$invalid">
-                            ex: Chinoise, Italienne, Française...
-                        </p>
-
-                        <p class="input-help error" data-ng-show="questionForm.$submitted && questionForm.choices.$invalid">
-                            ajoutez des réponses séparées par des virgules
-                            <span data-ng-show="questionForm.choices.$viewValue"><br/>ex: {{questionForm.choices.$viewValue}}, choix 2, choix 3...</span>
-                        </p>
-                    </div>
-                    <div class="col m2">
-                        <button class='btn-blue' type="submit" ng-disabled="questionForm.$submitted && questionForm.$invalid">créer</button>
-                    </div>
+                    <p class="input-help error" data-ng-show="questionForm.$submitted && questionForm.question.$invalid">
+                        ce champ est obligatoire
+                    </p>
                 </div>
-            </form>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <h3 class="last-questions-title">Questions récentes</h3>
-            <table class="hoverable bordered">
-                <tbody>
-                <tr data-ng-repeat="rangevote in rangevotes" data-ng-click="seeQuestion(rangevote.id)">
-                    <td>{{rangevote.question}}</td>
-                    <td class="text-center">{{rangevotes.votes.length}}</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+                <div class="col m5">
+                    <input type="text" id="choices" name="choices" ng-model="form.choices" required
+                           placeholder="Réponses séparées par des virgules"
+                           data-ng-class="{'input-error': questionForm.$submitted && questionForm.choices.$invalid}" haschoices/>
+
+                    <p class="input-help" data-ng-hide="questionForm.$submitted && questionForm.choices.$invalid">
+                        ex: Chinoise, Italienne, Française...
+                    </p>
+
+                    <p class="input-help error" data-ng-show="questionForm.$submitted && questionForm.choices.$invalid">
+                        ajoutez des réponses séparées par des virgules
+                        <span data-ng-show="questionForm.choices.$viewValue"><br/>ex: {{questionForm.choices.$viewValue}}, choix 2, choix 3...</span>
+                    </p>
+                </div>
+                <div class="col m2">
+                    <button class='btn-blue' type="submit" ng-disabled="questionForm.$submitted && questionForm.$invalid">créer</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
-<footer class="container">
-    <div class="row">
-        <div class="col text-center">
-            version 0.1.1 &mdash; réalisé par <a href="http://guillaumevincent.com">Guillaume Vincent</a> &mdash; <a
-                href="https://github.com/guillaumevincent/rangevoting">code source</a>
-        </div>
+<div class="row">
+    <div class="col">
+        <h3 class="last-questions-title">Questions récentes</h3>
+        <table class="hoverable bordered">
+            <tbody>
+            <tr data-ng-repeat="rangevote in rangevotes" data-ng-click="seeQuestion(rangevote.id)">
+                <td>{{rangevote.question}}</td>
+                <td class="text-center">{{rangevotes.votes.length}}</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
-</footer>
+</div>

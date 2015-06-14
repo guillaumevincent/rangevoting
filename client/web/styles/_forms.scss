@@ -24,6 +24,10 @@ input[type="text"] {
   @include fields-size;
 }
 
+input[type="text"].input-no-border{
+  border: 0;
+}
+
 button {
   font-style: normal;
   font-weight: normal;
