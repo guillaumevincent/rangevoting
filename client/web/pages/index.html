@@ -17,12 +17,17 @@
                 </div>
                 <div class="col m5">
                     <input type="text" id="choices" name="choices" ng-model="form.choices" required
+                           ng-change="choicesPreview=extractChoices(form.choices)"
                            placeholder="Réponses séparées par des virgules"
                            data-ng-class="{'input-error': questionForm.$submitted && questionForm.choices.$invalid}" haschoices/>
 
-                    <p class="input-help" data-ng-hide="questionForm.$submitted && questionForm.choices.$invalid">
+                    <p class="input-help" data-ng-hide="choicesPreview.length > 0 || questionForm.$submitted && questionForm.choices.$invalid">
                         ex: Chinoise, Italienne, Française...
                     </p>
+                    <ul class="input-preview"
+                        data-ng-show="choicesPreview.length > 0">
+                        <li ng-repeat="choice in choicesPreview">{{ choice }}</li>
+                    </ul>
 
                     <p class="input-help error" data-ng-show="questionForm.$submitted && questionForm.choices.$invalid">
                         ajoutez des réponses séparées par des virgules

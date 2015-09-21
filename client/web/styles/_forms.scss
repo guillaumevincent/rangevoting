@@ -56,12 +56,16 @@ button:hover {
   color: $light-white;
 }
 
-.input-help {
+.input-help, .input-preview {
   color: $grey500;
   font-size: 12px;
   margin: 0;
   padding: $padding-fields $padding-fields $padding-fields 0;
   cursor: help;
+}
+
+.input-preview {
+  padding-left: 3em;
 }
 
 .input-help.error {
