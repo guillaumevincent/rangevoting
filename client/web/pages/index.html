@@ -42,7 +42,9 @@
         <table class="hoverable bordered">
             <tbody>
             <tr data-ng-repeat="rangevote in rangevotes" data-ng-click="seeQuestion(rangevote.id)">
-                <td>{{rangevote.question}}</td>
+                <td>
+                    <a href="#/rangevotes/{{ rangevote.id }}">{{rangevote.question}}</a>
+                </td>
                 <td class="text-center">{{rangevote.votes.length}} vote<span data-ng-show="rangevote.votes.length>1">s</span></td>
             </tr>
             </tbody>
