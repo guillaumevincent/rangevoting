@@ -11,9 +11,9 @@
         <h2><i class="fa fa-pencil"></i> Modifier son vote</h2>
 
         <form ng-submit="updateRangeVote()" novalidate>
-            <label for="question">Question</label>
+            <h5 class=""><label for="question">Question</label></h5>
             <input type="text" id="question" ng-model="rangevote.question"/>
-
+            <h5 class="reponses">Réponses</h5>
             <input type="text" ng-model="rangevote.choices[$index]" ng-repeat="choice in rangevote.choices track by $index"/>
 
             <button class=" margin-top btn-blue" type="submit"><i class="fa fa-floppy-o"></i> enregistrer</button>
