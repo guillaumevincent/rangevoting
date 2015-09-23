@@ -22,6 +22,20 @@ describe("create RangeVote Controller", function () {
         assert.equal(2, $scope.rangevotes.length);
     });
 
+    it('should extract choices from input', function () {
+        var choices = $scope.extractChoices('c1 ,c2, c3');
+
+        assert.equal(3, choices.length);
+        assert.deepEqual(['c1' ,'c2', 'c3'], choices);
+    });
+
+    it('should not extract choices from empty input', function () {
+        var choices = $scope.extractChoices(undefined);
+
+        assert.equal(0, choices.length);
+        assert.deepEqual([], choices);
+    });
+
     it('should convert form into rangevote', function () {
         var rangevote = $scope.convertRangeVote({question: 'Q?', choices: 'c1 ,c2, c3'});
         assert.equal('Q?', rangevote.question);

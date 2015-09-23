@@ -1,16 +1,24 @@
 angular.module('rangevoting').controller('createRangeVoteController', ['$scope', 'Url', 'Restangular', function ($scope, Url, Restangular) {
     $scope.iNeedSomeHelp = false;
     $scope.rangevotes = [];
+    $scope.choicesPreview = [];
 
     $scope.rangevoteIsValid = function (rangevote) {
         return !!(rangevote.question && rangevote.choices.length > 1);
+    };
+
+    $scope.extractChoices = function (choicesInput) {
+        if (typeof choicesInput !== 'string') {
+            return [];
+        }
+        return _.map(choicesInput.split(','), _.trim);
     };
 
     $scope.convertRangeVote = function (form) {
         var rangevote = {question: '', choices: []};
         if (form && form.question && form.choices) {
             rangevote.question = form.question;
-            rangevote.choices = _.map(form.choices.split(','), _.trim);
+            rangevote.choices = this.extractChoices(form.choices);
             return rangevote
         }
         return rangevote
